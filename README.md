@@ -1,9 +1,20 @@
-# Diego Calderon Senior Thesis at Wesleyan University #
-## Compiling Instructions ##
-This was all made using Latex in TexShop. I recommend it.
-To compile open a file called Master.tex. First compile it
-with Bibtex selected then LaTeX. Everything should come
-together after a few tries.
+# Diego Calderon's Senior Thesis #
+## at Wesleyan University ##
+### Compiling Instructions ###
+This was all made using LaTeX in TexShop. I recommend it.
+To compile:
+1. Open a file called Master.tex.
+2. Compile it with LaTeX option selected.
+3. Compile with Bibtex selected
+4. Finally repeat the LaTeX compilation until all the references
+fully appear.
 
-## TO DO ##
+> Note that this will generate all the auxiliary files needed, including a final pdf.
+
+### TO DO ###
 FINISH EVERYTHING!
+Specific things that should happen in the next few days:
+1. Email Danner to get the official LaTeX template used.
+2. Finish up the first Introduction chapter.
+3. Tinker with the outline by adding a section on comparing ES to ES2.
+4. Start more chapters!
