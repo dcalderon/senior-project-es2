@@ -39,6 +39,7 @@ Waiting on a reply.
 I'm distributing this everywhere. Currently copies are hosted at:
 
 https://bitbucket.org/dcalderon09/thesis
+
 https://github.com/dcalderon/senior-project-es2
 
 you can expect it to find its way on to my personal site:
