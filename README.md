@@ -17,6 +17,9 @@ fully appear.
 
 > Note that this will generate all the auxiliary files needed, including a final pdf.
 
+### Usage ###
+I am not sure if I need a license for this. For now if you want to use anything you see here simply email me the details and we will go from there.
+
 ### TO DO ###
 FINISH EVERYTHING!
 Also check bug reporter on version control website.
@@ -31,3 +34,13 @@ Waiting on a reply.
 3. Tinker with the outline by adding a section on comparing ES to ES2.
 
 4. Start more chapters!
+
+### Version Control ###
+I'm distributing this everywhere. Currently copies are hosted at:
+
+https://bitbucket.org/dcalderon09/thesis
+https://github.com/dcalderon/senior-project-es2
+
+you can expect it to find its way on to my personal site:
+
+http://diegocalderon.info/
