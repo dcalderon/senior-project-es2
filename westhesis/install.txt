@@ -1,0 +1,11 @@
+To use the westhesis document class, download the following two files:
+
+	westhesis.ins
+	westhesis.dtx
+
+Run latex directly on westhesis.ins.  This will create two files:
+westhesis.cls and westhesis.tex.  The former is the class file; put
+it in the same directory as your thesis, or in some directory latex
+will look in for input files.  Run pdflatex on the latter file to get
+documentation.
+

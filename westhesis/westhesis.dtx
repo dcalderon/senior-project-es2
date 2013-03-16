@@ -1,0 +1,1329 @@
+% \iffalse
+
+%% westhesis:  Document class for Wesleyan University theses.
+%% N. Danner (ndanner@wesleyan.edu)
+%% Copyright 1999--2011
+
+%% The following RCS info is from the iuthesis class upon which westhesis
+%% is based.
+%%
+%% RCS Info:
+%%      iuthesis.dtx,v 1.2.0.23 1999/06/04 14:30:00 ndanger Exp
+%      iuthesis.dtx,v
+%      Revision 1.2.0.23  1999/06/04 14:30:00  ndanger
+%      Definition of \makededication when *abstract option given done with
+%      \newcommand so ensure it swallows the optional argument (if present).
+%
+%      Revision 1.2.0.22  1999/06/04 14:22:35  ndanger
+%      Third reader was missing period after Ph.D in ugs abstract.
+%
+%      Revision 1.2.0.21  1999/05/21 01:18:55  ndanger
+%      New option 'single':  to single-space the thesis.
+%
+%      Revision 1.2.0.20  1999/05/21 01:13:28  ndanger
+%      New option 'three', for when there are only three committee members.
+%
+%      Revision 1.2.0.19  1999/05/16 01:26:16  ndanger
+%      Miscellaneous stuff to add support for Masters theses.
+%
+%      Revision 1.2.0.18  1999/05/16 01:07:42  ndanger
+%      \baselinestretch set to \IUT@blstretch instead of 1.66; \IUT@blstretch
+%      is set according to type size.
+%
+%      Revision 1.2.0.17  1999/05/14 04:03:50  ndanger
+%      1.  By an overwhelming vote, the dedication is centered, near the
+%          top of the page (exact distance from top specified by an
+%          optional argument to \makededication).
+%
+%      2.  All references to 'sechead' option (supplanted by 'section'
+%          pagestyle) removed.
+%
+%      Revision 1.2.0.16  1999/05/14 03:07:38  ndanger
+%      Page styles:  Defined 'chapter', 'section', and 'chapsec' page
+%      styles, all of which redefine \ps@headings, which is what is
+%      ultimately used.
+%
+%      Revision 1.2.0.15  1999/05/12 16:07:18  ndanger
+%      Abstract handling: 'abstractonly' option eliminated in favor of
+%      'umiabstract' and 'ugsabstract'.  The former typesets the title page
+%      and an abstract with the advisor's name after the abstract, the latter
+%      just the abstract, possibly with signature lines.  This has
+%      ramifications throughout the code.
+%
+%      Revision 1.2.0.14  1999/05/05 03:40:44  ndanger
+%      Misc. documentation changes.
+%
+%      Revision 1.2.0.13  1999/05/05 02:58:43  ndanger
+%      1.  New option 'sechead':  to use section name in running head.
+%      2.  Miscellaneous documentation stuff.
+%
+%      Revision 1.2.0.12  1999/05/05 02:26:26  ndanger
+%      Added documentation about Underfull \vboxes.
+%
+%      Revision 1.2.0.11  1999/05/05 02:13:38  ndanger
+%      More abstract handling:
+%        1.  \unvbox'ed the \abstractbox in case it needs a page break in the
+%            middle.  Same for \dedicationbox and \acknowledgebox
+%        2.  Typeset the abstract as a trivlist, just like the other
+%            frontmatter pages.
+%
+%      Revision 1.2.0.10  1999/05/05 02:00:12  ndanger
+%      Philosophy is spelled correctly on the title page (eesh).
+%
+%      Revision 1.2.0.9  1999/05/03 03:21:02  ndanger
+%      Miscellaneous fixes:
+%        1.  Checks to see that LaTeX is release 1996/12/01 or later (sometime
+%            before then the implementation of \DeclareOption was changed) and
+%            that AMSLaTeX is release 1995/01/27 (1.2, not 1.2b) or later
+%            (handling of amstex/amsmath different).
+%        2.  UMI now stands for University Microfilms International.
+%        3.  Added a \fifthreader command, which can be optionally specified
+%            by the user.
+%        4.  Sprinkled %'s to get rid of some stray spaces.
+%
+%      Revision 1.2.0.8  1999/05/03 03:01:19  ndanger
+%      Acknowledgements are double-spaced.
+%
+%      Revision 1.2.0.7  1999/05/03 02:59:35  ndanger
+%      Abstract handling:
+%        1.  If signature lines extend on to second page, that page is now
+%            empty (put \newpage inside local group where \pagestyle command
+%            given).
+%        2.  \raggedbottom command given when 'abstractonly' specified;
+%            otherwise, if signature lines extend to second page, the first
+%            page is set flush bottom, which usually means lots of space
+%            between the heading and abstract.
+%
+%      Revision 1.2.0.6  1999/05/03 01:42:49  ndanger
+%      Signature boxes take an option argument to specify the width (default
+%      3 inches), and no longer are put in a box the width of the page.
+%
+%      Signature lines on abstract arranged in two columns to save space.
+%
+%      Revision 1.2.0.5  1999/05/03 01:19:32  ndanger
+%      Removed the leading 'Abstract' from abstract when 'abstractonly'
+%      option given, so that line breaks are the same everywhere.
+%
+%      Revision 1.2.0.4  1999/04/25 04:17:44  ndanger
+%      Added code to create iuthesis.tex, which can be used to generate
+%      user documentation (i.e., without line-by-line code docs).
+%
+%      Revision 1.2.0.3  1999/04/25 04:01:47  ndanger
+%      Added Dedication, Acknowledgements pages, fixed another bug in
+%      Abstract handling.
+%
+%      Revision 1.2.0.2  1999/04/25 03:05:28  ndanger
+%      Fixed up abstract handling:  sig lines only under 'abstractonly',
+%      \makeabstract creates a head with \@makeschapterhead when being
+%      typeset in the thesis.  Also added instructions for how to produce
+%      the various kinds of abstracts RUGS wants.
+%
+%      Revision 1.2.0.1  1999/04/25 01:05:29  ndanger
+%      Define \end@fterabstract to conditionally end document in \makeabstract
+%      if 'abstractonly' option has been given.
+%
+%      Revision 1.2  1999/04/23 02:49:43  ndanger
+%      Some more end-of-line comment chars in defnition of \check@val to
+%      remove stray spaces.
+%
+%      Revision 1.1  1999/04/23 02:44:19  ndanger
+%      Initial revision
+%
+
+% \fi
+
+\def\fileversion{1.0}
+\def\filedate{March 2011}
+
+% \iffalse
+%<*driver>
+\documentclass{ltxdoc}
+\usepackage{graphics}
+\begin{document}
+\DocInput{westhesis.dtx}
+\end{document}
+%</driver>
+% \fi
+
+% \iffalse
+%<*docs>
+%    \begin{macrocode}
+\documentclass{ltxdoc}
+\usepackage{graphics}
+\OnlyDescription
+\begin{document}
+\DocInput{westhesis.dtx}
+\end{document}
+%    \end{macrocode}
+%</docs>
+% \fi
+
+% \let\cls\textsf\let\pkg\textsf\let\option\textbf
+% \title{The \cls{westhesis} Document Class}
+% \author{N. Danner}
+% \date{Version \fileversion, \filedate}
+% \maketitle
+%
+
+
+%\section{Introduction}
+%The \cls{westhesis} document class provides output for theses
+%acceptable to Wesleyan University.  It currently only supports
+%undergraduate Honors theses.
+%It is based on the \cls{amsbook} document class
+%and requires that the $\mathcal{AMS}$\LaTeX\ package version 1.2 or
+%later be
+%installed (version 1.2b will \emph{not} work).  
+%One facet of this is that if you want to use
+%\cls{westhesis} on different machines, you must ensure that you have
+%the same version of \cls{amsbook} installed on both.  Otherwise,
+%you may get different output, depending on the version installed.
+%If you have a version of \LaTeX\ that predates the 1996/12/01 release,
+%\cls{westhesis} will complain, but may still work.  If you have a version
+%of $\mathcal{AMS}$\LaTeX\ that predates version 1.2, \cls{westhesis} will
+%complain and crash on you.
+%\cls{westhesis} provides many options, including
+%printing signature lines on the abstract page,
+%the ability to print just the abstract (without page numbers) for
+%submission to University Microfilms International, and printing a
+%message at the bottom of draft versions.
+
+%\section{The Options}
+%The following are the options that may be specified as optional
+%arguments to the |\documentclass| line.
+%\begin{description}
+
+%\item[draft] This option causes a line a text to be printed at the
+%bottom of each page; by default, the text is |DRAFT: <date>|, and it
+%can be changed with the |\WTdraftmsg| command.  The \option{draft}
+%option is also passed to \cls{amsbook}, which will cause it to mark
+%overfull boxes.
+
+%\item[final] This option supresses printing of the draft message and
+%is also passed to \cls{amsbook} and all packages that you load.  Of
+%course, it seems pointless since you might as well just not specify
+%\option{draft} as an option, but it is here so that it can also be
+%passed to packages that you may only want loaded during draft runs
+%(e.g., if you use the \pkg{showkeys} package, it will only really
+%be loaded if it is not passed the \option{final} option).
+
+\iffalse
+%\item[umiabstract] Print only the title page and abstract without page
+%numbers for UMI (see Section~\ref{sec:misc}).  This option overrides
+%the \option{noabstract} option.
+
+%\item[ugsabstract] Print only the abstract without page numbers for
+%the Graduate School (see Section~\ref{sec:misc}).  This option overrides
+%the \option{noabstract} option.
+
+%\item[abstractsigs] Print signature lines on the abstract page when 
+%\option{ugsabstract} is specified.  This
+%is not required by the Graduate School, but you may think it looks
+%neater.
+
+%\item[noabstractsigs] Do not print the signature lines on the abstract
+%page.
+
+%\item[noabstract] Do not print the abstract in the thesis.  Even if
+%you don't want an abstract in your thesis, you still need to supply
+%one to UMI; with this option, you can still put your abstract in your
+%thesis file and typeset it using either the \option{umiabstract} 
+%or \option{ugsabstract} options, but
+%it will not appear in the thesis itself.
+
+%%\item[ma] For a Master of Arts dissertation.
+
+%%\item[ms] For a Master of Science dissertation.
+
+%%\item[three] Use this if you only have three people on your committee
+%%(including your advisor).
+\fi
+
+%\item[single] Single-space the thesis.  Of course, you cannot use this
+%for the official copy, but it saves paper if you want to print out a
+%copy for yourself.
+
+%\end{description}
+
+%All other options (e.g., \option{11pt}) are passed to \cls{amsbook}.
+%The default option is \option{draft}.  The
+%\option{oneside} option is automatically passed to \cls{amsbook}.
+
+%\section{Using the \cls{westhesis} Document Class}
+
+%Figure~\ref{fig:galley} shows a sample galley file using the
+%\cls{westhesis} document class.  
+%Here, we describe in order each of the commands and environments used.
+%Of course, we start with a |\documentclass| command, which should need
+%no additional explanation.  You should put your own |\usepackage| commands
+%and local macro definitions between the |\documentclass| and |\title|
+%commands.  Note that since \cls{amsbook} will be loaded automatically,
+%and that will in turn load the \pkg{amsmath} package, you should not
+%explicitly load the latter.
+
+
+%\newbox\galleyleft\newbox\galleyright\newbox\galleybox
+%\setbox\galleyleft\vbox{\hsize=3in%
+%\begin{verbatim}
+%\documentclass[11pt,draft]{westhesis}
+
+%\title{A Proof that $\mathbf{P}\not=\mathbf{NP}$}
+%\author{Turing A. Ward}
+
+%\department{Mathematics and Computer Science}
+%\submitdate{April 2011}
+%copyrightyear{2011}
+
+%\makeindex
+
+%\begin{document}
+
+%\begin{dedication}
+%I dedicate this thesis to my future devotees.
+%\end{dedication}
+
+%\begin{acknowledgements}
+%I acknowledge, therefore I am.
+%\end{acknowledgements}
+%\end{verbatim}
+%}
+
+%\setbox\galleyright\vbox{\hsize=3in%
+%\begin{verbatim}
+%\begin{abstract}
+%In this thesis, we prove that $\math{P}\not=\mathbf{NP},
+%except when $\mathbf P=0$ or $\mathbf N=1$.
+%\end{abstract}
+
+%\frontmatter
+%\maketitle
+%\makecopyright
+%\makededication
+%\makeack
+%\makeabstract
+%\tableofcontents
+
+%\mainmatter
+
+%\include{intro}
+%\include{proof}
+
+%\appendix
+%\include{refutation}
+
+%\bibliographystyle{abbrv}
+%\bibliography{mybib}
+
+%\printindex
+
+%\backmatter
+%\include{vita}
+
+%\end{document}
+%\end{verbatim}
+%}
+
+%\begin{figure}
+%\rotatebox{90}{\box\galleyright}
+%\vskip\baselineskip
+%\hrule
+%\vskip\baselineskip
+%\rotatebox{90}{\box\galleyleft}
+%\caption{A sample thesis galley file.}
+%\label{fig:galley}
+%\end{figure}
+
+%\bgroup
+%\parindent=0pt\parskip=\baselineskip
+
+%\DescribeMacro{\title}\DescribeMacro{\author}
+%The |\title| and |\author| command specify the title and
+%author of your dissertation (presumably the latter is you).  These
+%macros do \emph{not} take any optional arguments (for example, to
+%specify short versions), unlike the corresponding commands in the
+%\cls{amsbook} document class.
+
+%\DescribeMacro{\advisor}\DescribeMacro{\secondreader}
+%\DescribeMacro{\thirdreader}\DescribeMacro{\fourthreader}
+%\DescribeMacro{\fifthreader}
+%Use the |\advisor| and |reader| macros to specify your advisor and other 
+%committee members' names.  In the signature lines, ``Ph.D.'' will be
+%appended to their names.  If you print something with signature lines
+%(like the signature page or an abstract with \option{abstractsigs} in
+%effect) and you have not issued one of the commands other than
+%|\fifthreader|, you will get complaints.  If you do not specify
+%|\fifthreader|, then no signature line will be typeset for a fifth
+%committee member.  These commands have no effect for Honors theses,
+%but can be used as ``documentation.''
+
+%\DescribeMacro{\department}\DescribeMacro{\submitdate}
+%\DescribeMacro{\copyrightyear}\DescribeMacro{\departmentname}
+%Use the |\department|, |\submitdate|, and |\copyrightyear| macros
+%to specify the department in which you will receive your degree,
+%when you actually hold the defense, and the year of the copyright
+%(usually the year of graduation).  You do not need to specify the copyright
+%year if you do not use |\copyrightpage| (copyright pages are not appropriate
+%in an Honors thesis).  Use the |\departmentname| macro
+%to specify what to call your ``department'' if something other than
+% ``Department'' (e.g., if your thesis is in the School of Library and
+% Information Sciences, you would have 
+% |\department{Library and Information Sciences}| 
+% and |\departmentname{School}| in your preamble so that the title page
+% would say ``School of Library and Information Sciences'').
+
+%\DescribeEnv{dedication}\DescribeEnv{acknowledgements}\DescribeEnv{abstract}
+%Use these environments for the specified pieces of text.  The first two
+%are optional.  
+\iffalse
+%While putting an abstract in your thesis is
+%optional, you are required to submit two copies of the abstract to
+%the Graduate School, so you will need to use the |abstract| environment.
+\fi
+%The Dedication is typeset on an empty page (except page number),
+%centered, single-spaced, one inch from the top margin (but see
+%|\makededication|, below).  The
+%Acknowledgements and Abstract 
+\iffalse
+%(if you have not specified 
+%\option{ugsabstract}, \option{umiabstract}, or \option{noabstract})
+\fi
+%are typeset double-spaced as unnumbered chapters.
+
+%\DescribeMacro{\frontmatter}
+%The |\frontmatter| command must come before any text is actually typeset
+%(including the title page).  Primarily it sets up page numbering correctly.
+%The title page will be unnumbered, and every other
+%page that occurs between the
+%|\frontmatter| and |\mainmatter| commands will be given page numbers in
+%lower-case roman type, starting with page ii.  
+\iffalse
+%The order in which the next set of commands before
+%the |\mainmatter| command are issued is specified by the Graduate School;
+%they'll be unhappy if you do anything else (although currently the 
+%document class will let you do whatever you want).
+\fi
+
+%\DescribeMacro{\maketitle}
+%The |\maketitle| command prints the title page.  This page is formatted
+%with your thesis title and name, and the miscellaneous wordiness at the
+%bottom saying that you are submitting this in partial fulfillment of the
+%requirements for your degree.
+
+% %\DescribeMacro{\signaturepage}
+%The |\signaturepage| command creates the page where your committee signs
+%off on the thesis.  You should not have a signature page in an Honors
+%thesis.
+
+%\DescribeMacro{\copyrightpage}
+%The |\copyrightpage| command creates the copyright page (go figure).
+%You should not have a copyright page in an Honors thesis.
+
+%\DescribeMacro{\makededication}
+%\DescribeMacro{\makeack}
+%The |\makededication| and |\makeack| macros typeset the Dedication and
+%Acknowledgements page, provided you have specified the text with the
+%|dedication| and |acknowledgements| environments previously.
+%|\makededication| takes a single optional argument to specify the
+%vertical distance from the top margin to typeset the dedication; default
+%is one inch.
+
+%\DescribeMacro{\makeabstract}
+%Typeset the abstract.
+\iffalse
+%If you have not specified the \option{noabstract} option
+%the |\makeabstract| command
+%will typeset the abstract.  If you've specified either of
+%the \option{ugsabstract} or \option{umiabstract}
+%options, then you must still have the
+%|\makeabstract| command to actually typeset the abstract.
+\fi
+
+%\DescribeMacro{\tableofcontents}
+%The |\tableofcontents| command is the usual one.  It is here just to point
+%out where it should appear (i.e., as front matter).  Likewise any other
+%such lists, such as a table of figures, should also appear here.
+
+%\DescribeMacro{\mainmatter}
+%Put the |\mainmatter| command just before the actual text of your 
+%dissertation.  Pages will be numbered in arabic starting over at page 1.
+%Following the |\mainmatter| command will either be your
+%thesis, or (more likely) a sequence of |\include| commands to include the
+%files containing the various chapters of your thesis, as shown here.
+%Also notice that appendices, bibliography, and the index (if you have any
+%of them) are considered part of the main matter, and these are all created
+%as usual.
+
+\iffalse
+%\DescribeMacro{\backmatter}
+%The |\backmatter| command turns off page numbering.  The only material
+%in your thesis that can be placed after the |\backmatter| command is
+%your vita.
+\fi
+
+%\egroup
+
+%\section{Miscellaneous Features and Notes}
+%\label{sec:misc}
+
+%\paragraph{Sectioning}
+%Sectioning commands from |\part| downwards work as expected.  In general
+%the header and footer are determined by the page style (see below), but
+%the first page of a chapter always contains an empty header and the 
+%page number centered in the footer.
+%A bonus
+%is that \cls{amsbook} (and therefore \cls{westhesis}) handles optional
+%arguments to |\chapter| and |\section|
+%commands intelligently:  the optional argument is
+%used to specify the running head, in case your title is long; but
+%the full title will be used in the table of contents.
+
+% \paragraph{Page Styles}
+% \cls{westhesis} provides three page styles that can be specified with
+% the |\pagestyle| command:
+% \begin{description}
+% \item[|chapter|] The current chapter number and title will be centered in the
+% header, the page number will be flush right in the header, and the
+% footer will be empty.  This is the default, in case you do not have
+% a |\pagestyle| command in your preamble.
+% \item[|section|] The current section number and title will be centered
+% in the header, the page number will be flush right in the header, and
+% the footer will be empty.  If you have a |\chapter| with no |\section|
+% command, then the chapter title will be centered in the header.
+% \item[|chapsec|] ``|Chapter <chapter number>.<chapter title>|'' will 
+% appear almost flush left and ``|<section number>.<section title>|'' will
+% appear almost flush right in the header (the ``almost'' has to do with
+% the way \cls{amsbook} handles this, which I haven't wanted to figure out),
+% and the page number will be centered in the footer.  If you have a
+% |\chapter| with no |\section| command, then by default the left- and
+% right-hand sides of the header will specify the chapter title.  If you
+% want an empty right-hand side, put |\sectionmark{}| immediately after
+% your |\chapter| command.
+% \end{description}
+
+\iffalse
+%\paragraph{Abstracts}
+%Whether or not you want to put an abstract in your thesis, you will need
+%to supply two abstracts to RUGS: one unsigned copy, which will go to
+%UMI to be published
+%in \emph{Dissertation Abstracts}, and one signed copy that will be kept on
+%file by the Graduate School.  
+%First, put the abstract in the
+%|abstract| environment (even if you don't have a |\makeabstract| command).
+%To make the unsigned copy that goes to UMI, specify the 
+%\option{umiabstract} option to the |\documentclass| command; this will
+%print your advisor's name after the abstract (bizarre, but UMI insists
+%on it) and
+%also produce a title page, which UMI also wants.  
+%To make the signed copy that goes to the Graduate School, specify the
+%\option{ugsabstract} option to the |\documentclass| command.
+\fi
+
+%\paragraph{Draft Message}
+% \DescribeMacro{\draftmsg}\DescribeMacro{\WTdraftmsg}
+% The message that appears in the footer can be defined using either the
+% |\draftmsg| or |\WTdraftmsg| (the two are exactly the same)
+% command, which uses its argument as the message.  For example,
+% \begin{verbatim}
+% \draftmsg{Draft Copy (Andrew Wiles):  \today}
+% \end{verbatim}
+%  will print
+% \texttt{Draft Copy (Andrew Wiles): \today} in the footer, where
+% \texttt{\today} will be replaced with the day that the file is processed.
+
+%\paragraph{Underfull Pages}
+%You are very likely to get a lot of |Underfull \vbox| messages when you
+%typeset your thesis.  The \cls{amsbook} document class prevents a page
+%from ending with the first line of a paragraph or beginning a page with
+%the last line of a paragraph (whereas \LaTeX\ just discourages such
+%behavior).  This means that lines have to be pushed around more often
+%than usual, and on pages that have had lines moved off, the remaining
+%lines need to be stretched some to fill out the space; thus the
+%|Underfull \vbox| message.  Getting the vertical spacing right is further
+%exacerbated by the fact that we must double-space the document.
+%Alignment environments (like |eqnarray| and |align|) make things even
+%worse, because they cannot be broken across page boundaries.  All these
+%combine to make for a lot of pages that are underfull, and there seems
+%to be no way around this.  If you really don't like how the lines are
+%stretched out, you can specify |\raggedbottom| in the preamble of your
+%document.  This will allow optimal spacing between lines, 
+%but means that \LaTeX\ does not need to place the last line
+%of each page at the same vertical position.
+
+% \StopEventually{}
+
+%\section{The Macros}
+
+%\bgroup
+%\parindent=0pt\parskip=.5\baselineskip
+
+%    \begin{macrocode}
+%<*class>
+%    \end{macrocode}
+
+% Specify what we need, what we provide, and identify ourselves to the log.
+%    \begin{macrocode}
+\NeedsTeXFormat{LaTeX2e}[1996/12/01] \ProvidesClass{westhesis}
+\message{<< Class 'westhesis', v\fileversion, \filedate (N. Danner) >>}
+%    \end{macrocode}
+
+%\begin{macro}{\ifWT@debugging}
+%\begin{macro}{\WT@debuggingtrue}
+%\begin{macro}{\WT@debuggingfalse}
+%Some miscellaneous macros for debugging and displaying what options 
+%have been chosen in the |\documentclass| command.
+%    \begin{macrocode}
+\newif\ifWT@debugging \WT@debuggingtrue \WT@debuggingfalse
+\def\WT@dbgmsg#1{\ifWT@debugging\message{#1}\fi}
+\def\WT@optionmsg#1{\message{  westhesis option: #1}}
+%    \end{macrocode}
+%\end{macro}\end{macro}\end{macro}
+
+%Now start handling the options, along with any additional macros,
+%conditionals, etc. they may rely upon.  
+%\begin{macro}{\draftmsg}
+%\begin{macro}{\WTdraftmsg}
+%\begin{macro}{\WT@showdraftfoot}
+%|\draftmsg| and |\WTdraftmsg| (they are the same--the latter is for
+%compatibility) are user commands 
+%for specifying what should be printed
+%in the footer when the \option{draft} option is given, and
+%|\WT@showdraftfoot| is what is actually printed.  Initially, they
+%are no-op and empty, so that unless the \option{draft} option is given,
+%no such line will displayed, even if the |\WTdraftmsg| command is given
+%in the preamble.  We also pass the \option{draft} option to
+%\cls{amsbook}.
+%    \begin{macrocode}
+\def\WTdraftmsg#1{}
+\let\draftmsg\WTdraftmsg
+\def\WT@showdraftfoot{}
+\DeclareOption{draft}{
+  \WT@optionmsg{draft}
+  \def\WTdraftmsg#1{\gdef\WT@showdraftfoot{#1}}
+  \let\draftmsg\WTdraftmsg
+  \def\WT@showdraftfoot{DRAFT: \today}
+  \PassOptionsToClass{draft}{amsbook}
+}
+%    \end{macrocode}
+%\end{macro}
+%\end{macro}
+%\end{macro}
+
+%The \option{final} option causes the previous two macros to be a no-op
+%and emtpy, respectively, and is also passed to \cls{amsbook}.
+%    \begin{macrocode}
+\DeclareOption{final}{
+  \WT@optionmsg{final}
+  \def\WTdraftmsg#1{}
+  \let\draftmsg\WTdraftmsg
+  \def\WT@showdraftfoot{}
+  \PassOptionsToClass{final}{amsbook}
+}
+%    \end{macrocode}
+
+%\begin{macro}{\WT@abstype}
+%\begin{macro}{\WT@nmlabstract}
+%\begin{macro}{\WT@umiabstract}
+%\begin{macro}{\WT@ugsabstract}
+%Although not currently enabled in \pkg{westhesis}, we will eventually
+%provide support for Ph.D. theses.  For that, we may have different
+%abstract types.  For example, the package on which this one is based had two
+%other abstract types (one for UMI, one for the Indiana University
+%Graduate School), each of which had its own format and also had to be
+%available as a separate document.  When the appropriate type is enabled,
+%the abstract is formatted appropriately, and if it has to be its own
+%document, processing is stopped after typesetting the abstract.
+% %The \option{umiabstract} and \option{ugsabstract}
+% %options specify to typeset only the abstract
+% %with no page numbers.  This will be implemented by
+% %condtionally defining every |\frontmatter| macro as a no-op and 
+% %ending the document at the end of the abstract
+% %when this option is given, and otherwise
+% %defining those macros reasonably.  If we are doing an abstract only,
+% %then we need the |\raggedbottom| declaration to ensure that if
+% %signature lines extend onto a second page, the first page is not
+% %set flushbottom, which would typically leave a lot of space between
+% %the heading and the abstract itself.
+%    \begin{macrocode}
+\newcount\WT@abstype
+\newcount\WT@nmlabstract\WT@nmlabstract=0
+\newcount\WT@umiabstract\WT@umiabstract=1
+\newcount\WT@ugsabstract\WT@ugsabstract=2
+\WT@abstype=\WT@nmlabstract
+\DeclareOption{umiabstract}{
+  \WT@optionmsg{umiabstract}
+  \WT@abstype=\WT@umiabstract
+  \AtEndOfClass{\raggedbottom}
+}
+\newif\ifWT@ugsabs
+\WT@ugsabsfalse
+\DeclareOption{ugsabstract}{
+  \WT@optionmsg{ugsabstract}
+  \WT@abstype=\WT@ugsabstract
+  \AtEndOfClass{\raggedbottom}
+}
+%    \end{macrocode}
+%\end{macro}
+%\end{macro}
+
+%\begin{macro}{\ifWT@abstractsigs}
+%Do we have signature lines on the abstract page?  The default
+%is \option{noabstractsigs},
+%since it is not expected for Honors theses.
+%    \begin{macrocode}
+\newif\ifWT@abstractsigs
+\DeclareOption{abstractsigs}{
+  \WT@optionmsg{abstractsigs}
+  \WT@abstractsigstrue
+}
+\DeclareOption{noabstractsigs}{
+  \WT@optionmsg{noabstractsigs}
+  \WT@abstractsigsfalse
+}
+%    \end{macrocode}
+%\end{macro}
+
+%\begin{macro}{\ifWT@noabstract}
+%Should we typeset the abstract?  This is overridden if the
+%one of the abstract-only options is given.
+%    \begin{macrocode}
+\newif\ifWT@noabstract
+\WT@noabstractfalse
+\DeclareOption{noabstract}{
+  \WT@optionmsg{noabstract}
+  \WT@noabstracttrue
+}
+%    \end{macrocode}
+%\end{macro}
+
+% % \option{ms} for Master of Science, \option{ma} for Master of Arts.
+% % |\degree| is called when |\@degree| is initially defined, so we just
+% % override it at the end of class loading.
+% %    \begin{macrocode}
+% \DeclareOption{ms}{
+%   \AtEndOfClass{\degree{Master of Science}}
+% }
+% \DeclareOption{ma}{
+%   \AtEndOfClass{\degree{Master of Arts}}
+% }
+% %    \end{macrocode}
+
+% \begin{macro}{\ifWT@three}
+% This option must be used if there are only three readers on the thesis.
+% This is irrelevant for Honors theses, because the readers are not
+% used in typesetting the thesis.
+%    \begin{macrocode}
+\newif\ifWT@three
+\DeclareOption{three}{\WT@threetrue}
+%    \end{macrocode}
+% \end{macro}
+
+% Make the document single-spaced.
+%    \begin{macrocode}
+\DeclareOption{single}{
+  \AtEndOfClass{\def\WT@blstretch{1}}
+}
+%    \end{macrocode}
+
+%Turn on debugging output.
+%    \begin{macrocode}
+\DeclareOption{debug}{
+  \WT@debuggingtrue
+}
+%    \end{macrocode}
+
+%Set everything up.
+%    \begin{macrocode}
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{amsbook}}
+\ExecuteOptions{noabstractsigs,draft}
+\ProcessOptions
+
+\PassOptionsToClass{oneside}{amsbook}
+\LoadClass{amsbook}[1995/01/27]
+%    \end{macrocode}
+
+%\paragraph{Page layout}  
+%We need 1.5 inch margins on the left, 1.25 inch on the right,
+%1 inch top and bottom.
+%That means 1 inch \emph{above} the top of the header and
+%\emph{below} the bottom of the footer (which will have a page number
+%on first pages of chapters).  We start with a text height of 8.9 inches
+%to get a smidgen of extra space at the bottom so that it doesn't look
+%like the text is falling off of the page.  |\headheight| is increased
+%by 2 points because oddly enough \cls{amsbook} v1.2 makes it a little too
+%small for the default type size for the headers.
+%    \begin{macrocode}
+\topmargin 0pt
+\oddsidemargin=.5in
+\evensidemargin=\oddsidemargin
+\advance\headheight 2pt
+\textwidth 5.75in
+\textheight 8.9in
+\advance\textheight by -\headheight
+\advance\textheight by -\headsep
+\advance\textheight by -\footskip
+\marginparwidth 0.5in
+%    \end{macrocode}
+
+%\paragraph{Page styles}
+% Each |\ps@xxx| command just redefines |\ps@headings|, which is what will
+% ultimately be called by |\mainmatter|, as well as setting up the marking
+% commands.
+
+% |\ps@chapter| has the chapter title centered, page number flush right
+% in the header and empty footer; |\partmark| and |\sectionmark| are no-ops.
+%    \begin{macrocode}
+\def\ps@chapter{
+  \gdef\ps@headings{
+    \def\@oddhead{
+      \normalfont\scriptsize\hfil\rightmark{}{}\hfil \llap{\thepage}
+    }
+    \def\@oddfoot{
+      \normalfont\ttfamily\scriptsize\rlap{\WT@showdraftfoot\hfill}\hfill
+    }
+    \global\let\@evenfoot\@oddfoot
+    \global\let\@mkboth\markboth
+    \global\let\partmark\@gobble
+    \gdef\chaptermark{%
+      \@secmark\markboth\chapterrunhead{}}%
+    \global\let\sectionmark\@gobble
+  }
+}
+%    \end{macrocode}
+
+% |\ps@section| has the section title centered, page number flush right
+% in the header and empty footer;  |\partmark| is a no-op, but |\chaptermark|
+% still works in case we have a chapter with no sections (in which case the
+% chapter title goes in the header).
+%    \begin{macrocode}
+\def\ps@section{
+  \gdef\ps@headings{
+    \def\@oddhead{
+      \normalfont\scriptsize\hfil\rightmark{}{}\hfil \llap{\thepage}
+    }
+    \def\@oddfoot{
+      \normalfont\ttfamily\scriptsize\rlap{\WT@showdraftfoot\hfill}\hfill
+    }
+    \global\let\@evenfoot\@oddfoot
+    \global\let\@mkboth\markboth
+    \global\let\partmark\@gobble
+    \gdef\chaptermark{%
+      \@secmark\markboth\chapterrunhead{}}%
+    \gdef\sectionmark{%
+      \@secmark\markboth\sectionrunhead{}}%
+  }
+}
+%    \end{macrocode}
+
+% |\ps@chapsec| puts ``Chapter number.title'' almost flush left and
+% the section number and title almost flush right (the ``almost'' is an
+% \cls{amsbook} thing which I haven't wanted to figure out) in the header
+% and the page number centered in the footer.  |\partmark| is a no-op,
+% and |\sectionmark| uses our own |\WT@sectionrunhead| in case we want
+% an empty section title in the header (see below).  Notice we use
+% |\chaptername| as the first argument to |\chapterrunhead|; otherwise
+% the header would not tell the reader which is the chapter and which
+% is the section.
+%    \begin{macrocode}
+\def\ps@chapsec{
+  \gdef\ps@headings{
+    \def\@oddhead{
+      \normalfont\scriptsize\rlap{\leftmark{}{}}\hfill\llap{\rightmark{}{}}
+    }
+    \def\@oddfoot{
+      \normalfont\scriptsize\rlap{\ttfamily\WT@showdraftfoot\hfill}%
+      \hfil\thepage\hfil
+    }
+    \global\let\@evenfoot\@oddfoot
+    \global\let\@mkboth\markboth
+    \global\let\partmark\@gobble
+    \gdef\chaptermark{%
+      \@secmark\markboth\chapterrunhead\chaptername}%
+    \gdef\sectionmark{
+      \@secmark\markright\WT@sectionrunhead{}}
+  }
+}
+%    \end{macrocode}
+
+% Either a bug or a feature with |\ps@chapsec|: a chapter with no
+% sections will say Chapter number.title on both the left and right of
+% the header.  |\sectionrunhead| will always print the chapter number,
+% even if the section title is empty.  |\WT@sectionrunhead| tests its
+% third argument (the section title), and only typesets something if it
+% is non-empty.  If the user wants an empty right-hand side with
+% |\ps@chapsec|, s/he just needs to say |\sectionmark{}| immediately
+% after the |\chapter| command.
+%    \begin{macrocode}
+\def\WT@sectionrunhead#1#2#3{%
+  \def\@tempa{#3}%
+    \ifx\@empty\@tempa\else%
+    \@ifnotempty{#2}{\uppercase{#1 #2}\@ifnotempty{#3}{. }}%
+    \ifx\@empty\@tempa\else\uppercasenonmath\@tempa\@tempa\fi%
+  \fi%
+}
+%    \end{macrocode}
+
+% For main matter pages that are the first page of a chapter and front matter
+% pages we put nothing in the header and center the page number in the
+% footer.  The draft message also goes in the footer (flush left), but isn't
+% allowed to take up any horizontal space.
+%    \begin{macrocode}
+\def\ps@plain{\ps@empty
+  \def\@oddfoot{
+    \normalfont\scriptsize
+    \rlap{\ttfamily\WT@showdraftfoot}\hfil\thepage\hfil
+  }
+  \let\@evenfoot\@oddfoot
+}
+%    \end{macrocode}
+
+%\paragraph{Preamble Commands}
+%There will only be one author, and his/her name will only appear 
+%on the title page and only in full form, so there is no need for the
+%short form or andifying that \cls{amsbook} does.  Nothing interesting
+%with |\title| is currently done by \cls{amsbook}, but we make sure
+%that nothing interesting ever happens, except that we immediately
+%convert it into uppercase.  The reason is that we may need an uppercase
+%version twice (for \option{umiabstract}), and it seems that
+%|\uppercasenonmath| hangs if you use it a second time on the same
+%argument.  The |\advisor| and |\*reader| commands may be
+%used in an Honors thesis, but they are not typeset anywhere.
+%    \begin{macrocode}
+\renewcommand{\author}[1]{\gdef\@author{#1}}\let\@author\relax
+\renewcommand{\title}[1]{\gdef\@title{#1}}
+\let\@title\relax
+
+\def\submitdate#1{\gdef\@submitdate{#1}}\let\@submitdate\relax
+\def\department#1{\gdef\@department{#1}}\let\@department\relax
+\def\departmentname#1{\gdef\@departmentname{#1}}\departmentname{Department}
+\def\degree#1{\gdef\@degree{#1}}\degree{Doctor of Philosophy}
+
+\def\advisor#1{\gdef\@principaladvisor{#1}}\let\@principaladvisor\relax
+\def\secondreader#1{\gdef\@secondreader{#1}}\let\@secondreader\relax
+\def\thirdreader#1{\gdef\@thirdreader{#1}}\let\@thirdreader\relax
+\def\fourthreader#1{\gdef\@fourthreader{#1}}\let\@fourthreader\relax
+\def\fifthreader#1{\gdef\@fifthreader{#1}}\let\@fifthreader\relax
+
+\def\copyrightyear#1{\gdef\@copyrightyear{#1}}
+\let\@copyrightyear\relax
+%    \end{macrocode}
+
+%\paragraph{Front Matter Commands}~\\
+
+% The dedication is to be centered; vertical positioning is handled by
+% |\makededication|.
+
+%    \begin{macrocode}
+\newbox\dedicationbox
+\newenvironment{dedication}{%
+  \global\let\dedication\relax%
+  \bgroup
+  \renewcommand{\baselinestretch}{1}
+  \normalsize
+  \global\setbox\dedicationbox\vbox\bgroup%
+  \begin{center}
+}{
+  \end{center}
+  \egroup\egroup
+}
+%    \end{macrocode}
+
+% The acknowledgements is typeset double-spaced as a trivlist.
+
+%    \begin{macrocode}
+\newbox\acknowledgebox
+\newenvironment{acknowledgements}{%
+  \global\let\acknowledgements\relax%
+  \bgroup
+  \renewcommand{\baselinestretch}{\WT@blstretch}
+  \normalsize
+  \global\setbox\acknowledgebox\vbox\bgroup
+  \trivlist%
+    \item[]\ignorespaces
+}{
+  \endtrivlist
+  \egroup\egroup
+}
+%    \end{macrocode}
+
+% The |abstract| environment typesets the abstract double-spaced in a box.
+%    \begin{macrocode}
+\renewenvironment{abstract}{%
+  \global\let\abstract\relax%
+  \bgroup%
+  \renewcommand{\baselinestretch}{\WT@blstretch}%
+  \normalsize%
+  \global\setbox\abstractbox\vbox\bgroup
+  \trivlist\item[]\ignorespaces
+}%
+{
+  \endtrivlist
+  \egroup\egroup
+  \global\let\endabstract\relax
+}
+%    \end{macrocode}
+
+% We do not define |\makeabstract| directly, because of the possible
+% interaction between the abstract-only and \option{noabstract}
+% options (which are not currently available); 
+% the former must override the latter.  
+%% If \option{ugsabstract} or \option{umiabstract}
+%% has been specified, then the abstract should be typeset with no page numbers.
+% The abstract is numbered as front matter with the author and title at the
+% top.  If we are being typeset in the thesis, create the header with
+% |\@makeschapterhead|, because |\chapter*| puts in a table-of-contents
+% entry.  |\unvbox| the |\abstractbox| because otherwise we have problems
+% with abstracts that would need a page break (this can happen with a
+% 350 word abstract).  
+%% If \option{umiabstract} or \option{ugsabstract}
+%% has been specified, print the advisor's name or the signature lines,
+%% respectively.  This could be done with an |\ifcase|, but seems less
+%% transparent when re-reading the code.
+% Conditionally define |\end@fterabstract| to end the document if
+% abstract-only option has been specified, no-op otherwise, and then
+% immediately execute |\end@fterabstract| to end the document in the former
+% case.  If we just conditionally do an
+% |\end{document}|, then we end the document before terminating the
+% conditional.  We need to do a |\newpage| before ending the local group
+% so that the |\pagestyle| declaration takes effect when typesetting an
+% abstract only.  We also typeset the signature lines (if present)
+% in two columns to save space.
+%    \begin{macrocode}
+\def\WT@defineabstract{
+  \gdef\makeabstract{
+    \typeout{Abstract}
+    \bgroup
+    \normalfont
+    \ifnum\WT@abstype>0%
+      \WT@dbgmsg{makeabstract: Setting abstract pagestyle empty}%
+      \pagestyle{empty}\thispagestyle{empty}%
+    \else%
+      \WT@dbgmsg{makeabstract: Setting abstract pagestlye plain}%
+    \fi%
+    \ifnum\WT@abstype>0%
+      \WT@dbgmsg{makeabstract: Setting title}%
+      \begin{center}%
+      \check@val\@author \\[.5\baselineskip]
+%      \uppercasenonmath\@title\@title
+      \check@val\@title
+      \end{center}%
+      \vskip\baselineskip
+      \WT@dbgmsg{makeabstract: Done}%
+    \else%
+      \WT@dbgmsg{makeabstract: Setting title}%
+      \@makeschapterhead{Abstract}
+    \fi%
+    \WT@dbgmsg{makeabstract: Setting abstract}%
+    \unvbox\abstractbox
+    \ifnum\WT@abstype=\WT@umiabstract%
+      \WT@dbgmsg{makeabstract (umi): advisor's name}%
+      \vskip\baselineskip%
+      \hbox to\hsize{\hfill\check@val\@principaladvisor, Ph.D.}%
+    \fi
+    \ifnum\WT@abstype=\WT@ugsabstract%
+      \WT@dbgmsg{makeabstract (ugs): signature lines}%
+      \ifWT@abstractsigs%
+      \vbox{
+	\hbox to\textwidth{%
+	  \WT@sig[2.5in]{\check@val\@principaladvisor, Ph.D.}\hfill%
+	  \WT@sig[2.5in]{\check@val\@thirdreader, Ph.D.}%
+	}%
+	\hbox to\textwidth{%
+	  \WT@sig[2.5in]{\check@val\@secondreader, Ph.D.}\hfill%
+	  \ifWT@three\else\WT@sig[2.5in]{\check@val\@fourthreader, Ph.D.}\fi%
+	}%
+	\ifx\@fifthreader\relax\else%
+	  \hbox to\textwidth{%
+	    \hfill\WT@sig[2.5in]{\check@val\@fifthreader, Ph.D.}%
+	  }%
+	\fi%
+      }
+      \fi
+    \fi
+    \newpage
+    \egroup
+    \ifnum\WT@abstype>0
+      \def\end@fterabstract{\end{document}}
+    \else
+      \def\end@fterabstract{}
+    \fi
+    \end@fterabstract
+  }
+}
+%    \end{macrocode}
+
+% Now we define |\makeabstract| provided that we have not specified
+% \option{noabstract} and that option has not been overridden by
+% \option{umiabstract} or \option{ugsabstract}.
+%    \begin{macrocode}
+\ifWT@noabstract
+  \ifnum\WT@abstype>0\WT@defineabstract\else\def\makeabstract{}\fi
+\else
+  \WT@defineabstract
+\fi
+%    \end{macrocode}
+
+% For \option{umiabstract}, legal front matter is the titlepage and
+% abstract.  For \option{ugsabstract}, legal front matter is just
+% the abstract.  For the thesis, all front matter is legal.
+% ``Illegal'' here means we set the command to be a no-op, so that
+% the user doesn't have to change the preamble ever, just the
+% |\documentclass| options.  First the title page.
+%    \begin{macrocode}
+\ifnum\WT@abstype>1
+  \WT@dbgmsg{Setting maketitle noop}
+  \def\maketitle{}
+\else
+%    \end{macrocode}
+%The title is is formatted according to the Honors Program specifications.
+%    \begin{macrocode}
+  \def\maketitle{
+    \bgroup
+	\thispagestyle{empty}
+	\hrule\vskip.5ex
+	\noindent Wesleyan University\hfill The Honors College
+	\vskip.5ex\hrule
+	\vskip3in
+	\bgroup
+		\Large
+		\begin{center}\check@val\@title\end{center}
+	\egroup
+	\vskip.25in
+	\bgroup
+		\large
+		\begin{center}
+			by \\[\baselineskip]
+			\check@val\@author
+		\end{center}
+	\egroup
+	\vfill
+	\bgroup
+		\large
+		\begin{center}
+		A thesis submitted to the\\
+		faculty of Wesleyan University\\
+		in partial fulfillment of the requirements for the\\
+		Degree of Bachelor of Arts\\
+		with Departmental Honors in \check@val\@department
+		\end{center}
+		\vskip\baselineskip
+		\hrule
+		\vskip.5ex
+		\noindent Middletown, Connecticut\hfill\check@val\@submitdate
+		\vskip.5ex
+		\hrule
+	\egroup
+	%\vskip.5in
+	\egroup
+	\newpage
+  }
+\fi
+%    \end{macrocode}
+
+% Now the front matter.  If we are just typesetting the abstract, then
+% we make the front matter commands that come before |\makeabstract|
+% no-ops; |\makededication| is done specially because it takes an
+% optional argument which we must ensure is swallowed (otherwise it
+% will appear in the beginning of the text of the abstract).
+%    \begin{macrocode}
+\ifnum\WT@abstype>0
+  \WT@dbgmsg{Setting frontmatter commands noops}
+  \def\signaturepage{}
+  \def\copyrightpage{}
+  \newcommand{\makededication}[1][]{}
+  \def\makeack{}
+\else
+%    \end{macrocode}
+% The
+% signature page has the usual text, plus four signature lines stacked
+% in a vertical list, followed by the submission date.
+%    \begin{macrocode}
+  \def\signaturepage{
+    \typeout{Signature Page}
+    \bgroup
+    \noindent
+    Accepted by the Graduate Faculty, Indiana University, in partial
+    fulfillment of the requirements for the degree of \check@val\@degree.
+    \egroup
+    \vskip.5in
+    \hbox to\textwidth{\hfill\WT@sig{\check@val\@principaladvisor, Ph.D.}}%
+    \hbox to\textwidth{\hfill\WT@sig{\check@val\@secondreader, Ph.D.}}%
+    \hbox to\textwidth{\hfill\WT@sig{\check@val\@thirdreader, Ph.D.}}%
+    \ifWT@three\else%
+      \hbox to\textwidth{\hfill\WT@sig{\check@val\@fourthreader, Ph.D.}}%
+    \fi%
+    \ifx\@fifthreader\relax\else%
+      \hbox to\textwidth{\hfill\WT@sig{\check@val\@fifthreader, Ph.D.}}%
+    \fi
+    \vfill
+    \noindent\check@val\@submitdate
+    \vfill
+    \newpage
+  }
+%    \end{macrocode}
+
+% The copyright page does not seem to require much comment.
+%    \begin{macrocode}
+  \def\copyrightpage{
+    \typeout{Copyright Page}
+    \hbox{}\vfill
+    \begin{center}
+    Copyright \check@val\@copyrightyear \\
+    \check@val\@author \\
+    ALL RIGHTS RESERVED
+    \end{center}
+    \vfill
+    \newpage
+  }
+%    \end{macrocode}
+
+% The dedication is untitled and set one inch from the top margin, unless
+% a different vertical skip is specified by the optional argument to
+% |\makededication|.
+%    \begin{macrocode}
+  \newcommand{\makededication}[1][1in]{
+    \ifvoid\dedicationbox\else
+    \typeout{Dedication}
+    \hbox{}\vskip#1\unvbox\dedicationbox\vfill%
+    \newpage
+    \fi
+  }
+%    \end{macrocode}
+
+% The acknowledgements are typeset as an unnumbered chapter.  But
+% |\chapter*| puts an entry in the table of contents, so we use
+% |\@makeschapterhead|.
+
+%    \begin{macrocode}
+  \def\makeack{
+    \ifvoid\acknowledgebox\else
+    \typeout{Acknowledgements}
+    \@makeschapterhead{Acknowledgements}
+    \unvbox\acknowledgebox
+    \newpage
+    \fi
+  }
+%    \end{macrocode}
+
+% End the conditional definition of the pages that might come before
+% the abstract.
+%    \begin{macrocode}
+\fi
+%    \end{macrocode}
+
+% Each signature line is its own box, one inch heigh with width specified
+% by the option argument to |\WT@sig| (default |3in|) (no
+% depth).
+%    \begin{macrocode}
+\newcommand{\WT@sig}[2][3in]{
+   \vbox{%
+    \hrule width 0pt height 1in depth 0pt%
+    \hrule width #1 height .4pt depth 0pt%
+    \vskip2mm%
+    \hbox to #1{\hfill #2}%
+   }
+}
+%    \end{macrocode}
+
+% Keep the table of contents simple, and make sure it is double spaced.
+% Similar for list of tables and figures.
+%    \begin{macrocode}
+\def\tableofcontents{
+  \bgroup
+  \renewcommand{\baselinestretch}{\WT@blstretch}
+  \normalfont
+  \@starttoc{toc}\contentsname
+  \egroup
+}
+\def\listoffigures{
+  \bgroup
+  \renewcommand{\baselinestretch}{\WT@blstretch}
+  \normalfont
+  \@starttoc{lof}\listfigurename
+  \egroup
+}
+\def\listoftables{
+  \bgroup
+  \renewcommand{\baselinestretch}{\WT@blstretch}
+  \normalfont
+  \@starttoc{lot}\listtablename
+  \egroup
+}
+%    \end{macrocode}
+
+% Front matter has page numbers at the bottom in lower roman type.
+%    \begin{macrocode}
+\def\frontmatter{\cleardoublepage\pagenumbering{roman}\pagestyle{plain}}
+%    \end{macrocode}
+
+% Main matter uses |\headings| page style, arabic numbering, and double
+% spacing.
+%    \begin{macrocode}
+\def\mainmatter{
+  \cleardoublepage
+  \pagenumbering{arabic}
+  \pagestyle{headings}
+  \renewcommand{\baselinestretch}{\WT@blstretch}
+  \normalfont
+}
+%    \end{macrocode}
+
+% Back matter (for vita only) gets empty page style (no numbering) and
+% single spacing.
+%    \begin{macrocode}
+\def\backmatter{
+  \newpage
+  \pagestyle{empty}
+  \renewcommand{\baselinestretch}{1}
+  \normalfont
+}
+%    \end{macrocode}
+
+% \paragraph{Utility Macros}
+% |\check@val| checks to see that its argument has been defined; if so,
+% it is used, otherwise a warning is issued and ??? printed.  Those
+% comment markers at the end of lines are necessary--otherwise we get
+% stray spaces.
+%    \begin{macrocode}
+\def\check@val#1{%
+  \ifx#1\relax%
+    \typeout{}%
+    \typeout{!!!!!!!!}%
+    \typeout{Warning: #1 not set!}%
+    \typeout{!!!!!!!!}%
+    \hbox{???}%
+  \else%
+    #1%
+  \fi%
+}
+%    \end{macrocode}
+
+% The 'see' command for the index should say ``see'', not ``see also''.
+%    \begin{macrocode}
+\renewcommand{\seename}{see}
+%    \end{macrocode}
+
+% The |\baselinestretch| is set according to typeset (LC, page 53).
+% |\@mainsize| is an AMS macro that gives the (multiple digit) main font size.
+% This may be overriden by the \option{single} option.
+%    \begin{macrocode}
+\def\WT@blstretch{1.67}
+\ifnum\@mainsize=10\def\WT@blstretch{1.67}\fi
+\ifnum\@mainsize=11\def\WT@blstretch{1.62}\fi
+\ifnum\@mainsize=12\def\WT@blstretch{1.66}\fi
+\WT@dbgmsg{Baseline stretch: \WT@blstretch}
+%    \end{macrocode}
+
+% Initialize things.
+%    \begin{macrocode}
+\pagestyle{chapter}
+\pagenumbering{arabic}
+\normalsize
+%    \end{macrocode}
+
+%    \begin{macrocode}
+%</class>
+%    \end{macrocode}
+
+%\egroup
+
+% \Finale

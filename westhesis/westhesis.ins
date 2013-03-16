@@ -1,0 +1,14 @@
+\def\batchfile{westhesis.ins}
+\input docstrip.tex
+\preamble
+  westhesis Document Class (N. Danner)
+\endpreamble
+\generateFile{westhesis.cls}	{f}{\from{westhesis.dtx}{class}}
+\generateFile{westhesis.tex}	{t}{\from{westhesis.dtx}{docs}}
+
+\Msg{Move the following files into an input file directory:}
+\Msg{    westhesis.cls}
+
+\Msg{Run latex on the file westhesis.tex to get documentation.}
+\Msg{For line-by-line documentation of the code, run latex on}
+\Msg{westhesis.dtx directly.}
