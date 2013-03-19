@@ -1,4 +1,4 @@
-\documentclass[11pt, draft]{westhesis}
+\documentclass[11pt, final]{westhesis}
 
 
 %This is for block quotes that look cool
@@ -85,6 +85,8 @@ With these improvements I aim to demonstrate the high accuracy of our second ver
 \makeack
 \makeabstract
 \tableofcontents
+\listoffigures
+\listoftables
 
 \mainmatter
 
@@ -93,12 +95,12 @@ With these improvements I aim to demonstrate the high accuracy of our second ver
 \include{chapter2}
 \include{chapter3}
 %NEW CHAPTER FOR SHOWING COMPARISONS BETWEEN THE TWO
+%or include everything in one results chapter?
 \include{chapter4}
 \include{chapter5}
 
 \appendix
 
-% Figure this out
 \bibliographystyle{abbrv}
 \bibliography{references}
 
