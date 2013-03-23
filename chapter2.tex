@@ -92,11 +92,16 @@ Now this simulated output can be compared to the observed evolutionary history t
 By running many (approximately in the millions) ES develops a max likelihood parametric characterization of the observed phylogeny. 
 
 \subsection*{Demarcating ecotypes}
+The parametric characterization helps decide how to separate individuals into clusters.
+ES progresses temporally from the root of the phylogeny up analyzing each subtree.
+Once there is a certain likelihood that that subtree consists of only one ecotype the demarcation program annotates it as such.
 
-Here I'll go over the process in non-system specific way. Make phylogeny based on distances. Then we want to find the parameters that describe the sequence identity graph. Then describe why these parameters are relevant and the power they give us. Allow us to pick at which point we pass diversity between different species groups and diversity within a species group.
+
+%Here I'll go over the process in non-system specific way. Make phylogeny based on distances. Then we want to find the parameters that describe the sequence identity graph. Then describe why these parameters are relevant and the power they give us. Allow us to pick at which point we pass diversity between different species groups and diversity within a species group.
 
 
 \section{Ecotype Simulation}
+The current iteration of ES is written mainly in Fortran90 with a Java graphical user interface (GUI).
 
 \begin{figure}[h!]
  \centering
