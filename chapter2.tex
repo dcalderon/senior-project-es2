@@ -67,24 +67,29 @@ Utilizing premises established in the Stable Ecotype model we hypothesize a phyl
 Here we can see that ecotype formation is relatively rare, while periodic selection (asterisks) keeps the branches of the tree pruned.
 At the point of divergence (where the two solid lines separate into ecotype 1 and 2), organisms from the two separate ecotypes are closely related.
 However over time and through various purification events adaptive mutations accumulate.
-Notice that the two clades are totally free from each other's periodic selection diversity quashing.
+Notice that the two clades are totally free from each other's periodic selection diversity quashing~\cite{cohan2007systematics}.
 This is an important feature of separate ecotypes.
 
-Theory dictates that these boundaries correlate to ecological niche.
-To identify the fundamental elements takes three steps.
+Theory and empirical evidence hints that these boundaries correlate to ecological niche~\cite{cohan2007systematics, cohan2006sequence, ward2006cyanobacterial, cohan2006toward}.
+To identify the system's fundamental elements takes three steps.
 First, observe the communities evolutionary history.
 Second, simulate evolutionary history as hypotheses of various descriptive parameters, resulting in a most likely parametric characterization of observed history.
 Finally, demarcate individuals into ecotypes.
 
 \subsection*{Observing evolutionary history}
-Since the two clades are evolving independently we can use the molecular clock characteristic of specific ubiquitous genes.
+Since the clades are evolving independently we can use the molecular clock characteristic of specific ubiquitous genes.
 Clearly, the gene we choose to measure between organisms must be present throughout.
 For this reason ES typically takes in ribosomal gene 16s, chaperone dnaJ, or gyrase subunit gyrA sequences  as input. Most living organisms have relatively closely related homologues.
+
 From genes we can build a phylogeny that can predict a likely evolutionary history of genes, simply based on sequence distances.
 Because, ES only analyzes sequences from non-extinct organisms, the Stable Ecotype model predicts that lineage divergence will be low.
 And the bacterial diversity sampled is going through various stages of periodic selection purification, thus the end of the phylogeny (temporally closest to the present) will appear frayed.
 
 \subsection*{Simulating evolutionary history}
+Starting from observed sequences as separate clusters, ES simulates common divergence, and cohesion events backwards in time, which reduce the number of groups until there is only one cluster representing the closest ancestor.
+From that closest ancestor representation, with known gene mutation rates we can simulate sequence diversity through time and output a virtual gene sequence output.
+Now this simulated output can be compared to the observed evolutionary history to check for similarity.
+By running many (approximately in the millions) ES develops a max likelihood parametric characterization of the observed phylogeny. 
 
 \subsection*{Demarcating ecotypes}
 
