@@ -1,6 +1,17 @@
 \chapter{Prior Work}
+
+%\begin{shadequote}
+%If I have seen further it is by standing on the shoulders of giants.\par\emph{Isaac Newton}
+%\end{shadequote}
+
+%cut out up to we?
+\begin{shadequote}
+Bernard of Chartres used to say that we are like dwarfs on the shoulders of giants, so that we can see more than they, and things at a greater distance, not by virtue of any sharpness of sight on our part, or any physical distinction, but because we are carried high and raised up by their giant size.\par\emph{John of Salisbury}
+\end{shadequote}
+
+
 \section{Background and Theory}
-\subsection{Ecotype Model of Bacterial Species}
+\subsection*{Ecotype Model of Bacterial Species}
 An ecotype is defined as a bacterial cluster with individuals that are ecologically similar to one another, so much so that genetic diversity within the ecotype is limited by a cohesive force, either periodic selection or genetic drift, or both~\cite{cohan2007systematics}.
 By linking species and ecological niche we take advantage of the natural clustering of organisms according to environmental resources.
 Since these clusters are evolving together we do not need to utilize morphological differences and can instead use a molecular approach for demarcation.
@@ -10,12 +21,13 @@ Or, essentially the fundamental unit of microbial ecosystems.
 Efforts to define prokaryotic species according to these properties have differed most profoundly in the forces of cohesion thought to be most important for prokaryotic species~\cite{cohan2008origins}.
 ES uses one model in particular to understand ecotype bacterial speciation.
 
-\subsection{Stable Ecotype model}
+\subsection*{Stable Ecotype model}
 In the Stable Ecotype model ecotypes are created and extinguished at a very low rate, and during its long lifetime an ecotype is recurrently purged of its diversity by periodic selection events~\cite{cohan2007systematics}.
 Ecotypes are formed rarely enough so that they can accumulate its own set of unique mutations while diversity is purged, yielding a correspondence between ecotypes and sequence clusters for any gene shared among ecotypes~\cite{cohan2008origins}.
 This fact, hinted at earlier, is what allows ES to identify separate ecotypes based on environmental function without knowledge of particular phenotypic mutations.
 Diversity quashing events are referred to as periodic selection events, see Figure~\ref{fig:StableEvents}a.
-An individual of a ecotype acquires a mutation that improves its fitness within that ecological niche, which results in a diversity purge where other organisms in the ecotype without the adaption become extinct.
+An individual of a ecotype acquires a mutation that improves its fitness within that ecological niche, which results in a diversity purge, due to low recombination rates in bacteria, where other organisms in the ecotype without the adaption become extinct.
+Genetic drift is another event that results in diversity purges, however it is normally quite rare.
 
 %Describes relationship of periodic selection events and ecotype formation event
 Early during speciation, a new ecotype's niche may rely on proportions of resources used and may be vulnerable to extinction by periodic selection caused by an adaptive mutation within the parental ecotype.
@@ -26,16 +38,24 @@ The ecotype-transcending adaptation allowed an ecotype speciation event to occur
 Now we have an event to account for anagenesis, or accumulation of changes over time along a single lineage, referred to as periodic selection, and cladogenesis, or irreversible splitting of lineages, referred to as ecotype formation.
 To complete the dynamics of the Stable Ecotype model, extinction events are also possible, see Figure~\ref{fig:StableEvents}c.
 An ecotype, obviously, can go extinct.
+Previous work done in the Cohan lab was done to develop an algorithm based on the Stable Ecotype model, which eventually became known as Ecotype Simulation.
 
 \begin{figure}[h!]
  \caption{Three classes of mutation and recombination events that determine ecotype diversity in bacteria. Circles represent different genotypes, and asterisks adaptive mutations. (A) Periodic selection purges diversity. (B) Ecotype formation creates diversity. (C) Extinction events SHOULD I CUT THIS OUT?.(reprinted from \protect\cite{cohan2007systematics})}
  \centering
  \label{fig:StableEvents}
- \includegraphics{images/StableEcotypeEvents}
+ \includegraphics{images/StableEcotypeEvents-CH2}
 \end{figure}
 
 
-\section{Algorithm}
+\section{The Algorithm}
+
+\begin{figure}[h!]
+ \caption{Something (reprinted from \protect\cite{cohan2008origins}) }
+ \centering
+ \label{fig:StableTree}
+ \includegraphics{images/StableTree-CH2}
+\end{figure}
 
 %EDIT CAPTION
 \begin{figure}[h!]
@@ -49,5 +69,8 @@ An ecotype, obviously, can go extinct.
 Check out Figure ~\ref{fig:SpeciationGraph}.
 
 Here I'll go over the process in non-system specific way. Make phylogeny based on distances. Then we want to find the parameters that describe the sequence identity graph. Then describe why these parameters are relevant and the power they give us. Allow us to pick at which point we pass diversity between different species groups and diversity within a species group.
+
+
+
 \section{Ecotype Simulation}
 Here we can show how we attempt to implement this algorithm. Use system diagrams going from binning to brute force to hill climbing to automatic demarcations. We can choose how to divide this up into sections later. One subsection per program?
