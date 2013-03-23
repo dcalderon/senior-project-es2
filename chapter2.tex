@@ -1,5 +1,7 @@
 \chapter{Prior Work}
 
+%\caption[''short'']{''long''}
+
 %\begin{shadequote}
 %If I have seen further it is by standing on the shoulders of giants.\par\emph{Isaac Newton}
 %\end{shadequote}
@@ -28,7 +30,7 @@ ES uses one model in particular to understand ecotype bacterial speciation.
  \centering
  \label{fig:StableEvents}
  \includegraphics{images/StableEcotypeEvents-CH2}
- \caption{Three classes of mutation and recombination events that determine ecotype diversity in bacteria. Circles represent different genotypes, and asterisks adaptive mutations. (A) Periodic selection purges diversity. (B) Ecotype formation creates diversity. (C) Extinction events. (reprinted from \protect\cite{cohan2007systematics})}
+ \caption[Events predicted by the Stable Ecotype model \protect\cite{cohan2007systematics}.]{Three classes of mutation and recombination events that determine ecotype diversity in bacteria. Circles represent different genotypes, and asterisks adaptive mutations. (A) Periodic selection purges diversity. (B) Ecotype formation creates diversity. (C) Extinction events. (reprinted from \protect\cite{cohan2007systematics})}
 \end{figure}
 
 In the Stable Ecotype model ecotypes are created and extinguished at a very low rate, and during its long lifetime an ecotype is recurrently purged of its diversity by periodic selection events~\cite{cohan2007systematics}.
@@ -53,18 +55,40 @@ Previous work done in the Cohan lab was done to develop an algorithm based on th
 \section{The Algorithm}
 
 \begin{SCfigure}
- \caption{ The Stable Ecotype model, in which ecotype formation is relatively rare, and periodic selection events frequently purge all diversity from within each ecotype. This model predicts a one-to-one correspondence between sequence clusters and ecotypes. (reprinted from \protect\cite{cohan2008origins}) }
+ \caption[Phylogenetic tree representation of typical Stable Ecotype model case \protect\cite{cohan2008origins}.]{ The Stable Ecotype model, in which ecotype formation is relatively rare, and periodic selection events (represented by asterisks, frequently purge all diversity from within each ecotype. Extinct lineages are dotted, while existing ones are solid. Time progresses from bottom to top. This model predicts a one-to-one correspondence between sequence clusters and ecotypes. (reprinted from \protect\cite{cohan2008origins}) }
  \centering
  \label{fig:StableTree}
 % \includegraphics{images/StableTree-CH2}
  \includegraphics[width=0.5\textwidth]{images/StableTree-CH2}
+ %\includegraphics[scale=2.5]{images/StableTree-CH2}
 \end{SCfigure}
 
-Utilizing the premises established in the Stable Ecotype model we produce a tree in most cases similar to the one represented in Figure ~\ref{fig:StableTree}. 
+Utilizing premises established in the Stable Ecotype model we hypothesize a phylogenetic tree similar to the one represented in Figure ~\ref{fig:StableTree}.
+Here we can see that ecotype formation is relatively rare, while periodic selection (asterisks) keeps the branches of the tree pruned.
+At the point of divergence (where the two solid lines separate into ecotype 1 and 2), organisms from the two separate ecotypes are closely related.
+However over time and through various purification events adaptive mutations accumulate.
+Notice that the two clades are totally free from each other's periodic selection diversity quashing.
+This is an important feature of separate ecotypes.
 
+Theory dictates that these boundaries correlate to ecological niche.
+To identify the fundamental elements takes three steps.
+First, observe the communities evolutionary history.
+Second, simulate evolutionary history as hypotheses of various descriptive parameters, resulting in a most likely parametric characterization of observed history.
+Finally, demarcate individuals into ecotypes.
+
+\subsection*{Observing evolutionary history}
+Since the two clades are evolving independently we can use the molecular clock characteristic of specific ubiquitous genes.
+Clearly, the gene we choose to measure between organisms must be present throughout.
+For this reason ES typically takes in ribosomal gene 16s, chaperone dnaJ, or gyrase subunit gyrA sequences  as input. Most living organisms have relatively closely related homologues.
+From genes we can build a phylogeny that can predict a likely evolutionary history of genes, simply based on sequence distances.
+Because, ES only analyzes sequences from non-extinct organisms, the Stable Ecotype model predicts that lineage divergence will be low.
+And the bacterial diversity sampled is going through various stages of periodic selection purification, thus the end of the phylogeny (temporally closest to the present) will appear frayed.
+
+\subsection*{Simulating evolutionary history}
+
+\subsection*{Demarcating ecotypes}
 
 Here I'll go over the process in non-system specific way. Make phylogeny based on distances. Then we want to find the parameters that describe the sequence identity graph. Then describe why these parameters are relevant and the power they give us. Allow us to pick at which point we pass diversity between different species groups and diversity within a species group.
-
 
 
 \section{Ecotype Simulation}
@@ -73,7 +97,7 @@ Here I'll go over the process in non-system specific way. Make phylogeny based o
  \centering
  \label{fig:Binning}
  \includegraphics{images/Binning-CH2}
- \caption{An example output of information from the initial binning of wild-type sequences. (adapted from \protect\cite{koeppel2008identifying}) }
+ \caption[Sequence identity graph and example output produced by binning \protect\cite{koeppel2008identifying}.]{An example output of information from the initial binning of wild-type sequences. (adapted from \protect\cite{koeppel2008identifying}) }
 \end{figure}
 
 %EDIT CAPTION
@@ -82,14 +106,14 @@ Here I'll go over the process in non-system specific way. Make phylogeny based o
   \centering
   \label{fig:SpeciationGraph}
    \includegraphics{images/Speciation-CH2}
-   \caption{A phyolgeny representation of the ecotype simulation algorithm. The algorithm simulates the evolutionary history of the organisms sampled from nature under different values for the net rate of ecotype formation (EF), rates of periodic selection (PS), drift (D), and the number of ecotypes in the sample. It only considers existing individuals (black circles) from non-extinct lineages represented by bold lines. Previously extinguished lineages, due to past PS or D events, are represented by dotted lines and squares. (reprinted from \protect\cite{koeppel2008identifying})}
+   \caption[Detailed phylogeny with putative ecotype simulation events \protect\cite{koeppel2008identifying}.]{A phyolgeny representation of the ecotype simulation algorithm. The algorithm simulates the evolutionary history of the organisms sampled from nature under different values for the net rate of ecotype formation (EF), rates of periodic selection (PS), drift (D), and the number of ecotypes in the sample. It only considers existing individuals (black circles) from non-extinct lineages represented by bold lines. Previously extinguished lineages, due to past PS or D events, are represented by dotted lines and squares. (reprinted from \protect\cite{koeppel2008identifying})}
 \end{figure}
 
 \begin{figure}[h!]
  \centering
  \label{fig:Flow}
  \includegraphics[scale=0.75]{images/ESFlow-CH2.pdf}
- \caption{This is the program call flow of ES. (figure created with help from Lingyuan Ke) }
+ \caption[Ecotype Simulation program flow diagram.]{This is the program call flow of ES. (figure created with help from Lingyuan Ke) }
 \end{figure}
 
 Here we can show how we attempt to implement this algorithm. Use system diagrams going from binning to brute force to hill climbing to automatic demarcations. We can choose how to divide this up into sections later. One subsection per program?
