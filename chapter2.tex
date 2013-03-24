@@ -1,7 +1,5 @@
 \chapter{Prior Work}
 
-%\caption[''short'']{''long''}
-
 %\begin{shadequote}
 %If I have seen further it is by standing on the shoulders of giants.\par\emph{Isaac Newton}
 %\end{shadequote}
@@ -30,7 +28,7 @@ ES uses one model in particular to understand ecotype bacterial speciation.
  \centering
  \label{fig:StableEvents}
  \includegraphics{images/StableEcotypeEvents-CH2}
- \caption[Events predicted by the Stable Ecotype model \protect\cite{cohan2007systematics}.]{Three classes of mutation and recombination events that determine ecotype diversity in bacteria. Circles represent different genotypes, and asterisks adaptive mutations. (A) Periodic selection purges diversity. (B) Ecotype formation creates diversity. (C) Extinction events. (reprinted from \protect\cite{cohan2007systematics})}
+ \caption[Events predicted by the Stable Ecotype model \protect\cite{cohan2007systematics}.]{Three classes of mutation and recombination events that determine ecotype diversity in bacteria. Circles represent different genotypes, and asterisks adaptive mutations. (A) Periodic selection purges diversity. (B) Ecotype formation creates diversity. (C) Extinction events (reprinted from \protect\cite{cohan2007systematics}).}
 \end{figure}
 
 In the Stable Ecotype model ecotypes are created and extinguished at a very low rate, and during its long lifetime an ecotype is recurrently purged of its diversity by periodic selection events~\cite{cohan2007systematics}.
@@ -55,7 +53,7 @@ Previous work done in the Cohan lab was done to develop an algorithm based on th
 \section{The Algorithm}
 
 \begin{SCfigure}
- \caption[Phylogenetic tree representation of typical Stable Ecotype model case \protect\cite{cohan2008origins}.]{ The Stable Ecotype model, in which ecotype formation is relatively rare, and periodic selection events (represented by asterisks, frequently purge all diversity from within each ecotype. Extinct lineages are dotted, while existing ones are solid. Time progresses from bottom to top. This model predicts a one-to-one correspondence between sequence clusters and ecotypes. (reprinted from \protect\cite{cohan2008origins}) }
+ \caption[Phylogenetic tree representation of typical Stable Ecotype model case \protect\cite{cohan2008origins}.]{ The Stable Ecotype model, in which ecotype formation is relatively rare, and periodic selection events (represented by asterisks, frequently purge all diversity from within each ecotype. Extinct lineages are dotted, while existing ones are solid. Time progresses from bottom to top. This model predicts a one-to-one correspondence between sequence clusters and ecotypes (reprinted from \protect\cite{cohan2008origins}). }
  \centering
  \label{fig:StableTree}
 % \includegraphics{images/StableTree-CH2}
@@ -111,17 +109,18 @@ The implementation is a naive (i.e., $O(n^3)$) and hoards a lot of space because
 \begin{figure}[h!]
  \centering
  \label{fig:Binning}
- \includegraphics{images/Binning-CH2}
- \caption[Sequence identity graph and example output produced by binning \protect\cite{koeppel2008identifying}.]{An example output of information from the initial binning of wild-type sequences. (adapted from \protect\cite{koeppel2008identifying}) }
+ \includegraphics[scale=1.75]{images/Binning-CH22}
+ \caption[Sequence identity graph and example output produced by binning \protect\cite{koeppel2008identifying}.]{An example output of information from the initial binning of wild-type sequences (adapted from \protect\cite{koeppel2008identifying}). }
 \end{figure}
 
 However, after binning we observe a sequence identity graph as in Figure \ref{fig:Binning}.
 The $x$-axis refers to percent identity between sequences and the $y$-axis the number of bins or clusters.
-At low sequence identity criterions there are fewer more general bins, and at $1.00$ sequence identity we have unique sequences.
+At low sequence identity criterions there are less bins with more sequences in each, and at $1.00$ sequence identity we have unique sequences.
 A good way to visualize this sequence identity graph is as a linear representation of a phylogeny.
 The slope is shallow during lower sequence identities as in a tree we typically see low levels of cladogenesis.
 As you approach the end of a tree there typically is a fraying of the tips, and in the identity graph there is a corresponding steepening of slope, see Figure \ref{fig:SpeciationGraph}. %why isn't this correct?
 
+We can describe the essence of this graph in four parameters: npop, sigma ($\sigma$), omega ($\Omega$), and drift (d), which represent the number of ecotypes, rate of periodic selection (PS), rate of ecotype formation (EF), and drift, respectively.
 
 \subsection*{Simulations and likelihood evaluation}
 
@@ -131,7 +130,7 @@ As you approach the end of a tree there typically is a fraying of the tips, and 
   \centering
   \label{fig:SpeciationGraph}
    \includegraphics{images/Speciation-CH2}
-   \caption[Detailed phylogeny with putative ecotype simulation events \protect\cite{koeppel2008identifying}.]{A phyolgeny representation of the ecotype simulation algorithm. The algorithm simulates the evolutionary history of the organisms sampled from nature under different values for the net rate of ecotype formation (EF), rates of periodic selection (PS), drift (D), and the number of ecotypes in the sample. It only considers existing individuals (black circles) from non-extinct lineages represented by bold lines. Previously extinguished lineages, due to past PS or D events, are represented by dotted lines and squares. (reprinted from \protect\cite{koeppel2008identifying})}
+   \caption[Detailed phylogeny with putative ecotype simulation events \protect\cite{koeppel2008identifying}.]{A phyolgeny representation of the ecotype simulation algorithm. The algorithm simulates the evolutionary history of the organisms sampled from nature under different values for the net rate of ecotype formation (EF), rates of periodic selection (PS), drift (D), and the number of ecotypes in the sample. It only considers existing individuals (black circles) from non-extinct lineages represented by bold lines. Previously extinguished lineages, due to past PS or D events, are represented by dotted lines and squares (reprinted from \protect\cite{koeppel2008identifying}).}
 \end{figure}
 
 \subsection*{Bruteforce and Hillclimbing}
@@ -141,7 +140,7 @@ As you approach the end of a tree there typically is a fraying of the tips, and 
  \centering
  \label{fig:Flow}
  \includegraphics[scale=0.75]{images/ESFlow-CH2.pdf}
- \caption[Ecotype Simulation program flow diagram.]{This is the program call flow of ES. (figure created with help from Lingyuan Ke) }
+ \caption[Ecotype Simulation program flow diagram.]{This is the program call flow of ES (figure created with help from Lingyuan Ke). }
 \end{figure}
 
 \subsection*{Demarcation}
