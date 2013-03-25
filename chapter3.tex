@@ -1,6 +1,6 @@
 \chapter{Improvements of Ecotype Simulation}
 \section{Ecotype Simulation 2.0}
-\subsection{Key algorithmic changes}
+\subsection*{Key algorithmic changes}
 Describe the ultra-metric changes in detail here.
 
 ES1 binning data, simulation uses rates to actually generate history. Once have history you start with aa...aa sequence and then you evolve mutations until everyone get's a sequence. Then bin those sequences and compare. Count successes.
@@ -9,10 +9,20 @@ ES1 binning data, simulation uses rates to actually generate history. Once have 
 ES2 Do the backwards thing exactly the same. Except for now we don't have to do binning. Set up as a ultra metric tree
 
 
-\section{Binning}
-\subsection{Complete linkage clustering}
-\subsection{Various implementations}
-\subsection{Minimizing space usage}
+
+%THINK ABOUT HOW TO ORDER THIS SECTION AND MAKE HEADERS
+\section{Ecotype Simulation 3.0}
+\subsection{Binning}
+\subsection*{Complete linkage clustering}
+\subsection*{Various implementations}
+\subsection*{Minimizing space usage}
 \section{Parallelization}
-\subsection{OpenMPI approach}
-\subsection{Random number generation}
+\subsection*{OpenMP approach}
+The OpenMP API is a commonly used shared-memory parallelism approach designed for C, C++, and Fortran programs.
+
+%Do I need this section, the one below that is.
+\subsection*{Implementation in Fortran90}
+\subsection*{Random number generation}
+\subsection*{Parallelized tests}
+\subsubsection*{Setup}
+\subsubsection*{Tests}
