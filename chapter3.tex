@@ -6,7 +6,7 @@ Harder, Better, Faster, Stronger \par\emph{Daft Punk}
 
 
 \section{Ecotype Simulation 2.0}
-\subsection{Key algorithmic changes}
+\subsection*{Key algorithmic changes}
 Describe the ultra-metric changes in detail here.
 
 ES1 binning data, simulation uses rates to actually generate history. Once have history you start with aa...aa sequence and then you evolve mutations until everyone get's a sequence. Then bin those sequences and compare. Count successes.
@@ -15,10 +15,44 @@ ES1 binning data, simulation uses rates to actually generate history. Once have 
 ES2 Do the backwards thing exactly the same. Except for now we don't have to do binning. Set up as a ultra metric tree
 
 
-\section{Binning}
-\subsection{Complete linkage clustering}
-\subsection{Various implementations}
-\subsection{Minimizing space usage}
+
+%THINK ABOUT HOW TO ORDER THIS SECTION AND MAKE HEADERS
+\section{Ecotype Simulation 3.0}
+\subsection{Binning}
+\subsection*{Complete linkage clustering}
+\subsection*{Various implementations}
+\subsection*{Minimizing space usage}
 \section{Parallelization}
-\subsection{OpenMPI approach}
-\subsection{Random number generation}
+\subsection*{OpenMP approach} %WIKI EXACT OPERATION OF OPENMP!!!
+The OpenMP API is a commonly used shared-memory parallelism approach designed for C, C++, and Fortran programs.
+In Fortran the programmer adds comments (known as directives) to specify OpenMP behavior.
+These directives implicitly or explicitly define, perhaps guide, the execution of multiple threads as parallel programs
+
+An OpenMP enriched program begins as a single thread of execution.
+Whenever a thread encounters a parallel construct the thread creates a team of sub-threads, generates a set of tasks, and then declares itself master of the team.
+Only the master thread resumes execution beyond the end of the parallel construct.
+The program can specify any number of parallel constructs.
+
+All threads have access to the same memory so they can retrieve variables, this is called a shared-memory model.
+Also, each thread can specify private memory unreachable to other threads.
+We use shared and private clause keywords to identify the respective paradigm.
+%HERE LING REFERENCES AN ARTICLE
+
+%Do I need this section, the one below that is.
+\subsection*{Implementation in Fortran90}
+Explain why we select this loop. %Ling includes a lot code here, but I don't think that'll be necessary.
+
+I think it has something to do with a low-level vs high-level trade off. Don't want too much or either to maximize efficiency. Also we need a point that will make sense to split the task up.
+
+%LING SETS UP A SECTION for describing specific sections of the OpenMP implementation. This may be more useful than going over code issues. Or we may just skip it and say to refer to Ling's thesis for an in depth explanation.
+
+\subsection*{Random number generation}
+%Problem subsections? Again we may not need to include this section (Random number generation)
+
+%Solution
+
+\subsection*{Parallelized tests}
+%I don't think I should include much for this section. Again maybe outline the results but refer reader to Ling's Thesis for in depth details.
+
+\subsubsection*{Setup}
+\subsubsection*{Tests}
