@@ -6,8 +6,37 @@ Harder, Better, Faster, Stronger \par\emph{Daft Punk}
 
 
 \section{Ecotype Simulation 2.0}
+ES1 set hard input size limits of 2000 sample sequences of at most 3000 nucleotides~\cite{koeppel2008identifying}.
+However, I doubt it was ever run with even close to that many sequences.
+When run on input sizes of greater than only one hundred sequences time became a limiting factor.
+In fact previous work showed that while ES1 had superior demarcation accuracy to its contemporaries, ES1 could not compete in run-time comparisons.
+And as we increase the sample size running time increases dramatically.
+See Table \ref{tab:ES1speed}.
+This issue is clearly a priority for improvement.
+
+To solve the problem we came up with two approaches.
+First, modify the main ES algorithm driving the program.
+Second, reorganize execution to take advantage of large computer clusters (parallelization).
+I will focus mainly on modifications to the ES algorithm, which are prominently featured in ES2, and briefly address my colleague, Lingyuan Ke's, approach to (parallelization) which will be featured in future Ecotype Simulation iterations.
+Finally, I will discuss future plans for improving the Ecotype Simulation software family.
+
+\begin{table}
+ %\begin{tabular}{| l | l | l | l |}
+ \begin{tabular}{| c | c | c | c |}
+  \hline
+  Algorithm & 20 sequences & 30 sequences & 50 sequences \\ \hline
+  ES & 69.8 & 384 & 2390 \\
+  AdaptML & 1.54 & 1.57 & 1.64 \\
+  GMYC & 0.201 & 0.292 & 0.549 \\
+  BAPS & 4.80 & 5.15 & 6.12 \\
+  \hline
+ \end{tabular}
+ \caption[ES1 run-time compared to other demarcation programs.]{The run speed is measured in seconds (reprinted from \protect\cite{carlo})}
+ \label{tab:ES1speed}
+\end{table}
+
 \subsection*{Key algorithmic changes}
-Introduction with some of Carlo's statistics of slowness.
+
 
 Backwards and forward simulation takes up most of ES1 run time.
 The simulation process is run many times throughout the entire typical program execution.
