@@ -7,23 +7,30 @@ Harder, Better, Faster, Stronger \par\emph{Daft Punk}
 
 \section{Ecotype Simulation 2.0}
 \subsection*{Key algorithmic changes}
-Describe the ultra-metric changes in detail here.
+Introduction with some of Carlo's statistics of slowness.
 
-ES1 binning data, simulation uses rates to actually generate history. Once have history you start with aa...aa sequence and then you evolve mutations until everyone get's a sequence. Then bin those sequences and compare. Count successes.
+Backwards and forward simulation takes up most of ES1 run time.
+The simulation process is run many times throughout the entire typical program execution.
+If we can come up with a way to reduce the time complexity of simulations, great speed improvements are possible.
 
-
-ES2 Do the backwards thing exactly the same. Except for now we don't have to do binning. Set up as a ultra metric tree
+For ES2 we run the backwards simulation of node coalescence exactly the same.
+However, once we have the evolutionary history scaffold we can use properties of ultra-metric phylogenetic trees.
+Ultra-metric trees have the same distance between root to tip for all organisms, and usually are made under the assumptions of a molecular clock.
+By the length between two nodes we can determine time between organisms.
+Based on this fact performing binning is unnecessary.
+ES2 can conduct a linear pass through the backwards scaffold directly comparing it to the observed sequence identity graph, checking for success and failure with all precision levels.
+This insight removes an $O(n^3)$ factor, immediately quickening the algorithm.
 
 
 
 %THINK ABOUT HOW TO ORDER THIS SECTION AND MAKE HEADERS
 \section{Ecotype Simulation 3.0}
-\subsection{Binning}
-\subsection*{Complete linkage clustering}
-\subsection*{Various implementations}
-\subsection*{Minimizing space usage}
-\section{Parallelization}
-\subsection*{OpenMP approach} %WIKI EXACT OPERATION OF OPENMP!!!
+\subsection*{Binning}
+\subsubsection*{Complete linkage clustering}
+\subsubsection*{Various implementations}
+\subsubsection*{Minimizing space usage}
+\section*{Parallelization}
+\subsubsection*{OpenMP approach} %WIKI EXACT OPERATION OF OPENMP!!!
 The OpenMP API is a commonly used shared-memory parallelism approach designed for C, C++, and Fortran programs.
 In Fortran the programmer adds comments (known as directives) to specify OpenMP behavior.
 These directives implicitly or explicitly define, perhaps guide, the execution of multiple threads as parallel programs
@@ -39,19 +46,19 @@ We use shared and private clause keywords to identify the respective paradigm.
 %HERE LING REFERENCES AN ARTICLE
 
 %Do I need this section, the one below that is.
-\subsection*{Implementation in Fortran90}
+\subsubsection*{Implementation in Fortran90}
 Explain why we select this loop. %Ling includes a lot code here, but I don't think that'll be necessary.
 
 I think it has something to do with a low-level vs high-level trade off. Don't want too much or either to maximize efficiency. Also we need a point that will make sense to split the task up.
 
 %LING SETS UP A SECTION for describing specific sections of the OpenMP implementation. This may be more useful than going over code issues. Or we may just skip it and say to refer to Ling's thesis for an in depth explanation.
 
-\subsection*{Random number generation}
+\subsubsection*{Random number generation}
 %Problem subsections? Again we may not need to include this section (Random number generation)
 
 %Solution
 
-\subsection*{Parallelized tests}
+\subsubsection*{Parallelized tests}
 %I don't think I should include much for this section. Again maybe outline the results but refer reader to Ling's Thesis for in depth details.
 
 \subsubsection*{Setup}

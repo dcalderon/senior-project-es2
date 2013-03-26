@@ -165,6 +165,12 @@ The even distribution of points with a lack of insight is referred to as Brutefo
 Bruteforce outputs a range of parameters that should contain some local maximum likelihood.
 The range of likely parameters is then passed through an optimization program known as Hillclimbing (see Figure \ref{fig:Flow}b).
 
+Hillclimbing is  downhill-simplex or Nelder-Mead approach to optimization.
+A chosen parameter solution is more thoroughly tested (i.e., with 10000 replicates), and likelihoods are calculated for the six precision values (i.e., 5x, 2x, etc.).
+The program then calculates how long it would have to run to generate 50 success based on the duration of the previous step.
+If too much time is required then Hillclimbing runs with a more general precision value.
+%Describe exact detail of hill climbing optimization.
+
 
 \begin{figure}[h!]
  \centering
