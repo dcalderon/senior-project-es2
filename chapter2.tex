@@ -154,7 +154,7 @@ This continues until we reach the contemporary organism nodes, resulting in a ma
 
 Now ES can conduct the same complete-linkage clustering analysis described in the previous section to illustrate a sequence identity graph, which can be compared to the observed sequence identity graph.
 If we place our simulated sequence identity graph line on top of the observed sequence identity graph at each bin level we can see within a pre-determined factor (or wiggle room error) if the simulated line matches the observed line.
-Success is determined by whether or not these two lines match with the pre-determined factor of closeness.
+Success is determined by whether or not these two lines match within this factor of closeness.
 If the simulation and observed graphs are too far apart, ES records the repetition as a failure.
 Based on many (i.e., in the hundreds) of runs, each one evaluated for success or failure, we gather information to form a max likelihood estimation of $npop$, $\Omega$, $\sigma$, and d. However, how does one decide on variables?
 
@@ -163,8 +163,9 @@ Utilizing simulations explained in the previous section ES conducts a search for
 To search as much of that space as possible we lay a grid of points over that grid of likelihoods where each point is a simulation of many hundred repetitions.
 By running those tests we begin to observe a rough sketch of hills and valleys of likely parameters.
 The even distribution of points with a lack of insight is referred to as Bruteforce (see Figure \ref{fig:Flow}a).
+Bruteforce outputs a range of parameters that should contain some local maximum likelihood.
 
-Using Bruteforce output we find a range of likely parameters which we then pass through an optimization program known as Hillclimbing (see Figure \ref{fig:Flow}b).
+The range of likely parameters is then passed through an optimization program known as Hillclimbing (see Figure \ref{fig:Flow}b).
 
 
 \begin{figure}[h!]
