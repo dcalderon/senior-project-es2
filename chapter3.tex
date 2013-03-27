@@ -9,8 +9,6 @@
 %\par--\emph{Daft Punk}
 %\end{shadequote}
 
-
-
 \begin{shadequote}
 \begin{center}
     \Large\begin{verbatim} 
@@ -20,8 +18,6 @@
 \par--\emph{Olympic Motto}
 \end{shadequote}
 %%Faster, Higher, Stronger
-
-
 
 
 \section{Improvements}
@@ -61,7 +57,7 @@ While the changes are few in number, we believe that they will increase the prac
 
 \subsubsection*{Key algorithmic changes}
 Backwards and forward simulation takes up most of ES1 run time.
-The simulation process is run many times throughout the entire typical program execution.
+The simulation process is called many times throughout the entire typical program execution.
 If we can come up with a way to reduce the time complexity of simulations, great speed improvements are possible.
 
 For ES2 we run the backwards simulation of node coalescence exactly the same.
@@ -93,7 +89,7 @@ However, the reader should refer to, my colleague, Lingyuan Ke's senior thesis f
 As mentioned in previous sections ES uses complete linkage clustering.
 The current implementation is in Fortran90, and we have yet to update it to reflect improvements in the state of the art.
 Big Data companies have developed an interest in clustering large datasets, resulting in various improvements in clustering algorithms.
-\subsubsection*{Various implementations}
+\subsubsection*{Current implementation}
 %First I'll go over our naive implementation here
 Our naive approach is as follows:
 %FROM WIKIPEDIA!  CITE!
@@ -104,23 +100,34 @@ Our naive approach is as follows:
 \item Update the proximity matrix, $D$, by deleting the rows and columns corresponding to clusters $(r)$ and $(s)$ and adding a row and column corresponding to the newly formed cluster. The proximity between the new cluster, denoted $(r,s)$ and old cluster $(k)$ is defined as $d[(k), (r,s)] = max$ $d[(k),(r)]$, $d[(k),(s)]$.
 \item If all objects are in one cluster, stop. Else, go to step II.
 \end{enumerate}
-which ends up running at $O(n^3)$ time.
+which ends up running at $O(n^3)$ time (written up using~\cite{wiki:xxx} as a reference).
+In our case we divide the processing by first calculating a pairwise distance matrix between all sequences.
+That way we maintain a look up table, $D$, to look up distance in constant time.
+At each iteration two clusters are merged (specifically the closest by the specified distance function) and the divergence matrix is updated with a distance entry between each cluster and the new cluster (specifically the element of each cluster being compared that is the farthest apart).
 
-%Fastclust is the one we were looking at that is the improvement: mullner2011modern
+\subsubsection*{State of the art}
+From the literature we discovered that there are complete-linkage clustering implementation that achieve $O(n^2)$ time complexity.
+We found fastcluster, a well-documented and tested C++ library that efficiently implements several a hierarchical clustering algorithms~\cite{mullner2011modern, FastClust}.
+The library includes complete-linkage clustering that runs in $O(n^2)$ (for a graphical comparison of various clustering package see Figure~\ref{fig:FastClustComparison}).
 
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=0.65]{images/FastComplete-CH3}
+\includegraphics[scale=0.7]{images/FastComplete-CH3}
 \caption[Complete linkage clustering speed comparison between popular implementations.]{The colored bands show maximum and minimum time over a variety of data sets. The average is plotted as a solid line. The synthetic data sets are samples drawn in an iid. manner from various mixtures of Gaussian distributions in Euclidean space of various dimensions.
 %The results were obtained on a PC with an Intel dual-core CPU T7500 with 2.2 GHz clock speed and 4GB of RAM. The operating system was Ubuntu 11.04 64-bit (Ubuntu 10.04 64-bit for Matlab R2010a). R version: 2.13.0, fastcluster version: 1.1.7, flashClust version: 1.01, Python version: 2.7.1, NumPy version 1.5.1, SciPy version: 0.8.0.
 (reprinted from \protect\cite{FastClust})}
 \label{fig:FastClustComparison}
 \end{figure}
 
+I quickly linked up fastcluster to ES2, replacing our naive binning implementation and was achieving impressive speed results. However, we are not enthusiastic about adding another dependency to ES2. For now it's a envisioned improvement for the next version of ES.
+
+%Include excel picture of comparison!
+
 
 \subsubsection*{Minimizing space usage}
 %None of that matters if we can't decrease the space usage.
 %Approach one, don't save a divergence matrix
+%Here I could include some of my code.
 While
 %Approach two, bin in parallel.
 
