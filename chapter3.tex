@@ -1,8 +1,28 @@
 \chapter{Improvements of Ecotype Simulation}
 
+%\begin{shadequote}
+%\begin{center}
+%    \Large\begin{verbatim} 
+%        Harder, Better, Faster, Stronger
+% \end{verbatim}  
+%\end{center}
+%\par--\emph{Daft Punk}
+%\end{shadequote}
+
+
+
 \begin{shadequote}
-Harder, Better, Faster, Stronger \par\emph{Daft Punk}
+\begin{center}
+    \Large\begin{verbatim} 
+             Citius, Altius, Fortius
+ \end{verbatim}  
+\end{center}
+\par--\emph{Olympic Motto}
 \end{shadequote}
+%%Faster, Higher, Stronger
+
+
+
 
 \section{Improvements}
 ES1 set hard input size limits of 2000 sample sequences of at most 3000 nucleotides~\cite{koeppel2008identifying}.
@@ -61,12 +81,52 @@ This maintains a high level of accuracy without compromising speed.
 
 %THINK ABOUT HOW TO ORDER THIS SECTION AND MAKE HEADERS
 \section{Future Improvements}
+Through the work involved with this project we realized that in addition to speed, space has become a limiting factor.
+To make a distance divergence matrix we need $O(n^2)$ space, and with sequence sizes in the thousands we very quickly run out of RAM. Also, the current implementation has similar time complexity to the naive $O(n^3)$ approach.
+We explored different clustering packages that had various space and time trade-off balances.
+
+Besides improving our clustering technique, parallelizing the ES algorithm is the highest priority.
+I will briefly overview our designs and results in parallelizing ES.
+However, the reader should refer to, my colleague, Lingyuan Ke's senior thesis for full details.
 %\subsection*{Ecotype Simulation 3.0}
 \subsection*{Binning}
-\subsubsection*{Complete linkage clustering}
+As mentioned in previous sections ES uses complete linkage clustering.
+The current implementation is in Fortran90, and we have yet to update it to reflect improvements in the state of the art.
+Big Data companies have developed an interest in clustering large datasets, resulting in various improvements in clustering algorithms.
 \subsubsection*{Various implementations}
+%First I'll go over our naive implementation here
+Our naive approach is as follows:
+%FROM WIKIPEDIA!  CITE!
+\begin{enumerate}[I]
+\item Begin with the disjoint clustering having level $L(0) = 0$ and sequence number $m = 0$.
+\item Find the most similar pair of clusters in the current clustering, say pair $(r)$, $(s)$, according to $d[(r),(s)] = max$ $d[(i),(j)]$ where the maximum is over all pairs of clusters in the current clustering.
+\item Increment the sequence number: $m = m + 1$. Merge clusters $(r)$ and $(s)$ into a single cluster to form the next clustering m. Set the level of this clustering to $L(m) = d[(r),(s)]$
+\item Update the proximity matrix, $D$, by deleting the rows and columns corresponding to clusters $(r)$ and $(s)$ and adding a row and column corresponding to the newly formed cluster. The proximity between the new cluster, denoted $(r,s)$ and old cluster $(k)$ is defined as $d[(k), (r,s)] = max$ $d[(k),(r)]$, $d[(k),(s)]$.
+\item If all objects are in one cluster, stop. Else, go to step II.
+\end{enumerate}
+which ends up running at $O(n^3)$ time.
+
+%Fastclust is the one we were looking at that is the improvement: mullner2011modern
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.65]{images/FastComplete-CH3}
+\caption[Complete linkage clustering speed comparison between popular implementations.]{The colored bands show maximum and minimum time over a variety of data sets. The average is plotted as a solid line. The synthetic data sets are samples drawn in an iid. manner from various mixtures of Gaussian distributions in Euclidean space of various dimensions.
+%The results were obtained on a PC with an Intel dual-core CPU T7500 with 2.2 GHz clock speed and 4GB of RAM. The operating system was Ubuntu 11.04 64-bit (Ubuntu 10.04 64-bit for Matlab R2010a). R version: 2.13.0, fastcluster version: 1.1.7, flashClust version: 1.01, Python version: 2.7.1, NumPy version 1.5.1, SciPy version: 0.8.0.
+(reprinted from \protect\cite{FastClust})}
+\label{fig:FastClustComparison}
+\end{figure}
+
+
 \subsubsection*{Minimizing space usage}
+%None of that matters if we can't decrease the space usage.
+%Approach one, don't save a divergence matrix
+While
+%Approach two, bin in parallel.
+
 \subsection*{Parallelization}
+%Talk a little bit about the parallelization plans we have. Hybrid mp and mph
+%and how it'll be the next step in the ES evolution
 \subsubsection*{OpenMP approach} %WIKI EXACT OPERATION OF OPENMP!!!
 The OpenMP API is a commonly used shared-memory parallelism approach designed for C, C++, and Fortran programs.
 In Fortran the programmer adds comments (known as directives) to specify OpenMP behavior.
@@ -82,21 +142,5 @@ Also, each thread can specify private memory unreachable to other threads.
 We use shared and private clause keywords to identify the respective paradigm.
 %HERE LING REFERENCES AN ARTICLE
 
-%Do I need this section, the one below that is.
-\subsubsection*{Implementation in Fortran90}
-Explain why we select this loop. %Ling includes a lot code here, but I don't think that'll be necessary.
-
-I think it has something to do with a low-level vs high-level trade off. Don't want too much or either to maximize efficiency. Also we need a point that will make sense to split the task up.
-
-%LING SETS UP A SECTION for describing specific sections of the OpenMP implementation. This may be more useful than going over code issues. Or we may just skip it and say to refer to Ling's thesis for an in depth explanation.
-
-\subsubsection*{Random number generation}
-%Problem subsections? Again we may not need to include this section (Random number generation)
-
-%Solution
-
-\subsubsection*{Parallelized tests}
-%I don't think I should include much for this section. Again maybe outline the results but refer reader to Ling's Thesis for in depth details.
-
-\subsubsection*{Setup}
 \subsubsection*{Tests}
+%Outline best results from Ling's tests
