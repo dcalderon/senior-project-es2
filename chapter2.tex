@@ -9,8 +9,9 @@
 Bernard of Chartres used to say that we are like dwarfs on the shoulders of giants, so that we can see more than they, and things at a greater distance, not by virtue of any sharpness of sight on our part, or any physical distinction, but because we are carried high and raised up by their giant size.\par\emph{John of Salisbury}
 \end{shadequote}
 
-
 \section{Background and Theory}
+While the previous chapter succinctly summed up the purpose and motivation of developing a theory based approach to understand bacterial speciation, this chapter will provide the reader with the prerequisite knowledge necessary to thoroughly understand ES, the improvements described in chapter three, and my experimental designs in chapter four.
+
 \subsection*{Ecotype Model of Bacterial Species}
 An ecotype is defined as a bacterial cluster with individuals that are ecologically similar to one another, so much so that genetic diversity within the ecotype is limited by a cohesive force, either periodic selection or genetic drift, or both~\cite{cohan2007systematics}.
 By linking species and ecological niche we take advantage of the natural clustering of organisms according to environmental resources.
@@ -28,7 +29,8 @@ ES uses one model in particular to understand ecotype bacterial speciation.
  \centering
  \label{fig:StableEvents}
  \includegraphics{images/StableEcotypeEvents-CH2}
- \caption[Events predicted by the Stable Ecotype model \protect\cite{cohan2007systematics}.]{Three classes of mutation and recombination events that determine ecotype diversity in bacteria. Circles represent different genotypes, and asterisks adaptive mutations. (A) Periodic selection purges diversity. (B) Ecotype formation creates diversity. (C) Extinction events (reprinted from \protect\cite{cohan2007systematics}).}
+ \caption[Events predicted by the Stable Ecotype model.]{Three classes of mutation and recombination events that determine ecotype diversity in bacteria. Circles represent different genotypes, and asterisks adaptive mutations. (A) Periodic selection purges diversity. (B) Ecotype formation creates diversity. (C) Extinction events (reprinted from \protect\cite{cohan2007systematics}).}
+ \label{fig:StableEvents}
 \end{figure}
 
 In the Stable Ecotype model ecotypes are created and extinguished at a very low rate, and during its long lifetime an ecotype is recurrently purged of its diversity by periodic selection events~\cite{cohan2007systematics}.
@@ -53,7 +55,7 @@ Previous work done in the Cohan lab was done to develop an algorithm based on th
 \section{The Algorithm}
 
 \begin{SCfigure}
- \caption[Phylogenetic tree representation of typical Stable Ecotype model case \protect\cite{cohan2008origins}.]{ The Stable Ecotype model, in which ecotype formation is relatively rare, and periodic selection events (represented by asterisks, frequently purge all diversity from within each ecotype. Extinct lineages are dotted, while existing ones are solid. Time progresses from bottom to top. This model predicts a one-to-one correspondence between sequence clusters and ecotypes (reprinted from \protect\cite{cohan2008origins}). }
+ \caption[Phylogenetic tree representation of typical Stable Ecotype model case.]{ The Stable Ecotype model, in which ecotype formation is relatively rare, and periodic selection events (represented by asterisks, frequently purge all diversity from within each ecotype. Extinct lineages are dotted, while existing ones are solid. Time progresses from bottom to top. This model predicts a one-to-one correspondence between sequence clusters and ecotypes (reprinted from \protect\cite{cohan2008origins}). }
  \centering
  \label{fig:StableTree}
 % \includegraphics{images/StableTree-CH2}
@@ -113,7 +115,7 @@ The implementation is a naive (i.e., $O(n^3)$) and hoards a lot of space because
  \centering
  \label{fig:Binning}
  \includegraphics[scale=1.75]{images/Binning-CH2}
- \caption[Sequence identity graph and example output produced by binning \protect\cite{koeppel2008identifying}.]{An example output of information from the initial binning of wild-type sequences (adapted from \protect\cite{koeppel2008identifying}). }
+ \caption[Sequence identity graph and example output produced by binning.]{An example output of information from the initial binning of wild-type sequences (adapted from \protect\cite{koeppel2008identifying}). }
 \end{figure}
 
 However, after binning we observe a sequence identity graph as in Figure \ref{fig:Binning}.
@@ -143,7 +145,7 @@ The backward phase of the simulation ends when all of the branches have coalesce
 
   \centering
    \includegraphics{images/Speciation-CH2}
-   \caption[Detailed phylogeny with putative ecotype simulation events \protect\cite{koeppel2008identifying}.]{A phyolgeny representation of the ecotype simulation algorithm. The algorithm simulates the evolutionary history of the organisms sampled from nature under different values for the net rate of ecotype formation (EF), rates of periodic selection (PS), drift (D), and the number of ecotypes in the sample. It only considers existing individuals (black circles) from non-extinct lineages represented by bold lines. Previously extinguished lineages, due to past PS or D events, are represented by dotted lines and squares (reprinted from \protect\cite{koeppel2008identifying}).}
+   \caption[Detailed phylogeny with putative ecotype simulation events.]{A phyolgeny representation of the ecotype simulation algorithm. The algorithm simulates the evolutionary history of the organisms sampled from nature under different values for the net rate of ecotype formation (EF), rates of periodic selection (PS), drift (D), and the number of ecotypes in the sample. It only considers existing individuals (black circles) from non-extinct lineages represented by bold lines. Previously extinguished lineages, due to past PS or D events, are represented by dotted lines and squares (reprinted from \protect\cite{koeppel2008identifying}).}
    \label{fig:SpeciationGraph}
 \end{figure}
 
@@ -174,31 +176,71 @@ If too much time is required then Hillclimbing runs with a more general precisio
 
 \begin{figure}[h!]
  \centering
- \label{fig:Flow}
  \includegraphics[scale=0.75]{images/ESFlow-CH2.pdf}
  \caption[Ecotype Simulation program flow diagram.]{This is the program call flow of ES. Circles represent simulations, filled are high likelihood successes, while empty are failures. Bruteforce distributes test parameters along the grid, and Hillclimbing figuratively climbs the likelihood hill to find local a maximum (figure created with help from Lingyuan Ke). }
+ \label{fig:Flow}
 \end{figure}
 
 \subsection*{Demarcation}
 With most likely estimations of $npop$, $\sigma$, $\Omega$ we proceed to Demarcation (see Figure \ref{fig:Flow}c).
-Demarcation uses the phylogeny generated by the observed divergence matrix and the maximum likelihood parameters produced from Hillclimbing optimization (see Figure \ref{fig:Flow}c).
+Demarcation uses the phylogeny generated by the observed divergence matrix and the maximum likelihood parameters produced from Hillclimbing optimization (see Figure \ref{fig:Flow}b - c).
 ES ships with a manual demarcator, however for my work we used an auto-demarcator that uses a demarcation confidence interval program.
 
 The auto-demarcator starts at the closest common ancestor and recursively runs confidence interval tests for $npop$ on subtrees.
-A confidence interval involves starting with a set of parameters as a seed determining percent likelihood (using simulations discussed previously) and deciding whether there is a 95\% likelihood of the subtree only containing a single ecotype.
+A confidence interval involves starting with a set of parameters as a seed, determining percent likelihood (using simulations discussed previously), and deciding whether there is a 95\% likelihood of the subtree only containing a single ecotype.
 If so we identify that group of samples as a single ecotype and stop the recursive tree descent.
 
-\section*{Ecological Correlation}
-Here I could briefly go over previous paper illustrating the correlation to environmental samples...
+\section{Ecological Correlation}
+Once any algorithm is developed, we must prove correctness.
+In the case of ES, we want to evaluate whether or not predicted demarcations correlate to observed samples.
+The Cohan group even recommend ecologically checking ES predicted ecotypes, because under various evolutionary models (other than the Stable Ecotype model), a single ecotype may contain multiple sequence clusters \cite{koeppel2008identifying, connor2010ecology}.
 
-\subsection*{Radio Facility Wash Paper}
+This is easier said than done.
+Over the past four years the Cohan lab and collaborators have travelled to unique environments around the world gathering samples of bacterial ecosystems and analyzing them with demarcation programs.
+Following is a short discussion of a few of these studies focused on further insights achieved with ES.
+
+%\subsection*{Radio Facility Wash Paper}
+\subsection*{Ecology of Speciation in the Genus \emph{Bacillus}}
 %The ecology of speciation in Bacillus connor2010ecology
+Scientists sampled bacteria from the \emph{Bacillus subtilis-Bacillus licheniformis} clade from sites differing in solar exposure and soil texture within a Death Valley canyon.
+Within the sample clade they hypothesized ecotype demarcations based on DNA sequence diversity through the clade's evolutionary history analysis with ES.
+Ecotypes demarcated were found to be significantly different in their associations with solar exposure and soil texture~\cite{connor2010ecology}.
+In the study they were attempting to provide new protocol for describing and discovering the ecotypes of a microbial clade.
+However, they were careful to show that groups predicted by ES correlate to environmental characteristics; one such significant example was the solar exposure.
+Clearly connecting species and ecologically niche.
 
-\subsection*{Yellowstone hot spring paper}
+The recognized species and subspecies of the sampled clade were found to be nearly identical to the ecotypes demarcated by ES.
+Nevertheless, the taxa recognized do not appear to encompass the full ecological diversity of the clade~\cite{connor2010ecology}.
+ES predicted putative ecotypes not recognized by recognize species and subspecies, in one case they identified the ecological dimensions of divergence, suggesting that the \emph{B. subtilis-B. licheniformis} clade is replete with newly divergent ecotypes~\cite{connor2010ecology}.
+
+%\subsection*{Yellowstone hot spring paper}
+\subsection*{Fine-Scale Distribution Patterns of \emph{Synechococcus} Ecological Diversity in Microbial Mats of Mushroom Spring, Yellowstone National Park}
 %Fine-scale distribution patterns of Synechococcus becraft2011fine
+Scientists sampled the \emph{psaA} (which encodes a photosynthetic reaction center protein) locus from the genus \emph{Synechococcus} and studied distribution variants at 1$^\circ$C intervals along the effluent flow channel at 80-$\mu$m vertical-depth intervals throughout the upper photic layer of the microbial mat~\cite{becraft2011fine}.
+Once again a microbial community is sampled for a common DNA sequence.
+In this case the thinking is that the various layers of bacterial organisms differ in photosynthetic specialization, thus the choice of \emph{psaA}, which offers more molecular resolution.
+However, since we use a molecular approach that measures a single gene carefully, even correlation between ecological niche and ecotype provides evidence for accurate demarcation.
 
-\subsection*{Death Valley Salinity}
+The microbial mats at the 60 and 63$^\circ$C sites both exhibited steep gradients of O$_2$, pH, and irradience with depth, leading to microenvironmental niche opportunities in the mats.
+The group used denaturing gradient gel electrophoresis (DGGE) to track the distributions of PEs predicted by ES.
+
+%\subsection*{Death Valley Salinity}
+\subsection*{Diversity of Bacteria and Archaea in hypersaline sediment from Death Valley National Park, California}
 %Death Valley salinity kim2012diversity
+The objective of this study was to analyze the evolutionary history of microorganisms from the domains Bacteria and Archaea in hypersaline sediment from Death Valley National Park~\cite{kim2012diversity}. 
+They looked at a region of the 16s rRNA gene.
+A set of 130 \emph{Bacillus} isolates formed a subclass of the \emph{B. subtilis-B. licheniformis} clade, forming four newly discovered clades (see Figure \ref{fig:DeathES}) that were each identified as an ecotype by ES. Evidence for ecological divergence among the putative ecotypes is provided by the significant tendencies of these groups to be isolated from different media~\cite{kim2012diversity}.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.45]{images/DeathValleyES-CH2}
+\caption[Example ES analysis of 16s rRNA sequences of isolates from the \emph{B. subtilis-B.licheniformis} clade.]{Maximum likelihood phylogeny and Ecotype Simulation analysis of 16S rRNA sequences of isolates from the \emph{B. subtilis-B. licheniformis} clade. All isolates of this study from this clade were members of a previously unknown subclade that Ecotype Simulation demarcated into Putative Ecotypes A-D (in bold); previously studied organisms from other environments were members of Putative Ecotypes E-J. The tree is rooted by \emph{B. halodurans} strain C-125 (reprinted from\protect\cite{kim2012diversity}).}
+\label{fig:DeathES}
+\end{figure}
+
+Here we see another example of exploring microbial diversity through molecular means.
+But the list of possible applications is endless.
+In fact we are at the point where increasing the input size is quite important so we can attempt to grasp a more complete picture of bacterial diversity (which as we have already established is probably in the millions~\cite{cohan2008origins}).
 
 
 

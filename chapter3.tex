@@ -4,8 +4,7 @@
 Harder, Better, Faster, Stronger \par\emph{Daft Punk}
 \end{shadequote}
 
-
-\section{Ecotype Simulation 2.0}
+\section{Improvements}
 ES1 set hard input size limits of 2000 sample sequences of at most 3000 nucleotides~\cite{koeppel2008identifying}.
 However, I doubt it was ever run with even close to that many sequences.
 When run on input sizes of greater than only one hundred sequences time became a limiting factor.
@@ -19,6 +18,11 @@ First, modify the main ES algorithm driving the program.
 Second, reorganize execution to take advantage of large computer clusters (parallelization).
 I will focus mainly on modifications to the ES algorithm, which are prominently featured in ES2, and briefly address my colleague, Lingyuan Ke's, approach to (parallelization) which will be featured in future Ecotype Simulation iterations.
 Finally, I will discuss future plans for improving the Ecotype Simulation software family.
+
+
+\subsection*{Ecotype Simulation 2.0}
+This is the version of ES I thoroughly test in chapter chapter four in comparison to other demarcating programs.
+While the changes are few in number, we believe that they will increase the practicality of using ES approach to understanding microbial diversity.
 
 \begin{table}
  %\begin{tabular}{| l | l | l | l |}
@@ -35,9 +39,7 @@ Finally, I will discuss future plans for improving the Ecotype Simulation softwa
  \label{tab:ES1speed}
 \end{table}
 
-\subsection*{Key algorithmic changes}
-
-
+\subsubsection*{Key algorithmic changes}
 Backwards and forward simulation takes up most of ES1 run time.
 The simulation process is run many times throughout the entire typical program execution.
 If we can come up with a way to reduce the time complexity of simulations, great speed improvements are possible.
@@ -50,15 +52,21 @@ Based on this fact performing binning is unnecessary.
 ES2 can conduct a linear pass through the backwards scaffold directly comparing it to the observed sequence identity graph, checking for success and failure with all precision levels.
 This insight removes an $O(n^3)$ factor, immediately quickening the algorithm.
 
-
+\subsubsection*{Demarcation}
+In addition to core algorithm changes we made changes to the auto-demarcating program.
+Instead of demarcation confidence intervals, ES2 runs the downhill-simplex (Hillclimbing) method on each subtree as we recursively descend through the phylogeny.
+Normally our Bruteforce method must be run before Hillclimbing, in this case we use results from Hillclimbing as a seed for the closest ancestor node.
+Then at each child node we use Hillclimbing results from the parent node, bypassing running Bruteforce for each subtree.
+This maintains a high level of accuracy without compromising speed.
 
 %THINK ABOUT HOW TO ORDER THIS SECTION AND MAKE HEADERS
-\section{Ecotype Simulation 3.0}
+\section{Future Improvements}
+%\subsection*{Ecotype Simulation 3.0}
 \subsection*{Binning}
 \subsubsection*{Complete linkage clustering}
 \subsubsection*{Various implementations}
 \subsubsection*{Minimizing space usage}
-\section*{Parallelization}
+\subsection*{Parallelization}
 \subsubsection*{OpenMP approach} %WIKI EXACT OPERATION OF OPENMP!!!
 The OpenMP API is a commonly used shared-memory parallelism approach designed for C, C++, and Fortran programs.
 In Fortran the programmer adds comments (known as directives) to specify OpenMP behavior.
