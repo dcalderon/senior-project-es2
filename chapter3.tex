@@ -128,8 +128,21 @@ I quickly linked up fastcluster to ES2, replacing our naive binning implementati
 %None of that matters if we can't decrease the space usage.
 %Approach one, don't save a divergence matrix
 %Here I could include some of my code.
-While
+While increasing speed efficiency is important, the bottleneck has increasingly become space usage.
+Our goal is to run ES on up to one million sequences, which in our current approach would entail a million squared pairwise distance matrix ($n \times n$).
+
+One exploratory approach to fixing this problem in the future was to skip the distance matrix generating step altogether.
+Instead, we could define a replacement function that will calculate the distance between clusters in the moment.
+
 %Approach two, bin in parallel.
+
+\subsection*{Demarcation}
+The current auto demarcation program has a serious problem with paraphyletic groups.
+Instead of maintaing a species group when one of the organisms diverges, it forms many singleton groups artificially inflating the number ecotypes.
+We believe this is part of the reason why if ES is run on a dataset with a low $npop$ the output numbers become skewed.
+Some approaches to fixing this problem are:
+
+\noindent\code{Lazy Clustering}{code/lazy_formatted.py}
 
 \subsection*{Parallelization}
 %Talk a little bit about the parallelization plans we have. Hybrid mp and mph

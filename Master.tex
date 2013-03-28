@@ -18,6 +18,27 @@
 %  {\list{}{\leftmargin=100pt\rightmargin\leftmargin}\item\relax}
 %  {\endlist}
   
+%For adding code
+\usepackage{listings}
+\lstset{
+  language=Python,
+  keywordstyle=\color{ForestGreen}\bfseries,
+  showstringspaces=false,
+  formfeed=\newpage,
+  tabsize=4,
+  commentstyle=\color{purple}\ttfamily,
+  basicstyle=\ttfamily,
+  morekeywords={models, lambda, forms}
+}
+
+\newcommand{\code}[2]{
+  \hrulefill
+  \lstinputlisting{#2}
+  %\vspace{.5em}
+  \hrulefill
+}
+
+  
 %For urls
 \usepackage{url}
 
