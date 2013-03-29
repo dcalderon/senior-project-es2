@@ -201,4 +201,21 @@ A BRIEF SUMMARY OF LING\'s TESTS!
 
 \subsubsection*{OpenMPI}
 
-\section{Chapter Summar}
+\section{Chapter Summary}
+From demarcation program comparisons of the past~\cite{carlo}, we have demonstrated ES1's accuracy, however it lags behind its contemporaries in terms of run time.
+By altering the core algorithm behind ES we took advantage of ultra-metric tree characteristics allowing us to do a linear time and space comparison instead of a polynomial complexity technique, saving plenty of time.
+We also fidgeted with the auto-demarcator program, so it would re-run the Hillclimbing program at each subtree before confidence intervals, theoretically increasing accuracy as well.
+
+Even ES2 has areas in which we would like to improve on in the future.
+Run time continues to be a concern, but space usage is increasingly an issue.
+I outlined some exploratory work we were doing on looking into various packages to replace our naive implementation of Binning.
+Also, I highlight ideas we have had to reduce space usage, first eliminating the distance matrix and second parallelizing the clustering algorithm (which would also speed up runtime on large datasets).
+There are some issues when our auto-demarcator attempts to deal with paraphyletic groups.
+We discuss a few ideas for ways to work around this issue.
+
+Finally, I summarize work my colleague Lingyuan Ke is doing on parallelizing the overall ES algorithm.
+He used OpenMP for shared-memory parallelism, and got some interesting results.
+%ADD SOME STUFF ABOUT LING'S RESULTS
+Next, he is planning on getting OpenMPI working with ES, so we can parallelize across clusters using message passing.
+OpenMPI parallelization would do the most to push ES forward and as such should be our primary priority for future versions.
+
