@@ -7,20 +7,55 @@ I wanna make sure you're ready, brother. Here it is: Show me the money. Oh-ho-ho
 
 \section{Methods}
 Most methods used were based on a previous study, with few modifications~\cite{carlo}.
+
+\subsection*{Other demarcation algorithms}
+As a right of passage, we compare ES against other available demarcation algorithms~\cite{carlo}.
+
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.75]{images/DemarcationComparisonsFlow-CH4}
+\caption[Demarcation comparison flow diagram.]{A flow diagram for the running of demarcation accuracy comparisons. The produce sequences makes simulated datasets that are used as inputs for various demarcation algorithms, the random demarcator, and answer key generation. All the resulting output is compared with the Variation of Information (VI) metric to determine accuracy.}
+\label{fig:ComparisonFlow}
+\end{figure}
+
 \subsection*{Generation of sequences for analysis}
 In order to compare the accuracy of several demarcation programs, the true parameters of the test data must be known.
 The problem can be summarized as generating a history for a monophyletic group of $x$ organisms.
 Clade history was based on an ecotype formation rate ($\Omega$), the rate of periodic selection ($\sigma$), and the number of ecotypes (\emph{npop}) within the sample.
 We used the Ecotype Simulation algorithm to generate each organism's sequence and ecotype affiliation.
 Habitats were indicated by either an ``A'' or ``B''.
-% Say more about which values we chose here
+We generated datasets with differing numbers of simulated sequences, and based them on three values each of $\Omega$, and $\sigma$.
+The middle values of $\Omega$ and $\sigma$ were 0.19 and 1.1 respectively, based on prior ES simulation of \emph{Bacillus} in a Death Valley canyon.
+Lower and upper values represented a difference of a factor of 10 of the \emph{Bacillus} values.
+$Npop$ values were chosen based on the specific run's input size.
+We generally tried to choose $npop$ values of 10, 30, and 40 percent regarding input size.
 
 \subsubsection*{Preparing the input}
+PhyML~\cite{guindon2010new}, a maximum likelihood tree construction algorithm, was used to build a phylogenetic tree from generated sequences.
+The tree was converted into an ultra metric chronogram using Sanderson's nonparametric rate smoothing algorithm, which is included in the APE package.
+This ultra metric tree was used as input for GMYC.
 
+AdaptML requires the habitat from which each strain was isolated.
+In previous studies we designed a specialization metric for designating habitats, however we found a specific unit of this metric that worked best~\cite{carlo}.
+Thus, we will stick to using the best parameter of habitat specialization for AdaptML analysis.
 
-\subsubsection*{\emph{Bacillus} sequences}
+FASTA sequences were converted into XLS format for compatibility with the BAPS package.
+
+\subsubsection*{Bacillus sequences}
+\emph{Bacillus} strains were isolated from Radio Facility Wash, a west-running canyon in Death Valley, consisting of a habitats with three levels of solar exposure, including the canyon's sunny south-facing slope, the shadier and cooler north-facing slope, and the arroyo at the bottom.
+Solar exposure habitats served as the only ecological dimension used for environmental input into AdaptML.
+Sequence processing, was done as previously reported~\cite{carlo}.
+Again we used PhyML to produce a maximum likelihood tree.
+
 \subsection*{Variation of Information Metric}
+The Variation of Information (VI) metric~\cite{meilua2003comparing} was used as a criterion for comparing two partitions of the same data set, to determine the closeness of each algorithm's ecotype demarcations to the canonical demarcations generated \emph{in silico}.
+The Variation of Information between two clusterings C and C' is given by$$VI(C, C') = H(C) + H(C') - 2I(C, C')$$where H(C) is the entropy of a random variable associated with a sequence being in a cluster C and I(C,C') is the mutual information of the two associated variables.
+
 \subsection*{Running Time Tests}
+We tested the running time of each algorithm on a [computer details].
+We present the mean run times that each algorithm required to analyze synthetic data sets constructed using the parameter values estimated previously for \emph{Bacillus}, with [give speed run details].
+
 \section{Results and Discussion}
 
 %Proof of concept for a figure!

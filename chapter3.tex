@@ -197,9 +197,16 @@ We use shared and private clause keywords to identify the respective paradigm.
 
 \subsubsection*{Tests}
 %Outline best results from Ling's tests
-A BRIEF SUMMARY OF LING\'s TESTS!
+A BRIEF SUMMARY OF LINGS TESTS!
 
 \subsubsection*{OpenMPI}
+OpenMPI is an open source and complete message passing interface implementation of MPI-2 used in many of the world's largest computing clusters.
+While OpenMP uses the shared-memory model, a message passing interface is used to run programs on mostly distributed memory systems.
+It provides course grain parallelization across nodes as opposed to fine grain OpenMP parallelization within a processor~\cite{gabriel04:_open_mpi}.
+
+We plan to capitalize on a hybrid OpenMPI-OpemMP paradigm to parallelize ES at the high level and low level.
+If correctly implemented ES could be run on clusters of almost any size, resulting in dramatic speed decreases.
+
 
 \section{Chapter Summary}
 From demarcation program comparisons of the past~\cite{carlo}, we have demonstrated ES1's accuracy, however it lags behind its contemporaries in terms of run time.
