@@ -159,10 +159,10 @@ It might be worth implementing a similar cluster distance function to use within
 However, we would still hit a clustering time or space limit fairly quickly.
 
 %Approach two, bin in parallel.
-A second option for minimizing space usage and runtime would be to develop (or find in literature) a complete-linkage clustering algorithm that could run in parallel.
+A second option for minimizing space usage and runtime would be to develop (or find in the literature) a complete-linkage clustering algorithm that could run in parallel.
 This strategy is still in early development.
-The difficulty would be in splitting up the sequences in to discrete tasks that could then be combined after computation.
-Each of those discrete tasks could be spread out in a cluster, increasing run time, or even run at different times, freeing up memory.
+The difficulty would be in splitting up the sequences into discrete tasks that could then be combined after computation.
+Each of those discrete tasks could be spread out in a cluster, decreasing run time, or even run at different times, freeing up memory.
 
 Either way, there is much progress to be made in Binning.
 If ES is ever to work on one million sequences, Binning must be a major priority for future versions.
@@ -183,7 +183,7 @@ In the future we would like to access the power of computer clusters.
 \subsubsection*{OpenMP approach} %WIKI EXACT OPERATION OF OPENMP!!!
 The OpenMP API is a commonly used shared-memory parallelism approach designed for C, C++, and Fortran programs.
 In Fortran the programmer adds comments (known as directives) to specify OpenMP behavior.
-These directives implicitly or explicitly define, perhaps guide, the execution of multiple threads as parallel programs
+These directives implicitly or explicitly define or guide the execution of multiple threads as parallel programs
 
 An OpenMP enriched program begins as a single thread of execution.
 Whenever a thread encounters a parallel construct the thread creates a team of sub-threads, generates a set of tasks, and then declares itself master of the team.
