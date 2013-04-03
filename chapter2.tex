@@ -161,7 +161,7 @@ Now ES can conduct the same complete-linkage clustering analysis briefly describ
 If we place our simulated sequence identity graph line on top of the observed sequence identity graph, at each bin level we can see within a pre-determined factor (or precision factor) if the simulated line matches the observed line.
 Success is determined by whether or not these two lines match within this factor of closeness.
 If the simulation and observed graphs are too far apart, ES records the repetition as a failure.
-Based on many (i.e., in the hundreds) of runs, each one evaluated for success or failure, we gather information to form a max likelihood estimation of $npop$, $\Omega$, $\sigma$, and d. However, how does one decide on variable seeds?
+Based on many (i.e., in the hundreds) of runs, each one evaluated for success or failure, we gather information to form a max likelihood estimation of $npop$, $\Omega$, $\sigma$, and d (in the future I will not mention drift, since it happens to be so rare). However, how does one decide on different parameter choices?
 
 \subsection*{Bruteforce and Hillclimbing}
 Utilizing simulations explained in the previous section ES conducts a search for high likelihoods over a multi-dimensional plane (four parameters).

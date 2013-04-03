@@ -90,6 +90,12 @@ However, individual strains from a species known to be homogeneous for these fea
 Bioremediation has the potential to restore contaminated environments inexpensively yet effectively, but a lack of information about the factors controlling growth and metabolism of microorganisms in polluted environments often limits its implementation~\cite{lovley2003cleaning}.
 Combining models that can predict the activity of microorganisms that are involved in bioremediation with existing geochemical and hydrological models should transform bioremediation from a largely empirical practice into a science~\cite{lovley2003cleaning}.
 
+\section{Demarcation Software}
+Today there are several freely available demarcation programs available: Ecotype Simulation (ES1), BAPS, GMYC, AdaptML, and newly introduced Ecotype Simulation 2 (ES2) , which is an improvement on ES1.
+Each is an attempt to define species as a fundamental unit, usable in practical applications just mentioned.
+They all differ in background theory, resulting in different demarcations.
+I will focus specifically on ES1 and the improvements resulting in ES2, then explore a few of the differences between programs that result in each demarcation solution.
+
 
 \section{Outline}
 My aims for this project are several.
@@ -97,10 +103,10 @@ The final result should be a production ready version of the optimized Ecotypes 
 However, first we plan on carrying out several tests to show ES2 is accurate, and efficient.
 I will run ES2 through the same previous test parameters the Cohan lab used to test ES1 to compare all demarcation algorithms on small inputs.
 This includes generated datasets and environment collected sequences.
-It is important to demonstrate nearly identical accuracy scores of ES2 to ES1.
+It is important to demonstrate similar accuracy scores of ES2 to ES1.
 We hypothesized that the new, more efficient, demarcating algorithm within ES2 will not significantly affect the accuracy of our output.
 Next, I want to identify the new reasonable upper limit for input size (i.e., number of sequences) for ES2.
-Then I will run ES2 in conjunction with other available demarcation programs (ES1, BAPS, GMYC, AdaptML) on large generated datasets (up to the newly established reasonable limit) and evaluate demarcation algorithm accuracy and speed.
+Then I will run ES2 in conjunction with other available demarcation programs (BAPS, GMYC, AdaptML) on large generated datasets (up to the newly established reasonable limit) and evaluate demarcation algorithm accuracy and speed.
 
 Chapter 1 introduced the problem that ES tries to address, and the benefits that understanding bacterial speciation will achieve.
 The following chapter will go over several current molecular models for bacteria speciation, the underlying algorithms that make them function, and describe the design of ES.

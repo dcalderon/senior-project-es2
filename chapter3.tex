@@ -37,7 +37,7 @@ Finally, I will discuss future plans for improving the Ecotype Simulation softwa
 
 
 \subsection*{Ecotype Simulation 2.0}
-This is the version of ES I thoroughly test in chapter chapter four in comparison to other demarcating programs.
+This is the version of ES I thoroughly test in chapter four in comparison to other demarcating programs.
 While the changes are few in number, we believe that they will increase the practicality of using ES approach to understanding microbial diversity.
 
 \begin{table}
@@ -62,7 +62,7 @@ If we can come up with a way to reduce the time complexity of simulations, great
 
 For ES2 we run the backwards simulation of node coalescence exactly the same.
 However, once we have the evolutionary history scaffold we can use properties of ultra-metric phylogenetic trees.
-Ultra-metric trees have the same distance between root to tip for all organisms, and usually are made under the assumptions of a molecular clock.
+Ultra-metric trees have the same distance between root to tip for all organisms, and usually are made under the assumptions of a molecular clock~\cite{ho2008molecular}.
 By the length between two nodes we can determine time between organisms.
 Based on this fact performing binning is unnecessary.
 ES2 can conduct a linear pass through the backwards scaffold directly comparing it to the observed sequence identity graph, checking for success and failure with all precision levels.
@@ -78,7 +78,7 @@ This maintains a high level of accuracy without compromising speed.
 %THINK ABOUT HOW TO ORDER THIS SECTION AND MAKE HEADERS
 \section{Future Improvements}
 Through the work involved with this project we realized that in addition to speed, space has become a limiting factor.
-To make a distance divergence matrix we need $O(n^2)$ space, and with sequence sizes in the thousands we very quickly run out of RAM. Also, the current implementation has similar time complexity to the naive $O(n^3)$ approach.
+To make a distance divergence matrix we need $O(n^2)$ space, and with number of sequences in the thousands we quickly run out of RAM. Also, the current implementation has similar time complexity to the naive $O(n^3)$ approach.
 We explored different clustering packages that had various space and time trade-off balances.
 
 Besides improving our clustering technique, parallelizing the ES algorithm is the highest priority.
@@ -107,7 +107,7 @@ At each iteration two clusters are merged (specifically the closest by the speci
 
 \subsubsection*{State of the art}
 From the literature we discovered that there are complete-linkage clustering implementation that achieve $O(n^2)$ time complexity.
-We found fastcluster, a well-documented and tested C++ library that efficiently implements several a hierarchical clustering algorithms~\cite{mullner2011modern, FastClust}.
+We found fastcluster, a well-documented and tested C++ library that efficiently implements several hierarchical clustering algorithms~\cite{mullner2011modern, FastClust}.
 The library includes complete-linkage clustering that runs in $O(n^2)$ (for a graphical comparison of various clustering package see Figure~\ref{fig:FastClustComparison}).
 
 \begin{figure}[h!]
@@ -155,7 +155,7 @@ Instead, we could define a replacement function that will calculate the distance
 Clusters would start small, and then coalesce into larger clusters.
 Thus the number of comparisons would remain relatively constant and there would be no distance matrix to store.
 In this case, we would be choosing to minimize space usage, while greatly slowing down runtime.
-It might be worth implement a similar cluster distance function to use within the fastcluster complete-linkage implementation.
+It might be worth implementing a similar cluster distance function to use within the fastcluster complete-linkage implementation.
 However, we would still hit a clustering time or space limit fairly quickly.
 
 %Approach two, bin in parallel.
