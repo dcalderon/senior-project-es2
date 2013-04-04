@@ -119,6 +119,8 @@ The implementation follows our approach discussed in the previous section, namel
 \subsection*{Binning}
 First the input sequences go through pre-processing to remove nucleotide gaps, and correct for polymerase chain reaction (PCR) error.
 Next an $O(n^2)$ space divergence matrix is created using a modified Manhattan (or taxicab) distance metric, where at each base pair position if the two sequences being compared differ in nucleotide we increase the distance by one then divide the total by half the number of base pairs in the sequence.
+Distances are estimated according to the Jukes-Cantor model of nucleotide of substitution$$d=-{3\over4} \ln({1-{4\over3}p})$$where $d$ equals distance between two sequences with $p$ substitutions ~\cite{jukes1969evolution}.
+
 The divergence matrix is used to facilitate complete linkage clustering of the sequences, described by the equation $$D(X,Y)= \max_{x\in X, y\in Y} d(x,y)$$ where $d(x,y)$ is the distance between the two elements $x \in X$, and $y \in Y$, and $X$ and $Y$ are two clusters of elements.
 The implementation is naive (i.e., $O(n^3)$) and uses a lot of space because of the divergence matrix; there is room for improvement here (I will go into clustering in detail the following chapter). 
 
