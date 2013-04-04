@@ -145,12 +145,38 @@ Our goal is to run ES on up to one million sequences, which in our current appro
 In one exploratory approach we attempted to fix this problem by skipping the distance matrix generating step altogether.
 Instead, we could define a replacement function that will calculate the distance between clusters at runtime (see Figure~\ref{code:LazyClustering}).
 
-\begin{figure}[h!]
+%\begin{figure}[h!]
 %\centering
-\noindent\code{Lazy Clustering}{code/lazy_formatted.py}
-\caption[Python code showing a distance function for two clusters.]{The two clusters are represented by $c1$ and $c2$, while $seqs$ is a list used to access strings of sequence. The function $seq$\_$distance$ takes two strings representing sequences and returns the manhattan or taxicab distance between them. This python function returns the distance between two clusters. [CHANGE TO PSEUDOCODE]}
+%\noindent\code{Lazy Clustering}{code/lazy_formatted.py}
+%\caption[Python code showing a distance function for two clusters.]{The two clusters are represented by $c1$ and $c2$, while $seqs$ is a list used to access strings of sequence. The function $seq$\_$distance$ takes two strings representing sequences and returns the manhattan or taxicab distance between them. This python function returns the distance between two clusters.}
+%\label{code:LazyClustering}
+%\end{figure}
+
+
+\begin{figure}[h!]
+\begin{algorithm}[H]
+ \SetAlgoLined
+% \KwData{c1 is a cluster of sequences, c2 is another cluster of sequences, seq-dist is a function that takes two sequences and returns the distance between them}
+% \KwResult{the distance between two clusters}
+\SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
+
+\Input{c1, c2 different clusters of sequences}
+\Output{The distance between two clusters, contained in $max$-$dist$}
+\BlankLine
+ $max$-$dist \gets 1.0$\\
+ \For{$s1 \in c1$} {
+   \For{$s2 \in c2$} {
+    $d \gets seq$-$dist(s1, s2)$\\
+    \If {$d < max$-$dist$} {
+      $max$-$dist \gets d$
+    }
+   }
+ }
+\end{algorithm}
+\caption[Pseudocode showing a distance function for two clusters.]{The two clusters are represented by $c1$ and $c2$, while $s1$ and $s2$ represent sequences in the clusters. The function $seq$-$dist$ takes two sequences and returns the manhattan or taxicab distance between them. This pseudocode returns the distance between two clusters.}
 \label{code:LazyClustering}
 \end{figure}
+
 
 Clusters would start small, and then coalesce into larger clusters.
 Thus the number of comparisons would remain relatively constant and there would be no distance matrix to store.
