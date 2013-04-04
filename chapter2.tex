@@ -193,11 +193,13 @@ If too much time is required then Hillclimbing runs with a more general precisio
 \subsection*{Demarcation}
 With the most likely estimations of $npop$, $\sigma$, and $\Omega$ (remember that we dropped drift since it occurs rarely), we proceed to Demarcation (see Figure \ref{fig:Flow}C).
 Demarcation uses the user input phylogeny and the maximum likelihood parameters produced from Hillclimbing optimization (see Figure \ref{fig:Flow}B - C).
-ES comes with a manual demarcator, however for my work we used an auto-demarcator that uses a demarcation confidence interval program.
+ES comes with a manual demarcator, however for my work we used an automatic demarcator that uses a demarcation confidence interval program.
 
 The auto-demarcator starts at the closest common ancestor and recursively runs confidence interval tests for $npop$ on subtrees.
-A confidence interval involves starting with a set of parameters as a seed, determining the likelihood (using simulations discussed previously), and deciding whether there is 95\% confidence of the subtree containing one ecotype.
-If so, we identify that group of samples as a single ecotype and stop that instance of recursive tree descent. [REWRITE CI DESCRIPTION!]
+At each level the overall Hillclimbing results are used to run the demarcation confidence interval program which checks parameter likelihoods in a loop that decreases $npop$ by a step value until it is either below 1, beneath a pre-determined likelihood or fails a likelihood ratio test.
+The resulting $npop$ from demarcation confidence interval is the 95\% likely lower bound $npop$.
+If this $npop$ equals 1 then we demarcate the sequences of the subtree as a single ecotype.
+If so, we identify that group of samples as a single ecotype and stop that instance of recursive tree descent.
 
 \section{Ecological Correlation}
 Once any algorithm is developed, we must prove its correctness.
