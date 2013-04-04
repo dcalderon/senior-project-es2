@@ -4,6 +4,9 @@
 \usepackage[pdftex]{graphicx}
 \usepackage{sidecap}
 
+%Pseudocode
+\usepackage[lined,boxed,commentsnumbered]{algorithm2e}
+
 %For changing the size of caption text
 \usepackage[font={small,it}]{caption}
 %use footnote size or script size as a property to make finer tune adjustments
@@ -13,8 +16,17 @@
 \usepackage{chngcntr}
 \counterwithin{figure}{chapter}
 
-%Pseudocode
-\usepackage[lined, boxed, commentsnumbered]{algorithm2e}
+%For removing page number from toc of chapters
+%from http://tex.stackexchange.com/questions/54329/omitting-only-the-page-number-of-chapters-heading-in-toc
+\newcommand{\gobbletocpage}{%
+  \renewcommand{\addcontentsline}[3]{%
+    \addtocontents{##1}{\protect\contentsline{##2}{##3}{\relax}}}
+}%
+\newcommand{\restoretocpage}{%
+  \renewcommand{\addcontentsline}[3]{%
+    \addtocontents{##1}{\protect\contentsline{##2}{##3}{\thepage}}}
+}%
+
 
 %For changing quote location?
 %\newenvironment{xquote}
@@ -145,10 +157,11 @@ With these improvements I aim to demonstrate the high accuracy of our second ver
 \include{chapter4}
 \include{chapter5}
 
-\appendix
-
 \bibliographystyle{abbrv}
 \bibliography{references}
+%\addcontentsline{doc}{chapter}{Bibliography}
+
+\appendix
 
 \printindex
 
