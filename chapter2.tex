@@ -87,7 +87,14 @@ For this reason ES typically takes in ribosomal gene 16s rRNA, chaperone dnaJ, o
 
 From the genes we can build a phylogeny that predicts a likely evolutionary history, simply based on sequences.
 Because ES only analyzes sequences from non-extinct organisms, the Stable Ecotype model predicts that lineage divergence will be low within the evolutionary history.
-And the bacterial diversity sampled is going through various stages of periodic selection purification, thus the end of the phylogeny (temporally closest to the present) will appear frayed.
+And the bacterial diversity sampled is going through various stages of periodic selection purification, thus the end of the phylogeny (temporally closest to the present) will appear frayed (see Figure~\ref{fig:TreeFlare}).
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=1.5]{images/TreeFlare-CH2}
+\caption[Observed and simulated evolutionary histories.]{Clade sequence diversity, for the \emph{B. subtilis-B. licheniformis} clade, for gene rpoB. A set of 88 sequences from the clade was binned into clusters with different levels of minimum pairwise identity. The log-linear portion of the curve to the left of \textasciitilde0.99 identity indicates a constant net rate of ecotype formation; the flair of diversity to the right of \textasciitilde0.99 indicates the facile sequence diversity within ecotypes~\cite{acinas2004fine}. The ecotype simulation analysis yielded estimates of the parameters for periodic selection rate, net ecotype formation rate, rate of genetic drift, and the number of ecotypes, and the estimated quartet of parameter values generated the ``model'' values shown~\cite{koeppel2008identifying}. (reprinted from \protect\cite{cohan2007systematics}).}
+\label{fig:TreeFlare}
+\end{figure}
 
 \subsection*{Simulating evolutionary history}
 Starting from observed sequences as separate clusters, ES simulates common divergence, and cohesion events backwards in time, which reduce the number of groups until there is only one cluster representing the common ancestor.
@@ -140,11 +147,11 @@ Think of a node that represents each input organism and sequence from the presen
 Backwards simulation serves as a topological scaffold of history.
 Then the forward simulation produces corresponding mutational nucleotide substitution throughout the history of the clade and resulting simulated contemporary organisms are binned, and binning is compared to binning of actual organisms sampled from nature.
 
-Initially a set of $v$ contemporary organisms (representing those sampled from the environment) are randomly distributed among $n$ ecotypes (in the case of Figure \ref{fig:SpeciationGraph}, $v = 14$ and $n = 3$).
+Initially a set of $v$ contemporary organisms (representing those sampled from the environment) are randomly distributed according to broken-stick distribution among $n$ ecotypes (in the case of Figure \ref{fig:SpeciationGraph}, $v = 14$ and $n = 3$).
+In broken-stick distribution we start with a single giant ecotype then continue to randomly split it up until we have the designated $npop$ ecotypes.
 Working backward from the $v$ organisms in the present, the processes of EF, PS, and D occur stochastically in time according to their respective predetermined rates ($\Omega$, $\sigma$, and d).
 Each event coalesces one or more lineages into  a single ancestral lineage.
 The backward phase of the simulation ends when all of the branches have coalesced into a single node, which represents the most recent common ancestor of the sampled organisms.
-[ADD BROKEN STICK DISTRIBUTION IDEA!]
 
 \begin{figure}[h!]
 %INCLUDE?
