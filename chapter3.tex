@@ -24,7 +24,7 @@
 ES1 set hard input size limits of two thousand sample sequences of at most three thousand nucleotides~\cite{koeppel2008identifying}.
 However, I doubt it was ever run with even close to that many sequences.
 When run on input sizes of greater than only one hundred sequences time became a limiting factor.
-In fact previous work showed that while ES1 had superior \index{demarcation} accuracy to its contemporaries, ES1 could not compete in run-time comparisons.
+Previous work showed that while ES1 had superior \index{demarcation} accuracy to its contemporaries, ES1 could not compete in run-time comparisons.
 And as we increase the sample size running time increases dramatically.
 See Table \ref{tab:ES1speed}.
 This issue is clearly a priority for improvement.
@@ -62,11 +62,11 @@ If we can come up with a way to reduce the time complexity of simulations, great
 
 For ES2 we run the backwards simulation of node coalescence exactly the same.
 However, once we have the evolutionary history scaffold we can use properties of ultra-metric phylogenetic trees.
-Ultra-metric trees have the same distance between root to tip for all organisms, and usually are made under the assumptions of a molecular clock~\cite{ho2008molecular}.
+Ultra-metric trees have the same distance between root to tip for all organisms, and usually are made under the assumptions of a deterministic rather than a stochastic molecular clock~\cite{ho2008molecular}.
 By the length between two nodes we can determine time between organisms.
 Based on this fact performing binning is unnecessary.
 ES2 can conduct a linear pass through the backwards scaffold directly comparing it to the observed sequence identity graph, checking for success and failure with all precision levels.
-This insight removes an $O(n^3)$ factor, immediately quickening the algorithm.
+This insight removes an $O(n^3)$ factor, immediately quickening the algorithm. [Perhaps go into more detail?]
 
 \subsubsection*{Demarcation}
 In addition to core algorithm changes we made changes to the auto-demarcating program.
@@ -100,13 +100,13 @@ Our naive approach is as follows:
 \item Update the proximity matrix, $D$, by deleting the rows and columns corresponding to clusters $(r)$ and $(s)$ and adding a row and column corresponding to the newly formed cluster. The proximity between the new cluster, denoted $(r,s)$ and old cluster $(k)$ is defined as $d[(k), (r,s)] = max$ $d[(k),(r)]$, $d[(k),(s)]$.
 \item If all objects are in one cluster, stop. Else, go to step II.
 \end{enumerate}
-which ends up running at $O(n^3)$ time (written up using~\cite{wiki:xxx} as a reference).
+which ends up running at $O(n^3)$ time (written up using~\cite{FastClust} as a reference).
 In our case we divide the processing by first calculating a pairwise distance matrix between all sequences.
 That way we maintain a look up table, $D$, to look up distance in constant time.
 At each iteration two clusters are merged (specifically the closest by the specified distance function) and the divergence matrix is updated with a distance entry between each cluster and the new cluster (specifically the element of each cluster being compared that is the farthest apart).
 
 \subsubsection*{State of the art}
-From the literature we discovered that there are complete-linkage clustering implementation that achieve $O(n^2)$ time complexity.
+From the literature we discovered that there are complete-linkage clustering implementations that achieve $O(n^2)$ time complexity.
 We found fastcluster, a well-documented and tested C++ library that efficiently implements several hierarchical clustering algorithms~\cite{mullner2011modern, FastClust}.
 The library includes complete-linkage clustering that runs in $O(n^2)$ (for a graphical comparison of various clustering package see Figure~\ref{fig:FastClustComparison}).
 
@@ -124,7 +124,7 @@ I quickly linked up fastcluster to ES2, replacing our naive binning implementati
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=.8]{images/FastVsNaive-CH3}
-\caption[Time comparison of fastcluster versus our naive implementation of complete-linkage clustering.]{Times comparison of fastcluster (red) versus our naive (blue) implementation of complete-linkage clustering.}
+\caption[Time comparison of fastcluster versus our naive implementation of complete-linkage clustering.]{Times comparison of fastcluster (red) versus our naive (blue) implementation of complete-linkage clustering. [REMOVE COLOR!]}
 \label{fig:FastVsNaive}
 \end{figure}
 
@@ -148,7 +148,7 @@ Instead, we could define a replacement function that will calculate the distance
 \begin{figure}[h!]
 %\centering
 \noindent\code{Lazy Clustering}{code/lazy_formatted.py}
-\caption[Python code showing a distance function for two clusters.]{The two clusters are represented by $c1$ and $c2$, while $seqs$ is a list used to access strings of sequence. The function $seq$\_$distance$ takes two strings representing sequences and returns the manhattan or taxicab distance between them. This python function returns the distance between two clusters.}
+\caption[Python code showing a distance function for two clusters.]{The two clusters are represented by $c1$ and $c2$, while $seqs$ is a list used to access strings of sequence. The function $seq$\_$distance$ takes two strings representing sequences and returns the manhattan or taxicab distance between them. This python function returns the distance between two clusters. [CHANGE TO PSEUDOCODE]}
 \label{code:LazyClustering}
 \end{figure}
 
@@ -162,14 +162,14 @@ However, we would still hit a clustering time or space limit fairly quickly.
 A second option for minimizing space usage and runtime would be to develop (or find in the literature) a complete-linkage clustering algorithm that could run in parallel.
 This strategy is still in early development.
 The difficulty would be in splitting up the sequences into discrete tasks that could then be combined after computation.
-Each of those discrete tasks could be spread out in a cluster, decreasing run time, or even run at different times, freeing up memory.
+Each of those discrete tasks could be spread out in a cluster, reducing run time, or even run at different times, freeing up memory.
 
 Either way, there is much progress to be made in Binning.
 If ES is ever to work on one million sequences, Binning must be a major priority for future versions.
 
 \subsection*{Demarcation}
 The current auto demarcation program has a serious problem with paraphyletic groups.
-Instead of maintaining a species group when one of the organisms diverges, it forms many singleton groups artificially inflating the number ecotypes.
+Instead of maintaining a species group when one of the organisms diverges, it forms many singleton groups artificially inflating the number of ecotypes.
 We believe this is part of the reason why if ES is run on a dataset with a low $npop$ the output numbers become skewed.
 Some approaches to fixing this problem are:
 
@@ -183,7 +183,7 @@ In the future we would like to access the power of computer clusters.
 \subsubsection*{OpenMP approach} %WIKI EXACT OPERATION OF OPENMP!!!
 The OpenMP API is a commonly used shared-memory parallelism approach designed for C, C++, and Fortran programs.
 In Fortran the programmer adds comments (known as directives) to specify OpenMP behavior.
-These directives implicitly or explicitly define or guide the execution of multiple threads as parallel programs
+These directives implicitly or explicitly define or guide the execution of multiple threads as parallel programs.
 
 An OpenMP enriched program begins as a single thread of execution.
 Whenever a thread encounters a parallel construct the thread creates a team of sub-threads, generates a set of tasks, and then declares itself master of the team.
@@ -205,11 +205,12 @@ While OpenMP uses the shared-memory model, a message passing interface is used t
 It provides course grain parallelization across nodes as opposed to fine grain OpenMP parallelization within a processor~\cite{gabriel04:_open_mpi}.
 
 We plan to capitalize on a hybrid OpenMPI-OpemMP paradigm to parallelize ES at the high level and low level.
+At the high level we could divide the parameter search space over multiple nodes of the cluster, while at the low level within each node simulation replicates would be divided between the cores in the processor.
 If correctly implemented ES could be run on clusters of almost any size, resulting in dramatic speed decreases.
 
 
 \section{Chapter Summary}
-From demarcation program comparisons of the past~\cite{carlo}, we have demonstrated ES1's accuracy, however it lags behind its contemporaries in terms of run time.
+From demarcation program comparisons of the past~\cite{carlo}, we have demonstrated ES1's accuracy; however it lags behind its contemporaries in terms of run time.
 By altering the core algorithm behind ES we took advantage of ultra-metric tree characteristics allowing us to do a linear time and space comparison instead of a polynomial complexity technique, saving plenty of time.
 We also fidgeted with the auto-demarcator program, so it would re-run the Hillclimbing program at each subtree before confidence intervals, theoretically increasing accuracy as well.
 
@@ -225,4 +226,5 @@ He used OpenMP for shared-memory parallelism, and got some interesting results.
 %ADD SOME STUFF ABOUT LING'S RESULTS
 Next, he is planning on getting OpenMPI working with ES, so we can parallelize across clusters using message passing.
 OpenMPI parallelization would do the most to push ES forward and as such should be our primary priority for future versions.
+[SIMPLIFY]
 
