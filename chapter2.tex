@@ -74,7 +74,7 @@ However over time and through various purification events adaptive mutations acc
 Notice that the two clades are totally free from each other's periodic selection diversity quashing~\cite{cohan2007systematics}.
 This is an important feature of separate ecotypes, because we can later observe the differences acquired from separate evolutionary histories.
 
-Theory and empirical evidence hints that these boundaries correlate to ecological niche, based on empirical studies where environmental samples were collected and statistically correlated to their putative ecotypes\cite{cohan2007systematics, cohan2006sequence, ward2006cyanobacterial, cohan2006toward}.
+Theory and empirical evidence hints that these boundaries correlate to ecological niche, based on empirical studies where environmental samples were collected and statistically correlated to their putative ecotypes~\cite{cohan2007systematics, cohan2006sequence, ward2006cyanobacterial, cohan2006toward}.
 To identify the system's fundamental elements takes three steps.
 First, observe and characterize the community's evolutionary history.
 Second, simulate evolutionary history as hypotheses of various descriptive parameters, resulting in a most likely parametric characterization of observed history.
@@ -91,8 +91,8 @@ And the bacterial diversity sampled is going through various stages of periodic 
 
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=1.5]{images/TreeFlare-CH2}
-\caption[Observed and simulated evolutionary histories.]{Clade sequence diversity, for the \emph{B. subtilis-B. licheniformis} clade, for gene rpoB. A set of 88 sequences from the clade was binned into clusters with different levels of minimum pairwise identity. The log-linear portion of the curve to the left of \textasciitilde0.99 identity indicates a constant net rate of ecotype formation; the flair of diversity to the right of \textasciitilde0.99 indicates the facile sequence diversity within ecotypes~\cite{acinas2004fine}. The ecotype simulation analysis yielded estimates of the parameters for periodic selection rate, net ecotype formation rate, rate of genetic drift, and the number of ecotypes, and the estimated quartet of parameter values generated the ``model'' values shown~\cite{koeppel2008identifying}. (reprinted from \protect\cite{cohan2007systematics}).}
+\includegraphics[scale=0.45]{images/TreeFlare-CH2}
+\caption[Illustrating end of tree diversity flare.]{Illustrating end of tree diversity flare. Steady accumulation of diversity leads to shallow sequence identity slope, and burst of diversity towards the end of the tree steepen the slope (reprinted from~\protect\cite{fredImage}).}
 \label{fig:TreeFlare}
 \end{figure}
 
@@ -147,7 +147,14 @@ By finding close approximations of $npop$, $\sigma$, and $\Omega$, we can observ
 The simulation aspect of ES begins with a process of backwards simulation that stochastically produces a phylogenetic representation of the history of the community.
 Think of a node that represents each input organism and sequence from the present time (i.e., number of nodes equals number of input sequences), and the ancestral lineage of these organisms coalesce (due to PS, EF, or D; indicated by gray circles in Figure \ref{fig:SpeciationGraph}) as ES steps backward in time.
 Backwards simulation serves as a topological scaffold of history.
-Then the forward simulation produces corresponding mutational nucleotide substitution throughout the history of the clade and resulting simulated contemporary organisms are binned, and binning is compared to binning of actual organisms sampled from nature.
+Then the forward simulation produces corresponding mutational nucleotide substitution throughout the history of the clade and resulting simulated contemporary organisms are binned, and binning is compared to binning of actual organisms sampled from nature (see Figure~\ref{fig:TreeCompare}).
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=1.5]{images/TreeCompare-CH2}
+\caption[Observed and simulated evolutionary histories.]{Clade sequence diversity, for the \emph{B. subtilis-B. licheniformis} clade, for gene rpoB. A set of 88 sequences from the clade was binned into clusters with different levels of minimum pairwise identity. The log-linear portion of the curve to the left of \textasciitilde0.99 identity indicates a constant net rate of ecotype formation; the flair of diversity to the right of \textasciitilde0.99 indicates the facile sequence diversity within ecotypes~\cite{acinas2004fine}. The ecotype simulation analysis yielded estimates of the parameters for periodic selection rate, net ecotype formation rate, rate of genetic drift, and the number of ecotypes, and the estimated quartet of parameter values generated the ``model'' values shown~\cite{koeppel2008identifying} (reprinted from \protect\cite{cohan2007systematics}).}
+\label{fig:TreeCompare}
+\end{figure}
 
 Initially a set of $v$ contemporary organisms (representing those sampled from the environment) are randomly distributed according to broken-stick distribution among $n$ ecotypes (in the case of Figure \ref{fig:SpeciationGraph}, $v = 14$ and $n = 3$).
 In broken-stick distribution we start with a single giant ecotype then continue to randomly split it up until we have the designated $npop$ ecotypes.
@@ -173,7 +180,7 @@ This continues until we reach the contemporary organism nodes, resulting in a ma
 Now ES can conduct the same complete-linkage clustering analysis briefly described in the previous section to illustrate a sequence identity graph, which can be compared to the observed sequence identity graph.
 If we place our simulated sequence identity graph line on top of the observed sequence identity graph, at each bin level we can see whether the simulated line matches the observed line within a pre-determined factor (or precision factor).
 Success is determined by whether or not these two lines match within this factor of closeness, of which there are six: 5x, 2x, 1.5x, 1.25x, 1.10x, 1.05x.
-If the simulation and observed graphs are too far apart, ES records the repetition as a failure.
+If the simulation and observed graphs are too far apart (see Figure~\ref{fig:TreeCompare} on page~\pageref{fig:TreeCompare}), ES records the repetition as a failure.
 Based on many (i.e., in the hundreds or thousands) replicate runs, each one evaluated for success or failure, we gather information to form a maximum likelihood estimation of $npop$, $\Omega$, $\sigma$, and d (in the future I will not mention drift, since it happens to be so rare). However, how does one decide on different parameter choices to test?
 
 \subsection*{Bruteforce and Hillclimbing}
@@ -181,8 +188,8 @@ Utilizing simulations explained in the previous section ES conducts a search for
 To search as much of that space as possible we lay a grid of points over the landscape of likelihoods where each point is a simulation of many hundreds of repetitions.
 By running those tests we begin to observe a rough sketch of hills and valleys of the parameters.
 The even distribution of points with a lack of insight is referred to as Bruteforce (see Figure \ref{fig:Flow}a).
-Bruteforce outputs a range of parameters that should contain the global maximum likelihood.
-The range of likely parameters is then passed through an optimization program known as Hillclimbing (see Figure \ref{fig:Flow}b).
+The beauty of Bruteforce is that it outputs a range of parameters that contains the global maximum likelihood.
+The range of likely parameters is then passed through an optimization program known as Hillclimbing (see Figure \ref{fig:Flow}b), which finds local maximums (i.e., the global maximum within our Bruteforce parameter ranges).
 
 Hillclimbing is a downhill-simplex or Nelder-Mead approach to optimization.
 A chosen parameter solution is more thoroughly tested (i.e., with 10,000 replicates), and likelihoods are calculated for the six precision values (i.e., 5x, 2x, etc.).
@@ -204,7 +211,7 @@ With the most likely estimations of $npop$, $\sigma$, and $\Omega$ (remember tha
 Demarcation uses the user input phylogeny and the maximum likelihood parameters produced from Hillclimbing optimization (see Figure \ref{fig:Flow}B - C).
 ES comes with a manual demarcator, however for my work we used an automatic demarcator that uses a demarcation confidence interval program.
 
-The auto-demarcator starts at the closest common ancestor and recursively runs confidence interval tests for $npop$ on subtrees.
+The automatic demarcator starts at the closest common ancestor and recursively runs confidence interval tests for $npop$ on subtrees.
 At each level the overall Hillclimbing results are used to run the demarcation confidence interval program which checks parameter likelihoods in a loop that decreases $npop$ by a step value until it is either below 1, beneath a pre-determined likelihood or fails a likelihood ratio test.
 The resulting $npop$ from demarcation confidence interval is the 95\% likely lower bound $npop$.
 If this $npop$ equals 1 then we demarcate the sequences of the subtree as a single ecotype.
