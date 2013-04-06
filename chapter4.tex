@@ -12,6 +12,12 @@ Most methods used were based on a previous study, with few modifications~\cite{c
 Our main goals were to test ES2's accuracy for small input sizes, large input sizes, and show ES2's speed improvements over ES1.
 This involves many \emph{in silico} or computer generated dataset tests and a test of ES2 on previous \emph{Bacillus} data samples from Death Valley.
 
+To test accuracy of different algorithms we utilized an established pipeline~\cite{carlo}, (see Figure~\ref{fig:ComparisonFlow}) which involves generating sequences, and a corresponding demarcation answer key in a standard format.
+The generated sequences are then passed through all the demarcators, including a random demarcator (used as a control), producing clustering output in the established standard format.
+We then use a metric to compare each resulting output to the corresponding answer key that gives a quantification for accuracy. Figure~\ref{fig:ComparisonFlow} on page \pageref{fig:ComparisonFlow} clearly shows the workflow for this pipeline.
+
+Speed tests were done using the python time package to clock starting and finishing times of each algorithm several times, finding the mean running time on various datasets~\cite{carlo}.
+
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.75]{images/DemarcationComparisonsFlow-CH4}
@@ -120,27 +126,10 @@ The Variation of Information between two clusterings C and C' is given by$$VI(C,
 
 \subsection*{ES2 on smaller datasets}
 I ran the new and improved ES2 algorithm on generated datasets for parameters clearly defined in previous studies~\cite{carlo}.
-All sample datasets included fifty sequences, and repeated ten times to find the mean Variation of Information score.
-
-\begin{figure}[h!]
-  \centering
-    \includegraphics[scale=0.75]{images/ResultGraphs/ResultGraphs-4}
-      \caption[ES vs ES2 accuracy visualization on $nu = 50$.]{Across 27 parameter set combinations I exhaustively test ES (solid line) and ES2 (dotted line) on $npop$ values of 10, 20, and 30, $\Omega$ values of 0.019, 0.19, and 1.9, $\sigma$ values of 0.11, 1.1, and 11, for nu of 50 sequences. On the $y$-axis we have VI scores, where values closer to 0 represent more accurate demarcation runs.}
-    \label{fig:ESvES2}
-\end{figure}
+All sample datasets included fifty sequences, and repeated ten times to find the mean Variation of Information score (see Figure~\ref{fig:ESvES2}).
+Notice how closely the two lines are on the horizontal axis.
 
 On a few specific values we ran ES1 and ES2 through one hundred repetitions to find more robust VI scores.
-
-\begin{table}
-    \begin{tabular}{l|cc}
-    ~                  & Ecotype Simulation & Ecotype Simulation 2 \\ \hline
-    Average            & 1.30414053         & 1.596300918          \\
-    Standard Deviation & 0.877454163        & 0.343838045          \\
-    \end{tabular}
-    \caption[ES versus ES2 statistics.]{Statistics on the ES vs ES2 run with 10 reps on a dataset of $nu=50$.}
-    \label{tab:ESvES2mean}
-\end{table}
-
 
 \subsubsection*{Bacillus sequences}
 \emph{Bacillus} strains were isolated from Radio Facility Wash, a west-running canyon in Death Valley, consisting of a habitats with three levels of solar exposure, including the canyon's sunny south-facing slope, the shadier and cooler north-facing slope, and the arroyo at the bottom~\cite{connor2010ecology}.
@@ -149,7 +138,7 @@ Sequences were processed as previously reported~\cite{carlo}.
 Again we used PhyML to produce a maximum likelihood tree.
 
 \subsection*{All demarcation programs on large datasets}
-We ran all demarcation programs, and a random demarcator on generated datasets of 50, 100, and 200 sequences.
+We ran all demarcation programs, and a random demarcator on generated datasets of 50 (see Figure~\ref{fig:All50} on page~\pageref{fig:All50}), 100 (see Figure~\ref{fig:All100} on page~\pageref{fig:All100}), and 200 (see Figure~\ref{fig:All200} on page~\pageref{fig:All200}) sequences.
 Parameters were once again adopted from previous studies.
 The exception being a choice of $npop$ which, was three of 10, 20, 30, 40, 50.
 We tried to pick $npop$ values that would hit the sweet spot of demarcation in addition to an upper and lower bound (i.e., regarding VI accuracy scores).
@@ -171,6 +160,27 @@ We present the mean run times that each algorithm required to analyze synthetic 
 \subsection*{Analysis of in silico-generated sequences}
 The majority of my work was putting together a database of in silico generated sequences demarcation runs.
 \subsubsection*{ES2 on smaller datasets}
+
+\begin{figure}[h!]
+  \centering
+    \includegraphics[scale=0.75]{images/ResultGraphs/ResultGraphs-4}
+      \caption[ES vs ES2 accuracy visualization on $nu = 50$.]{Across 27 parameter set combinations I exhaustively test ES (solid line) and ES2 (dotted line) on $npop$ values of 10, 20, and 30, $\Omega$ values of 0.019, 0.19, and 1.9, $\sigma$ values of 0.11, 1.1, and 11, for nu of 50 sequences. On the $y$-axis we have VI scores, where values closer to 0 represent more accurate demarcation runs.}
+    \label{fig:ESvES2}
+\end{figure}
+
+
+
+\begin{table}
+    \begin{tabular}{l|cc}
+    ~                  & Ecotype Simulation & Ecotype Simulation 2 \\ \hline
+    Average            & 1.30414053         & 1.596300918          \\
+    Standard Deviation & 0.877454163        & 0.343838045          \\
+    \end{tabular}
+    \caption[ES versus ES2 statistics.]{Statistics on the ES vs ES2 run with 10 reps on a dataset of $nu=50$.}
+    \label{tab:ESvES2mean}
+\end{table}
+
+
 \subsubsection*{All demarcation programs on large datasets}
 
 \begin{figure}[h!]
