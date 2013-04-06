@@ -122,6 +122,13 @@ The Variation of Information between two clusterings C and C' is given by$$VI(C,
 I ran the new and improved ES2 algorithm on generated datasets for parameters clearly defined in previous studies~\cite{carlo}.
 All sample datasets included fifty sequences, and repeated ten times to find the mean Variation of Information score.
 
+\begin{figure}[h!]
+  \centering
+    \includegraphics[scale=0.75]{images/ResultGraphs/ResultGraphs-4}
+      \caption[Test]{50}
+    \label{fig:ESvES2}
+\end{figure}
+
 On a few specific values we ran ES1 and ES2 through one hundred repetitions to find more robust VI scores.
 
 \begin{table}
@@ -154,17 +161,24 @@ We present the mean run times that each algorithm required to analyze synthetic 
 \section{Results and Discussion}
 
 %Proof of concept for a figure!
-\begin{figure}[h!]
-  \caption[Demarcation comparison table for small inputs (nu = 50).]{A comparison table of all demarcation algorithms run with differing sigma, omega, and npop values on input sizes of 50 sequences. Parameter combinations in which ES2 outperformed ES1 are circled in red. [I probably won't put in the full table, but parts of it and leave the big one for the appendix]}
-  \centering
-    \includegraphics{images/ComparisonTable1.png}
-    \label{fig:ComparisonSmall}
-\end{figure}
+%\begin{figure}[h!]
+%  \caption[Demarcation comparison table for small inputs (nu = 50).]{A comparison table of all demarcation algorithms run with differing sigma, omega, and npop values on input sizes of 50 sequences. Parameter combinations in which ES2 outperformed ES1 are circled in red. [I probably won't put in the full table, but parts of it and leave the big one for the appendix]}
+%  \centering
+%    \includegraphics{images/ComparisonTable1.png}
+%    \label{fig:ComparisonSmall}
+%\end{figure}
 
 \subsection*{Analysis of in silico-generated sequences}
 The majority of my work was putting together a database of in silico generated sequences demarcation runs.
 \subsubsection*{ES2 on smaller datasets}
 \subsubsection*{All demarcation programs on large datasets}
+
+\begin{figure}[h!]
+  \centering
+    \includegraphics[scale=0.75]{images/ResultGraphs/ResultGraphs-3}
+      \caption[Test]{50}
+    \label{fig:All50}
+\end{figure}
 
 \begin{table}
     \begin{tabular}{l|ccccc}
@@ -172,9 +186,16 @@ The majority of my work was putting together a database of in silico generated s
     Average            & 2.767371639 & 3.185623443 & 2.359650359 & 1.589546505          & 3.631545086 \\
     Standard Deviation & 0.971373851 & 0.868775294 & 0.783228066 & 0.34336826           & 0.34949857  \\
     \end{tabular}
-    \caption[All demarcators on $nu=50$.]{Statistics on all demarcators run with 5 reps on a dataset of $nu=50$.}
+    \caption[Statistics on all demarcators on $nu=50$.]{Statistics on all demarcators run with 5 reps on a dataset of $nu=50$.}
         \label{tab:50Allmean}
 \end{table}
+
+\begin{figure}[h!]
+  \centering
+    \includegraphics[scale=0.75]{images/ResultGraphs/ResultGraphs-2}
+      \caption[Test]{100}
+    \label{fig:All100}
+\end{figure}
 
 \begin{table}
     \begin{tabular}{l|ccccc}
@@ -182,9 +203,16 @@ The majority of my work was putting together a database of in silico generated s
     Average            & 3.142555041 & 3.860006018 & 3.363530792 & 1.762829323          & 4.475184564 \\
     Standard Deviation & 0.727870506 & 0.639625177 & 0.67100242  & 0.370748481          & 0.225368714 \\
     \end{tabular}
-    \caption[All demarcators on $nu=100$.]{Statistics on all demarcators run with 5 reps on a dataset of $nu=50$.}
+    \caption[Statistics on all demarcators on $nu=100$.]{Statistics on all demarcators run with 5 reps on a dataset of $nu=50$.}
         \label{tab:100Allmean}
 \end{table}
+
+\begin{figure}[h!]
+  \centering
+    \includegraphics[scale=0.75]{images/ResultGraphs/ResultGraphs-1}
+      \caption[Test]{200}
+    \label{fig:All200}
+\end{figure}
 
 \begin{table}
     \begin{tabular}{l|ccccc}
@@ -192,7 +220,7 @@ The majority of my work was putting together a database of in silico generated s
     Average            & 1.543424394 & 2.908133924 & 3.265003881 & 1.955714164          & 4.667531001 \\
     Standard Deviation & 0.748104722 & 0.713876097 & 0.59283446  & 0.33348659           & 0.258112685 \\
     \end{tabular}
-    \caption[All demarcators on $nu=200$.]{Statistics on all demarcators run with 5 reps on a dataset of $nu=50$.}
+    \caption[Statistics on all demarcators on $nu=200$.]{Statistics on all demarcators run with 5 reps on a dataset of $nu=50$.}
         \label{tab:200Allmean}
 \end{table}
 
