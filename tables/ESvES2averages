@@ -1,0 +1,8 @@
+\begin{table}
+    \begin{tabular}{l|cc}
+    ~                  & Ecotype Simulation & Ecotype Simulation 2 \\ \hline
+    Average            & 1.30414053         & 1.596300918          \\
+    Standard Deviation & 0.877454163        & 0.343838045          \\
+    \end{tabular}
+    \caption {TEst}
+\end{table}
