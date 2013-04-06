@@ -1,0 +1,1 @@
+	Ecotype Simulation	Ecotype SimulationAverage	1.30414053	1.596300918Standard Deviation	0.877454163	0.343838045
