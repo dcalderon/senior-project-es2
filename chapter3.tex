@@ -67,7 +67,7 @@ Ultra-metric trees have the same distance between root to tip for all organisms,
 By the length between two nodes we can determine time between organisms.
 Based on this fact performing binning is unnecessary.
 ES2 can conduct a linear pass through the backwards scaffold directly comparing it to the observed sequence identity graph, checking for success and failure with all precision levels.
-This insight removes an $O(n^3)$ factor, immediately quickening the algorithm. [Perhaps go into more detail?]
+This insight removes an $O(n^3)$ factor, immediately quickening the algorithm. [PERHAPS GO INTO MORE DETAIL?]
 
 \subsubsection*{Demarcation}
 In addition to core algorithm changes we made changes to the auto-demarcating program.
@@ -197,10 +197,15 @@ Either way, there is much progress to be made in Binning.
 If ES is ever to work on one million sequences, Binning must be a major priority for future versions.
 
 \subsection*{Demarcation}
-The current auto demarcation program has a serious problem with paraphyletic groups.
-Instead of maintaining a species group when one of the organisms diverges, it forms many singleton groups artificially inflating the number of ecotypes.
+The current automatic demarcation program has a serious problem with paraphyletic groups.
+Instead of maintaining a species group when one of the organisms diverges, it forms many singleton groups, artificially inflating the number of ecotypes.
 We believe this is part of the reason why if ES is run on a dataset with a low $npop$ the output numbers become skewed.
-Some approaches to fixing this problem are:
+As of yet, we are still unsure of ways to fix this problem.
+
+Another issue with demarcation is speed.
+We found that in many cases when we ran ES2 on large datasets the majority of time was spent demarcating.
+One potential solution would be to modify the demarcation confidence interval program so that instead of stepping down by $npop$ sequentially one at a time, determining likelihood, we could check the likelihood of $npop = 1$ from the start, thus more quickly deciding whether or not we are observing a single ecotype.
+This approach is still quite experimental and I have not had a chance to test it.
 
 \subsection*{Parallelization}
 These days computer chips are not improving as dramatically as in the past.
@@ -247,7 +252,8 @@ Even ES2 has areas in which we would like to improve on in the future.
 Run time continues to be a concern, but space usage is increasingly an issue.
 I outlined some exploratory work we were doing on looking into various packages to replace our naive implementation of Binning.
 Also, I highlight ideas we have had to reduce space usage, first eliminating the distance matrix and second parallelizing the clustering algorithm (which would also speed up runtime on large datasets).
-There are some issues when our auto-demarcator attempts to deal with paraphyletic groups.
+There are some issues when our automatic demarcator attempts to deal with paraphyletic groups.
+Speed again is a priority for the future demarcator program.
 We discuss a few ideas for ways to work around this issue.
 
 Finally, I summarize work my colleague Lingyuan Ke is doing on parallelizing the overall ES algorithm.
@@ -255,5 +261,4 @@ He used OpenMP for shared-memory parallelism, and got some interesting results.
 %ADD SOME STUFF ABOUT LING'S RESULTS
 Next, he is planning on getting OpenMPI working with ES, so we can parallelize across clusters using message passing.
 OpenMPI parallelization would do the most to push ES forward and as such should be our primary priority for future versions.
-[SIMPLIFY]
 
