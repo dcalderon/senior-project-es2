@@ -159,8 +159,16 @@ We present the mean run times that each algorithm required to analyze synthetic 
 
 \subsection*{Analysis of in silico-generated sequences}
 The majority of my work was putting together a database of in silico generated sequences demarcation runs.
-\subsubsection*{ES2 on smaller datasets}
+A lot of the code I used to run tests was legacy code from past lab members.
+I had to update many dependency packages, and modify certain portions to work on various computer platforms.
+BAPS does not run on with batch mode on Macintosh.
+GMYC worked half of the time, and other times there was an error based on tree generation.
+Some analysis does not include GMYC due to this unresolved issue.
 
+\subsubsection*{ES2 on smaller datasets}
+Our first experiment was to run Ecotype Simulation (ES) and Ecotype Simulation 2 (ES2) on smaller datasets (i.e., $nu = 50$) and checking accuracy (VI) scores (see Figure~\ref{fig:ESvES2}).
+
+%Nested npop, omega, sigma
 \begin{figure}[h!]
   \centering
     \includegraphics[scale=0.75]{images/ResultGraphs/ResultGraphs-4}
@@ -168,7 +176,9 @@ The majority of my work was putting together a database of in silico generated s
     \label{fig:ESvES2}
 \end{figure}
 
-
+Notice how closely the two lines are.
+ES (solid line) is generally lower (i.e., more accurate), however there are dramatic peaks and valleys of performance.
+In contrast to ES2 (dotted) which overall quite accurate with few valleys and peaks.
 
 \begin{table}
     \begin{tabular}{l|cc}
@@ -180,43 +190,51 @@ The majority of my work was putting together a database of in silico generated s
     \label{tab:ESvES2mean}
 \end{table}
 
+This trend is represented in Table~\ref{tab:ESvES2mean} on page~\pageref{tab:ESvES2mean}, by ES2's lower standard deviation than ES1.
+However, ES still has a lower mean VI score, but not by much.
+
+From these tests, we feel fairly confident in ES2's accuracy.
+Across various parameters ES2 looks to be more consistent than even ES1, even though ES1 demarcation matches more closely the answer demarcation more often.
+On small datasets speed is not too much of an issue, but if you want to run a lot of small datasets, then we advise using ES2.
 
 \subsubsection*{All demarcation programs on large datasets}
+Once we run Ecotype Simulation on datasets of 50 sequences are larger time becomes a significant issue.
+For this reason we developed ES2 to run on datasets with more than 50 individuals.
 
-\begin{figure}[h!]
-  \centering
-    \includegraphics[scale=0.75]{images/ResultGraphs/ResultGraphs-3}
-      \caption[All demarcation graphical accuracy visualization on $nu = 50$.]{Across 27 parameter set combinations I exhaustively test all demarcation programs on $npop$ values of 10, 20, and 30, $\Omega$ values of 0.019, 0.19, and 1.9, $\sigma$ values of 0.11, 1.1, and 11, for nu of 50 sequences. Random demarcation is represented by the solid line. On the $y$-axis we have VI scores, where values closer to 0 represent more accurate demarcation runs.}
-    \label{fig:All50}
-\end{figure}
-
-\begin{table}
-    \begin{tabular}{l|ccccc}
-    ~                  & AdaptML     & AdaptML$^\ast$    & Baps        & Ecotype Simulation 2 & Random      \\ \hline
-    Average            & 2.767371639 & 3.185623443 & 2.359650359 & 1.589546505          & 3.631545086 \\
-    Standard Deviation & 0.971373851 & 0.868775294 & 0.783228066 & 0.34336826           & 0.34949857  \\
-    \end{tabular}
-    \caption[Statistics on all demarcators on $nu=50$.]{Statistics on all demarcators run with 5 reps on a dataset of $nu=50$.}
-        \label{tab:50Allmean}
-\end{table}
-
-%Added to the extras in the appendix
 %\begin{figure}[h!]
 %  \centering
-%    \includegraphics[scale=0.75]{images/ResultGraphs/ResultGraphs-2}
-%      \caption[All demarcation graphical accuracy visualization on $nu = 100$.]{Across 27 parameter set combinations I exhaustively test all demarcation programs on $npop$ values of 30, 40, and 50, $\Omega$ values of 0.019, 0.19, and 1.9, $\sigma$ values of 0.11, 1.1, and 11, for nu of 100 sequences. Random demarcation is represented by the solid line. On the $y$-axis we have VI scores, where values closer to 0 represent more accurate demarcation runs.}
-%    \label{fig:All100}
+%    \includegraphics[scale=0.75]{images/ResultGraphs/ResultGraphs-3}
+%      \caption[All demarcation graphical accuracy visualization on $nu = 50$.]{Across 27 parameter set combinations I exhaustively test all demarcation programs on $npop$ values of 10, 20, and 30, $\Omega$ values of 0.019, 0.19, and 1.9, $\sigma$ values of 0.11, 1.1, and 11, for nu of 50 sequences. Random demarcation is represented by the solid line. On the $y$-axis we have VI scores, where values closer to 0 represent more accurate demarcation runs.}
+%    \label{fig:All50}
 %\end{figure}
 %
 %\begin{table}
 %    \begin{tabular}{l|ccccc}
-%    ~                  & AdaptML     & AdaptML$^\ast$     & BAPS        & Ecotype Simulation 2 & Random      \\ \hline
-%    Average            & 3.142555041 & 3.860006018 & 3.363530792 & 1.762829323          & 4.475184564 \\
-%    Standard Deviation & 0.727870506 & 0.639625177 & 0.67100242  & 0.370748481          & 0.225368714 \\
+%    ~                  & AdaptML     & AdaptML$^\ast$    & Baps        & Ecotype Simulation 2 & Random      \\ \hline
+%    Average            & 2.767371639 & 3.185623443 & 2.359650359 & 1.589546505          & 3.631545086 \\
+%    Standard Deviation & 0.971373851 & 0.868775294 & 0.783228066 & 0.34336826           & 0.34949857  \\
 %    \end{tabular}
-%    \caption[Statistics on all demarcators on $nu=100$.]{Statistics on all demarcators run with 5 reps on a dataset of $nu=50$.}
-%        \label{tab:100Allmean}
+%    \caption[Statistics on all demarcators on $nu=50$.]{Statistics on all demarcators run with 5 reps on a dataset of $nu=50$.}
+%        \label{tab:50Allmean}
 %\end{table}
+
+\begin{figure}[h!]
+  \centering
+    \includegraphics[scale=0.75]{images/ResultGraphs/ResultGraphs-2}
+      \caption[All demarcation graphical accuracy visualization on $nu = 100$.]{Across 27 parameter set combinations I exhaustively test all demarcation programs on $npop$ values of 30, 40, and 50, $\Omega$ values of 0.019, 0.19, and 1.9, $\sigma$ values of 0.11, 1.1, and 11, for nu of 100 sequences. Random demarcation is represented by the solid line. On the $y$-axis we have VI scores, where values closer to 0 represent more accurate demarcation runs.}
+    \label{fig:All100}
+\end{figure}
+
+\begin{table}
+    \begin{tabular}{l|ccccc}
+    ~                  & AdaptML     & AdaptML$^\ast$     & BAPS        & Ecotype Simulation 2 & Random      \\ \hline
+    Average            & 3.142555041 & 3.860006018 & 3.363530792 & 1.762829323          & 4.475184564 \\
+    Standard Deviation & 0.727870506 & 0.639625177 & 0.67100242  & 0.370748481          & 0.225368714 \\
+    \end{tabular}
+    \caption[Statistics on all demarcators on $nu=100$.]{Statistics on all demarcators run with 5 reps on a dataset of $nu=100$.}
+        \label{tab:100Allmean}
+\end{table}
+
 %
 %\begin{figure}[h!]
 %  \centering
