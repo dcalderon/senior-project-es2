@@ -227,14 +227,19 @@ However from past studies we found ES to be the most accurate demarcating progra
     \label{fig:All100}
 \end{figure}
 
-
-
 Figure~\ref{fig:All100} on page~\pageref{fig:All100} shows accuracy scores for all demarcating programs on a variety of parameters (bacillus values with .1x and 10x and $npop$ values of 30, 40, 50) on sample size of 100 individuals.
 Notice that overall ES2 (dotted line) was the lowest (i.e., most accurate), that means ES2's demarcation output matched most closely to the answer key demarcations.
 
 This fact is highlighted by the lowest average VI score shown in Table~\ref{tab:100Allmean}, of 1.76.
-Also, notice that once again ES2 has the lowest standard deviation, meaning that it was the most consistent, except of course for the random demarcation, which was consistently terrible.
+Also, notice that once again ES2 has the lowest standard deviation, meaning that it was the most consistent, except of course for the random demarcation, which was consistently terrible accuracy wise (as we would expect).
+ES2 was followed by AdaptML(3.14), BAPS (3.36), and Random (4.47).
+With less habitat specialization AdaptML lost accuracy.
 
+ES2 appeared to be slightly more accurate with higher $npop$ values; the gap between it and other demarcators increased.
+Higher rates of $\Omega$ (rate of ecotype formation) resulted in slight increases in ES2 VI scores.
+It appears that changes in $\sigma$ (rate of periodic selection) did not affect the accuracy of each algorithm as much as modifying $\Omega$.
+$Npop$ appears to have had the greatest effect on the accuracy of all the demarcation programs, least of all ES2.
+Losing accuracy with greater values of $npop$ was a trend that continued with larger datasets (see supplementary figures in appendix).
 
 \begin{table}[h!]
     \begin{tabular}{l|ccccc}
@@ -246,6 +251,10 @@ Also, notice that once again ES2 has the lowest standard deviation, meaning that
         \label{tab:100Allmean}
 \end{table}
 
+Tests regarding large datasets are ongoing.
+In the appendix you can find additional graphs with all demarcators for nu of 50 and 200 along with corresponding tables showing mean and standard deviation values.
+As of yet these tests were done on only 5 repetitions.
+We would like repetitions in the hundreds.
 
 %
 %\begin{figure}[h!]
@@ -266,12 +275,19 @@ Also, notice that once again ES2 has the lowest standard deviation, meaning that
 %\end{table}
 
 \subsection*{\emph{Bacillus} sequences}
-
+I ran ES2 on \emph{Bacillus} sequences from previous studies.
+The results were consistent with previous demarcation runs. [INSERT DEMARCATION GRAPH]
 
 \subsection*{Running time}
+We compared the running times of the demarcation algorithms on synthetic data sets of different sizes, and found that AdaptML, GMYC, and BAPS performed demarcations much more quickly then ES2 (see Table or Figure).
+AdaptML, GMYC, and BAPS all completed demarcations on the order of a few seconds, even for data sets in the hundreds whereas ES required on the order of tens of minutes for the same inputs.
+GMYC was the fastest algorithm, taking no more than one second on average.
+AdaptML followed, and BAPS was the slowest of the three faster algorithms.
+[INSERT RUNNING TIME GRAPHS]
+
 \section{Chapter Summary}
 In this chapter I discussed the motivation and thought process behind our experiments.
-I gave a survey of other available demarcation programs (\index{GMYC}, \index{BAPS}, \index{AdaptML}, \index{Random Demarcator}), how we generated sample datasets, and described the metric used to compare the various outputs (Variation of Information metric).
+I gave a survey of other available demarcation programs (GMYC, BAPS, AdaptML, Random Demarcator), how we generated sample datasets, and described the metric used to compare the various outputs (Variation of Information metric).
 I explain the choices behind which experiments we ran and finally sum up the important results received.
 
 
