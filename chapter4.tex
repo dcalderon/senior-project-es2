@@ -285,9 +285,27 @@ GMYC was the fastest algorithm, taking no more than one second on average.
 AdaptML followed, and BAPS was the slowest of the three faster algorithms.
 [INSERT RUNNING TIME GRAPHS]
 
+Since the BAPS's batch processing feature was not available for Mac I ran it on Windows.
+However, I also ran ES2, GMYC, and AdaptML separately on my Mac and found that ES2 was significantly faster than when it was run on a Windows machine.
+
+\subsubsection*{Automatic demarcation}
+We found that automatic demarcation was taking approximately 90\% of the ES2 run time.
+
 \section{Chapter Summary}
 In this chapter I discussed the motivation and thought process behind our experiments.
-I gave a survey of other available demarcation programs (GMYC, BAPS, AdaptML, Random Demarcator), how we generated sample datasets, and described the metric used to compare the various outputs (Variation of Information metric).
-I explain the choices behind which experiments we ran and finally sum up the important results received.
+I gave a survey of other available demarcation programs (GMYC, BAPS, AdaptML) and our control random demarcator, how we generated sample datasets, and described the metric used to compare the various outputs (Variation of Information metric).
+
+First we wanted to show that ES1 and ES2 achieve similar levels of accuracy.
+Thus we ran ES1 and ES2 on data sets with 50 individuals for 10 repetitions.
+ES2 achieved comparable accuracy, and had a lower standard deviation.
+
+Next, we ran all the demarcator programs on various sized data sets.
+ES2 maintained a high level of accuracy throughout a wide range of parameters (based on previous \emph{bacillus} values).
+
+Traditionally we run all demarcators on \emph{Bacillus} sequences.
+We found ES2 performed well.
+
+Once again ES2 was the slowest demarcation algorithm.
+However, it improved dramatically on ES1 running times.
 
 
