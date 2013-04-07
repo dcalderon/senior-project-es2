@@ -24,20 +24,31 @@ Ecotypes Simulation is a a step in the tradition of attempting to understand mic
 It's based on ecotypes defined as a phylogenetic group of close relatives that are ecologically interchangeable, in that the members of an ecotype share genetic adaptations to a particular set of habitats, resources, and conditions; also, ecotypes are ecologically distinct from one another.
 They are the fundamental unit of micro environments that we want to identify so we can understand relationships between groups of atomic units.
 
+Ecotype Simulation uses the Stable Ecotype model that hypothesizes various ecotype dynamics such as periodic selection (diversity quashing events), ecotype formation (speciation events), and drift.
+This is translated directly into the ES algorithm with its use of $npop$ (number of ecotypes), $\Omega$ (rate of periodic selection), and $\sigma$ (rate of ecotype formation).
+ES1 first characterizes the community's observed evolutionary history, the through simulations estimates parameters, resulting in a maximum likelihood parametric characterization of the observed history.
+Finally, we demarcate the individual strains into ecotypes.
+
 %Talk a little bit about the improvements, resulting in ES2
-Talk a little bit about the improvements, resulting in ES2
+ES2 improves on ES1's core algorithm by using an ultra metric tree when comparing simulated evolutionary histories to the observed history removing a $O(n^3)$ binning step.
+During demarcation we also conduct Hillclimbing at each subtree, maintaing high quality parameter estimations as we recursively descend the phylogeny.
 
 %Summarize ES2 vs ES and ES2 vs all results
-Summarize ES2 vs ES and ES2 vs all results
+First I showed how close ES1 to ES2 accuracy (VI) scores were on a data set of 50 individuals.
+Then I compared all the demarcation programs on larger data sets and found that in most cases ES2 maintained a high level of accuracy.
+\emph{Bacillus} sequences analysis.
+ES2 still lags behind the competition in terms of running time.
+However, there was a dramatic improvement over ES1.
 
 %Concluding analaysis
-Concluding analaysis
-...and that is why ES is the best.
+From these results, we can confidently say that ES2 continues to be the most accurate demarcation algorithm on larger generated datasets.
 
 However, we should use a combination of approaches, each lending strengths to the other's weaknesses, adding robustness to microbial ecosystem analysis~\cite{bohannan2003new}
 
 \section{For the future}
 %Might not need this section, then again some repetition might be good?
+We have found that there 
+
 Continue to work on ES.
 Specific issues with a short description, speed, binning, space usage, demarcation.
 Perhaps include small blurb of future wet lab plans?
