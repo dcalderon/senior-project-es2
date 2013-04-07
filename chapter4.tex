@@ -199,7 +199,9 @@ On small datasets speed is not too much of an issue, but if you want to run a lo
 
 \subsubsection*{All demarcation programs on large datasets}
 Once we run Ecotype Simulation on datasets of 50 sequences are larger time becomes a significant issue.
+
 For this reason we developed ES2 to run on datasets with more than 50 individuals.
+However from past studies we found ES to be the most accurate demarcating program, and we would expect this level of accuracy from ES2 on larger datasets.
 
 %\begin{figure}[h!]
 %  \centering
@@ -225,15 +227,25 @@ For this reason we developed ES2 to run on datasets with more than 50 individual
     \label{fig:All100}
 \end{figure}
 
-\begin{table}
+
+
+Figure~\ref{fig:All100} on page~\pageref{fig:All100} shows accuracy scores for all demarcating programs on a variety of parameters (bacillus values with .1x and 10x and $npop$ values of 30, 40, 50) on sample size of 100 individuals.
+Notice that overall ES2 (dotted line) was the lowest (i.e., most accurate), that means ES2's demarcation output matched most closely to the answer key demarcations.
+
+This fact is highlighted by the lowest average VI score shown in Table~\ref{tab:100Allmean}, of 1.76.
+Also, notice that once again ES2 has the lowest standard deviation, meaning that it was the most consistent, except of course for the random demarcation, which was consistently terrible.
+
+
+\begin{table}[h!]
     \begin{tabular}{l|ccccc}
     ~                  & AdaptML     & AdaptML$^\ast$     & BAPS        & Ecotype Simulation 2 & Random      \\ \hline
     Average            & 3.142555041 & 3.860006018 & 3.363530792 & 1.762829323          & 4.475184564 \\
     Standard Deviation & 0.727870506 & 0.639625177 & 0.67100242  & 0.370748481          & 0.225368714 \\
     \end{tabular}
-    \caption[Statistics on all demarcators on $nu=100$.]{Statistics on all demarcators run with 5 reps on a dataset of $nu=100$.}
+    \caption[Statistics on all demarcators on $nu=100$.]{Statistics on all demarcators run with 5 reps on a dataset of $nu=100$. ($^\ast$) Represents AdaptML ran with a habitat specialization value of 20.}
         \label{tab:100Allmean}
 \end{table}
+
 
 %
 %\begin{figure}[h!]
@@ -254,6 +266,8 @@ For this reason we developed ES2 to run on datasets with more than 50 individual
 %\end{table}
 
 \subsection*{\emph{Bacillus} sequences}
+
+
 \subsection*{Running time}
 \section{Chapter Summary}
 In this chapter I discussed the motivation and thought process behind our experiments.
