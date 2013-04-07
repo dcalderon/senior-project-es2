@@ -1,0 +1,34 @@
+\chapter{Supplementary Results}
+\begin{figure}[h!]
+  \centering
+    \includegraphics[scale=0.75]{images/ResultGraphs/ResultGraphs-2}
+      \caption[All demarcation graphical accuracy visualization on $nu = 100$.]{Across 27 parameter set combinations I exhaustively test all demarcation programs on $npop$ values of 30, 40, and 50, $\Omega$ values of 0.019, 0.19, and 1.9, $\sigma$ values of 0.11, 1.1, and 11, for nu of 100 sequences. Random demarcation is represented by the solid line. On the $y$-axis we have VI scores, where values closer to 0 represent more accurate demarcation runs.}
+    \label{fig:All100}
+\end{figure}
+
+\begin{table}
+    \begin{tabular}{l|ccccc}
+    ~                  & AdaptML     & AdaptML$^\ast$     & BAPS        & Ecotype Simulation 2 & Random      \\ \hline
+    Average            & 3.142555041 & 3.860006018 & 3.363530792 & 1.762829323          & 4.475184564 \\
+    Standard Deviation & 0.727870506 & 0.639625177 & 0.67100242  & 0.370748481          & 0.225368714 \\
+    \end{tabular}
+    \caption[Statistics on all demarcators on $nu=100$.]{Statistics on all demarcators run with 5 reps on a dataset of $nu=100$.}
+        \label{tab:100Allmean}
+\end{table}
+
+\begin{figure}[h!]
+  \centering
+    \includegraphics[scale=0.75]{images/ResultGraphs/ResultGraphs-1}
+      \caption[All demarcation graphical accuracy visualization on $nu = 200$.]{Across 27 parameter set combinations I exhaustively test all demarcation programs on $npop$ values of 30, 40, and 50, $\Omega$ values of 0.019, 0.19, and 1.9, $\sigma$ values of 0.11, 1.1, and 11, for nu of 200 sequences. Random demarcation is represented by the solid line. On the $y$-axis we have VI scores, where values closer to 0 represent more accurate demarcation runs.}
+    \label{fig:All200}
+\end{figure}
+
+\begin{table}
+    \begin{tabular}{l|ccccc}
+    ~                  & AdaptML     & AdaptML$^\ast$     & BAPS        & Ecotype Simulation 2 & Random      \\ \hline
+    Average            & 1.543424394 & 2.908133924 & 3.265003881 & 1.955714164          & 4.667531001 \\
+    Standard Deviation & 0.748104722 & 0.713876097 & 0.59283446  & 0.33348659           & 0.258112685 \\
+    \end{tabular}
+    \caption[Statistics on all demarcators on $nu=200$.]{Statistics on all demarcators run with 5 reps on a dataset of $nu=200$.}
+        \label{tab:200Allmean}
+\end{table}
