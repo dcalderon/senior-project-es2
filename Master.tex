@@ -47,8 +47,12 @@
   formfeed=\newpage,
   tabsize=4,
   commentstyle=\color{purple}\ttfamily,
-  basicstyle=\ttfamily,
-  morekeywords={models, lambda, forms}
+  %basicstyle=\ttfamily,
+  basicstyle=\footnotesize,  
+  morekeywords={models, lambda, forms},
+  numbers=left,
+  frame=single,
+  numberstyle=\tiny\color{gray},
 }
 
 \newcommand{\code}[2]{
@@ -167,7 +171,8 @@ With these improvements I aim to demonstrate the high accuracy of our second ver
 %\addcontentsline{doc}{chapter}{Bibliography}
 
 \appendix
-\include{extras}
+\include{sampleInputFiles}
+\include{supplementaryResults}
 
 \printindex
 
