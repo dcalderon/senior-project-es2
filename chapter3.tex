@@ -178,8 +178,7 @@ Instead, we could define a replacement function that will calculate the distance
 \end{algorithm}
 \caption[Pseudocode showing a distance function for two clusters.]{The two clusters are represented by $c1$ and $c2$, while $s1$ and $s2$ represent sequences in the clusters. The function $seq$-$dist$ takes two sequences and returns the manhattan or taxicab distance between them. This pseudocode returns the distance between two clusters.}
 \label{code:LazyClustering}
-\end{figure}
-
+\end{figure}s
 
 Clusters would start small, and then coalesce into larger clusters.
 Thus the number of comparisons would remain relatively constant and there would be no distance matrix to store.
@@ -231,7 +230,18 @@ We use shared and private clause keywords to identify the respective paradigm.
 
 \subsubsection*{Tests}
 %Outline best results from Ling's tests
-[A BRIEF SUMMARY OF LINGS TESTS!]
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.6]{images/LingParallelized-CH4}
+\caption[OpenMP parallelization results.]{OpenMP parallelization results. Notice that the full program takes about half as much time when run with 8 threads. The full program run time follows the automatic demarcation program so closely because it took 90\% of the total run time in most cases (Figure adapted from Lingyuan Ke's thesis results).}
+\label{fig:LingParallelized}
+\end{figure}
+
+Ling ran the full ES2 program on Wesleyan computer cluster.
+It consists of 176 nodes, however we are limited to the shared-memory model parallelization so we can only use threads within a single node, thus up to 8 threads.
+Figure~\ref{fig:LingParallelized} shows run times for all the programs as we increase the thread number.
+Full program run time was decreased by half when we used 8 threads.
+For more results on OpenMP parallelization refer to Lingyuan Ke's senior thesis.
 
 \subsubsection*{OpenMPI}
 OpenMPI is an open source and complete message passing interface implementation of MPI-2 used in many of the world's largest computing clusters.
@@ -257,8 +267,7 @@ Speed again is a priority for the future demarcator program.
 We discuss a few ideas for ways to work around this issue.
 
 Finally, I summarize work my colleague Lingyuan Ke is doing on parallelizing the overall ES algorithm.
-He used OpenMP for shared-memory parallelism, and got some interesting results.
-%ADD SOME STUFF ABOUT LING'S RESULTS
-Next, he is planning on getting OpenMPI working with ES, so we can parallelize across clusters using message passing.
+He used OpenMP for shared-memory parallelism, and found that we could cut the total run time in half by parallelizing over 8 threads (see Figure~\ref{fig:LingParallelized} on page~\pageref{fig:LingParallelized}).
+Next, he is planning on getting OpenMPI working with ES, allowing us to parallelize across clusters using message passing.
 OpenMPI parallelization would do the most to push ES forward and as such should be our primary priority for future versions.
 
