@@ -279,11 +279,17 @@ I ran ES2 on \emph{Bacillus} sequences from previous studies.
 The results were consistent with previous demarcation runs. [INSERT DEMARCATION GRAPH]
 
 \subsection*{Running time}
-We compared the running times of the demarcation algorithms on synthetic data sets of different sizes, and found that AdaptML, GMYC, and BAPS performed demarcations much more quickly then ES2 (see Table or Figure).
+We compared the running times of the demarcation algorithms on synthetic data sets of different sizes, and found that AdaptML, GMYC, and BAPS performed demarcations much more quickly then ES2 (see Figure~\ref{fig:WindowsSpeed}).
 AdaptML, GMYC, and BAPS all completed demarcations on the order of a few seconds, even for data sets in the hundreds whereas ES required on the order of tens of minutes for the same inputs.
 GMYC was the fastest algorithm, taking no more than one second on average.
 AdaptML followed, and BAPS was the slowest of the three faster algorithms.
-[INSERT RUNNING TIME GRAPHS]
+
+\begin{figure}[h!]
+  \centering
+    \includegraphics[scale=0.7]{images/SpeedWindows-CH4}
+      \caption[Demarcation run time test on Windows.]{Comparison of demarcation runtimes on a Windows. The dotted line represents ES2's runtime. Most demarcators run completely within seconds.}
+    \label{fig:WindowsSpeed}
+\end{figure}
 
 Since the BAPS's batch processing feature was not available for Mac I ran it on Windows.
 However, I also ran ES2, GMYC, and AdaptML separately on my Mac and found that ES2 was significantly faster than when it was run on a Windows machine.

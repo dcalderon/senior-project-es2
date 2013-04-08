@@ -1,0 +1,41 @@
+\chapter{Sample Input Files}
+
+%divergence matrix
+\begin{figure}[h!]
+\centering
+\noindent\code{Divergence Matrix}{code/divergencematrix.txt}
+\caption[Divergence matrix sample text file.]{A divergence matrix file sample with 271 sequences of length 500bp (shown on line one), with 271 rows and columns. Ellipses are used to display a representation of the full matrix. A distance of 1.0 signifies the two sequences are identical. This matrix requires $O(n^3)$ space, and is used for complete-linkage clustering.}
+\label{code:DivergenceMatrix}
+\end{figure}
+
+%binning
+\begin{figure}[h!]
+\centering
+\noindent\code{Binning}{code/binningOut.txt}
+\caption[Binning sample output.]{A sample binning output text file. The first column shows percent identity criteria and the second column the number of clusters at each level. Numerical representation of the sequence identity graph.}
+\label{code:Binning}
+\end{figure}
+
+%bruteforce
+\begin{figure}[h!]
+\centering
+\noindent\code{Bruteforce}{code/bruteforceIn.txt}
+\caption[Bruteforce sample input.]{Bruteforce sample input. The first line represents the number of criterion. Lines 1-21 give criterion values and the number of samples in each cluster. After this we have ranges of parameters to search through. Numincs represents the number of sample points to look through in each parameter range. Nu is the number of sequences. Nrep represents the number of receptions simulations should run. The other lines are self-explanatory.}
+\label{code:Bruteforce}
+\end{figure}
+
+%hillclimbing
+\begin{figure}[h!]
+\centering
+\noindent\code{Hillclimbing}{code/hillclimbIn.txt}
+\caption[Hillclimbing sample input.]{Hillclimbing sample input looks similar to Bruteforce input. The main difference is that there is no range but instead a single value that came from Bruteforce. Also there is an extra value whichavg which represents the precision criterion used.}
+\label{code:Hillclimbing}
+\end{figure}
+
+%demarcation standard format
+\begin{figure}[h!]
+\centering
+\noindent\code{Demarcation standard output}{code/DemarcationOutput.csv}
+\caption[Sample demarcation output file from generated sequences.]{Sample demarcation output file from generated sequences. The first line labels the columns. Following lines start with the number of ecotype and the sequence names of that particular ecotype's members.The final line contains the outgroup.}
+\label{code:DemarcationFormat}
+\end{figure}
