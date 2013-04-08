@@ -199,8 +199,10 @@ Hillclimbing is a downhill-simplex or Nelder-Mead approach to optimization.
 A chosen parameter solution is more thoroughly tested (i.e., with 10,000 replicates), and likelihoods are calculated for the six precision values (i.e., 5x, 2x, etc.).
 The program then calculates how long it would have to run to generate 50 success-based runs on the duration of the previous step.
 If too much time is required then Hillclimbing runs with a more general precision value.
-[I PLAN TO GO INTO MORE DEPTH ON HILLCLIMBING HERE!]
+Bruteforce finds the ranges of the global maximum, while Hillclimbing takes those ranges and attempts to find a local maximum.
+The two programs run in tandem are necessary for accurate parameter estimations.
 %Describe exact detail of hill climbing optimization. Ask for background paper?
+%Look into code and add some...
 
 
 \begin{figure}[h!]

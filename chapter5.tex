@@ -35,7 +35,8 @@ Finally, we demarcate the individual strains into ecotypes.
 
 %Talk a little bit about the improvements, resulting in ES2
 ES2 improves on ES1's core algorithm by using an ultra metric tree when comparing simulated evolutionary histories to the observed history removing a $O(n^3)$ binning step.
-During demarcation we also conduct Hillclimbing at each subtree, maintaing high quality parameter estimations as we recursively descend the phylogeny.
+During demarcation we also conduct Hillclimbing at each subtree; maintaining high quality parameter estimations as we recursively descend the phylogeny.
+We are exploring including OpenMP parallelization; leading to a 50\% reduction in run time, when utilizing 8 threads.
 
 %Summarize ES2 vs ES and ES2 vs all results
 First I showed how close ES1 to ES2 accuracy (VI) scores were on a data set of 50 individuals.
