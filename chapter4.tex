@@ -276,12 +276,17 @@ We would like repetitions in the hundreds.
 
 \subsection*{\emph{Bacillus} sequences}
 I ran ES2 on \emph{Bacillus} sequences from previous studies.
-The results were consistent with previous demarcation runs (see Figure~\ref{fig:Bacillus} on page~\pageref{fig:Bacillus}). [Here I still have to add some ES2 analysis.]
+The results were consistent with previous demarcation runs (see Figure~\ref{fig:Bacillus} on page~\pageref{fig:Bacillus}).
+ES2's demarcations followed ES's closely.
+There was an instance where ES2 found two distinct ecotypes where ES only found one; matching GMYC's cluster boundary.
+Yet, there was another instance where two discrete ES ecotypes were grouped together.
+Results on \emph{Bacillus} sequences are within the bounds of what we would expect to see from a demarcation algorithm.
+ES2 passes the \emph{Bacillus} sanity check.
 
 \begin{figure}[h!]
   \centering
     \includegraphics[scale=0.4]{images/Bacillus-CH4}
-      \caption[Demarcation programs run on previous \emph{Bacillus} sequences.]{Demarcation programs run on previous \emph{Bacillus} sequences.}
+      \caption[Demarcation programs run on previous \emph{Bacillus} sequences.]{Demarcation programs run on previous \emph{Bacillus} sequences. ES2 (orange) found 7 distinct ecotypes and multiple singletons (not included here). The other demarcation results are from previous runs. (adapted from~\protect\cite{carlo})}
     \label{fig:Bacillus}
 \end{figure}
 
@@ -317,6 +322,7 @@ ES2 maintained a high level of accuracy throughout a wide range of parameters (b
 
 Traditionally we run all demarcators on \emph{Bacillus} sequences.
 We found ES2 performed well.
+ES's previous demarcations were similar, even though their were a few extra ecotypes discovered and in other instances separate ecotypes grouped together.s
 
 Once again ES2 was the slowest demarcation algorithm.
 However, it improved dramatically on ES1 running times.
