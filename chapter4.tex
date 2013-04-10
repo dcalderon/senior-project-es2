@@ -241,12 +241,20 @@ $Npop$ appears to have had the greatest effect on the accuracy of all the demarc
 Losing accuracy with greater values of $npop$ was a trend that continued with larger datasets (see supplementary figures in appendix).
 
 \begin{table}[h!]
-    \begin{tabular}{l|ccccc}
-    ~                  & AdaptML     & AdaptML$^\ast$     & BAPS        & Ecotype Simulation 2 & Random      \\ \hline
-    Average            & 3.142555041 & 3.860006018 & 3.363530792 & 1.762829323          & 4.475184564 \\
-    Standard Deviation & 0.727870506 & 0.639625177 & 0.67100242  & 0.370748481          & 0.225368714 \\
+%    \begin{tabular}{l|ccccc}
+%    ~                  & AdaptML     & AdaptML$^\ast$     & BAPS        & Ecotype Simulation 2 & Random      \\ \hline
+%    Average            & 3.142555041 & 3.860006018 & 3.363530792 & 1.762829323          & 4.475184564 \\
+%    Standard Deviation & 0.727870506 & 0.639625177 & 0.67100242  & 0.370748481          & 0.225368714 \\
+%    \end{tabular}
+    \begin{tabular}{l|cc}
+    ~                    & Average     & Standard Deviation \\ \hline
+    AdaptML              & 3.142555041 & 0.727870506        \\
+    $^\ast$AdaptML              & 3.860006018 & 0.639625177        \\
+    BAPS                 & 3.363530792 & 0.67100242         \\
+    ES 2 & 1.762829323 & 0.370748481        \\
+    Random               & 4.475184564 & 0.225368714        \\
     \end{tabular}
-    \caption[Statistics on all demarcators on $nu=100$.]{Statistics on all demarcators run with 5 reps on a dataset of $nu=100$. ($^\ast$) Represents AdaptML ran with a habitat specialization value of 20. [FIX TABLE SO FITS IE TRANSPOSE IT VERTICALLY?]}
+    \caption[Statistics on all demarcators on $nu=100$.]{Statistics on all demarcators run with 5 reps on a dataset of $nu=100$. ($^\ast$) Represents AdaptML ran with a habitat specialization value of 20. }
         \label{tab:100Allmean}
 \end{table}
 
