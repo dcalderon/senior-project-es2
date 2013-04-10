@@ -306,9 +306,21 @@ AdaptML followed, and BAPS was the slowest of the three faster algorithms.
 \begin{figure}[h!]
   \centering
     \includegraphics[scale=0.7]{images/SpeedWindows-CH4}
-      \caption[Demarcation run time test on Windows.]{Comparison of demarcation runtimes on a Windows. The dotted line represents ES2's runtime. Most demarcators run completely within seconds. [TURN INTO TABLE AND GRAPH WITH JUST ES AND ES2}
+      \caption[Demarcation run time test on Windows.]{Comparison of demarcation runtimes on a Windows. The dotted line represents ES2's runtime. Most demarcators run completely within seconds.}
     \label{fig:WindowsSpeed}
 \end{figure}
+
+
+\begin{table}
+    \begin{tabular}{l|cccccc}
+    Algorithm & 20   & 30    & 50     & 110    & 140    & 170    \\ \hline
+    AdaptML   & na   & 2.0   & 3.0    & 5.0    & 5.4    & 5.8    \\
+    BAPS      & na   & 9.0   & 15.3   & 26.8   & 28.7   & 34.3   \\
+    ES1       & 69.8 & 384   & 2390   & na     & na     & na     \\
+    ES2       & na   & 558.7 & 1127.4 & 2511.5 & 3208.0 & 5237.2 \\
+    \end{tabular}
+\end{table}
+
 
 Since the BAPS's batch processing feature was not available for Mac I ran it on Windows.
 However, I also ran ES2, GMYC, and AdaptML separately on my Mac and found that ES2 was significantly faster than when it was run on a Windows machine.
