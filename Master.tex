@@ -4,6 +4,9 @@
 \usepackage[pdftex]{graphicx}
 \usepackage{sidecap}
 
+%Control Appendix environment
+\usepackage[toc,page]{appendix}
+
 %Pseudocode
 %Causes problem with first page?? ASK DANNER
 \usepackage[lined,boxed,commentsnumbered]{algorithm2e}
@@ -100,26 +103,18 @@
 {\hfill\closequote\end{quote}\end{snugshade}}
 %END
 
-
-\title{History and Testing of Improved Bacteria Speciation Algorithm}
+%Thesis stuff starts here.
+\title{An Improved Algorithm for Demarcating Bacterial Species}
 \author{Diego Calderon}
 \advisor{Danny Krizanc}
 \secondreader{Frederick Cohan}
-
 \department{Mathematics and Computer Science}
 \submitdate{April 2013}
-%Do not need to specify copyright year if I do not use the \copyright page (which is not appropriate for Honors thesis)
-%\copyrightyear{2013}
 
 \makeindex
 
 \begin{document}
 \draftmsg{Draft Copy (Diego Calderon):	\today}
-
-%Following two environments are optional. Presumably I'll keep the acknowledgements
-\begin{dedication}
-I dedicate this to ...
-\end{dedication}
 
 \begin{acknowledgements}
 First I would like to thank my parents for always providing their warmth and support when I needed it most.
@@ -144,11 +139,9 @@ Recently we have made several improvements to the algorithm behind ES that incre
 With these improvements I aim to demonstrate the high accuracy of our second version of Ecotype Simulation (ES2) compared to ES for smaller inputs and then show ES2's superiority to other demarcators for larger size inputs.
 \end{abstract}
 
+%Pre-thesis stuff
 \frontmatter
 \maketitle
-% Not needed for honors thesis
-%\copyrightpage
-%\makededication
 \makeack
 \makeabstract
 \tableofcontents
@@ -161,20 +154,18 @@ With these improvements I aim to demonstrate the high accuracy of our second ver
 \include{chapter1}
 \include{chapter2}
 \include{chapter3}
-%NEW CHAPTER FOR SHOWING COMPARISONS BETWEEN THE TWO
-%or include everything in one results chapter?
 \include{chapter4}
 \include{chapter5}
 
-\bibliographystyle{abbrv}
-\bibliography{references}
-%\addcontentsline{doc}{chapter}{Bibliography}
-
-\appendix
+%Appendix stuff here
+\begin{appendix}
 \include{sampleInputFiles}
 \include{supplementaryResults}
+\end{appendix}
 
-\printindex
+%Bibliography here
+\bibliographystyle{abbrv}
+\bibliography{references}
 
 \backmatter
 % ?? \include{vita}

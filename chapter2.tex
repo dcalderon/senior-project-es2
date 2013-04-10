@@ -78,7 +78,7 @@ However over time and through various purification events adaptive mutations acc
 Notice that the two clades are totally free from each other's periodic selection diversity quashing~\cite{cohan2007systematics}.
 This is an important feature of separate ecotypes, because we can later observe the differences acquired from separate evolutionary histories.
 
-Theory and empirical evidence hints that these boundaries correlate to ecological niche, based on empirical studies where environmental samples were collected and statistically correlated to their putative ecotypes~\cite{cohan2007systematics, cohan2006sequence, ward2006cyanobacterial, cohan2006toward}.
+Theory and empirical evidence hints that these boundaries correlate to an ecological niche, based on empirical studies where environmental samples were collected and statistically correlated to their putative ecotypes~\cite{cohan2007systematics, cohan2006sequence, ward2006cyanobacterial, cohan2006toward}.
 To identify the system's fundamental elements takes three steps.
 First, observe and characterize the community's evolutionary history.
 Second, simulate evolutionary history as hypotheses of various descriptive parameters, resulting in a most likely parametric characterization of observed history.
@@ -160,8 +160,9 @@ Then the forward simulation produces corresponding mutational nucleotide substit
 \label{fig:TreeCompare}
 \end{figure}
 
+%FIND CITATION FOR BROKEN STICK!
 Initially a set of $v$ contemporary organisms (representing those sampled from the environment) are randomly distributed according to broken-stick distribution among $n$ ecotypes (in the case of Figure \ref{fig:SpeciationGraph}, $v = 14$ and $n = 3$).
-In broken-stick distribution we start with a single giant ecotype then continue to randomly split it up until we have the designated $npop$ ecotypes.
+In broken-stick distribution (or random fraction) we start with a single giant ecotype then continue to randomly split it up (by randomly picking an ecotype and splitting that one up) until we have the designated $npop$ ecotypes~\cite{tokeshi1990niche}.
 Working backward from the $v$ organisms in the present, the processes of EF, PS, and D occur stochastically in time according to their respective predetermined rates ($\Omega$, $\sigma$, and d).
 Each event coalesces one or more lineages into  a single ancestral lineage.
 The backward phase of the simulation ends when all of the branches have coalesced into a single node, which represents the most recent common ancestor of the sampled organisms.
@@ -195,7 +196,7 @@ The even distribution of points with a lack of insight is referred to as Brutefo
 The beauty of Bruteforce is that it outputs a range of parameters that contains the global maximum likelihood.
 The range of likely parameters is then passed through an optimization program known as Hillclimbing (see Figure \ref{fig:Flow}B), which finds local maximums (i.e., the global maximum within our Bruteforce parameter ranges).
 
-Hillclimbing is a downhill-simplex or Nelder-Mead approach to optimization.
+We use the Nelder-Mead downhill-simplex approach to hill climbing optimization.
 A chosen parameter solution is more thoroughly tested (i.e., with 10,000 replicates), and likelihoods are calculated for the six precision values (i.e., 5x, 2x, etc.).
 The program then calculates how long it would have to run to generate 50 success-based runs on the duration of the previous step.
 If too much time is required then Hillclimbing runs with a more general precision value.
@@ -217,7 +218,7 @@ With the most likely estimations of $npop$, $\sigma$, and $\Omega$ (remember tha
 Demarcation uses the user input phylogeny and the maximum likelihood parameters produced from Hillclimbing optimization (see Figure \ref{fig:Flow}B - C).
 ES comes with a manual demarcator, however for my work we used an automatic demarcator that uses a demarcation confidence interval program.
 
-The automatic demarcator starts at the closest common ancestor and recursively runs confidence interval tests for $npop$ on subtrees.
+The automatic demarcator starts at the common ancestor and recursively runs confidence interval tests for $npop$ on subtrees.
 At each level the overall Hillclimbing results are used to run the demarcation confidence interval program which checks parameter likelihoods in a loop that decreases $npop$ by a step value until it is either below 1, beneath a pre-determined likelihood or fails a likelihood ratio test.
 The resulting $npop$ from demarcation confidence interval is the 95\% likely lower bound $npop$.
 If this $npop$ equals 1 then we demarcate the sequences of the subtree as a single ecotype.

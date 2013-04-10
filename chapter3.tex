@@ -25,9 +25,8 @@
 ES1 set hard input size limits of two thousand sample sequences of at most three thousand nucleotides~\cite{koeppel2008identifying}.
 However, I doubt it was ever run with even close to that many sequences.
 When run on input sizes of greater than only one hundred sequences time became a limiting factor.
-Previous work showed that while ES1 had superior \index{demarcation} accuracy to its contemporaries, ES1 could not compete in run-time comparisons.
-And as we increase the sample size running time increases dramatically.
-See Table \ref{tab:ES1speed}.
+Previous work showed that while ES1 had superior \index{demarcation} accuracy to its contemporaries, ES1 could not compete in run-time comparisons~\cite{carlo}.
+And as we increase the sample size running time increases dramatically (see Table \ref{tab:ES1speed} on page~\pageref{tab:ES1speed}).
 This issue is clearly a priority for improvement.
 
 To solve the problem we came up with two approaches.
@@ -77,7 +76,7 @@ Then at each child node we use Hillclimbing results from the parent node to re-r
 At each level the re-run Hillclimbing results (instead of just using the overall Hillclimbing values as in ES1) are used to run a demarcation confidence interval program which checks parameter likelihoods in a loop that decreases $npop$ by a step value until it is either below 1, beneath a pre-determined likelihood or fails a likelihood ratio test.
 Again, the resulting $npop$ from demarcation confidence interval is the 95\% likely lower bound $npop$.
 If this $npop$ equals 1 then we demarcate the sequences of the subtree as a single ecotype.
-This maintains a high level of accuracy without compromising speed too much.
+This maintains a high level of accuracy while decreasing runtime significantly.
 
 \section{Future Improvements}
 Through the work involved with this project we realized that in addition to speed, space has become a limiting factor.
