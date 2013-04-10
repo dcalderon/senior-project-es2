@@ -23,7 +23,7 @@
 
 \section{Improvements}
 ES1 set hard input size limits of two thousand sample sequences of at most three thousand nucleotides~\cite{koeppel2008identifying}.
-However, I doubt it was ever run with even close to that many sequences.
+However, it was never run with even close to that many sequences.
 When run on input sizes of greater than only one hundred sequences time became a limiting factor.
 Previous work showed that while ES1 had superior \index{demarcation} accuracy to its contemporaries, ES1 could not compete in run-time comparisons~\cite{carlo}.
 And as we increase the sample size running time increases dramatically (see Table \ref{tab:ES1speed} on page~\pageref{tab:ES1speed}).
@@ -78,7 +78,7 @@ Again, the resulting $npop$ from demarcation confidence interval is the 95\% lik
 If this $npop$ equals 1 then we demarcate the sequences of the subtree as a single ecotype.
 This maintains a high level of accuracy while decreasing runtime significantly.
 
-\section{Future Improvements}
+\section{Future Improvements} [CONSIDER MOVING TO CHAPTER 5, I THINK IT'S A GOOD IDEA]
 Through the work involved with this project we realized that in addition to speed, space has become a limiting factor.
 To make a distance divergence matrix we need $O(n^2)$ space, and with number of sequences in the thousands we quickly run out of RAM. Also, the current implementation has similar time complexity to the naive $O(n^3)$ approach.
 We explored different clustering packages that had various space and time trade-off balances.
@@ -177,7 +177,7 @@ Instead, we could define a replacement function that will calculate the distance
 \end{algorithm}
 \caption[Pseudocode showing a distance function for two clusters.]{The two clusters are represented by $c1$ and $c2$, while $s1$ and $s2$ represent sequences in the clusters. The function $seq$-$dist$ takes two sequences and returns the manhattan or taxicab distance between them. This pseudocode returns the distance between two clusters.}
 \label{code:LazyClustering}
-\end{figure}s
+\end{figure}
 
 Clusters would start small, and then coalesce into larger clusters.
 Thus the number of comparisons would remain relatively constant and there would be no distance matrix to store.

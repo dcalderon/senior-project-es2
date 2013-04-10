@@ -8,11 +8,11 @@ I wanna make sure you're ready, brother. Here it is: Show me the money. Oh-ho-ho
 
 
 \section{Methods}
-Most methods used were based on a previous study, with few modifications~\cite{carlo}.
+The methods chosen for testing were based on a previous study, with few modifications~\cite{carlo}.
 Our main goals were to test ES2's accuracy for small input sizes, large input sizes, and show ES2's speed improvements over ES1.
 This involves many \emph{in silico} or computer generated dataset tests and a test of ES2 on previous \emph{Bacillus} data samples from Death Valley.
 
-To test accuracy of different algorithms we utilized an established pipeline~\cite{carlo}, (see Figure~\ref{fig:ComparisonFlow}) which involves generating sequences, and a corresponding demarcation answer key in a standard format.
+To test the accuracy of different algorithms we utilized an established pipeline~\cite{carlo}, (see Figure~\ref{fig:ComparisonFlow}) which involves generating sequences, and a corresponding demarcation answer key in a standard format.
 The generated sequences are then passed through all the demarcators, including a random demarcator (used as a control), producing clustering output in the established standard format.
 We then use a metric to compare each resulting output to the corresponding answer key that gives a quantification for accuracy. Figure~\ref{fig:ComparisonFlow} on page \pageref{fig:ComparisonFlow} clearly shows the workflow for this pipeline.
 
@@ -158,7 +158,7 @@ We present the mean run times that each algorithm required to analyze synthetic 
 %\end{figure}
 
 \subsection*{Analysis of in silico-generated sequences}
-The majority of my work was putting together a database of in silico generated sequences demarcation runs.
+The majority of my work was putting together a dataset of in silico generated sequences demarcation runs.
 A lot of the code I used to run tests was legacy code from past lab members.
 I had to update many dependency packages, and modify certain portions to work on various computer platforms.
 BAPS does not run on with batch mode on Macintosh.
@@ -198,10 +198,9 @@ Across various parameters ES2 looks to be more consistent than even ES1, even th
 On small datasets speed is not too much of an issue, but if you want to run a lot of small datasets, then we advise using ES2.
 
 \subsubsection*{All demarcation programs on large datasets}
-Once we run Ecotype Simulation on datasets of 50 sequences are larger time becomes a significant issue.
-
+Time becomes a significant issue when we run Ecotype Simulation on datasets of 50 sequences (runtime is \textasciitilde2390 seconds from Table~\ref{tab:ES1speed} on page~\pageref{tab:ES1speed}) or larger.
 For this reason we developed ES2 to run on datasets with more than 50 individuals.
-However from past studies we found ES to be the most accurate demarcating program, and we would expect this level of accuracy from ES2 on larger datasets.
+From past studies we have found ES to be the most accurate demarcation program~\cite{carlo}, and we expect similar levels of accuracy from ES2 on larger datasets.
 
 %\begin{figure}[h!]
 %  \centering
@@ -247,7 +246,7 @@ Losing accuracy with greater values of $npop$ was a trend that continued with la
     Average            & 3.142555041 & 3.860006018 & 3.363530792 & 1.762829323          & 4.475184564 \\
     Standard Deviation & 0.727870506 & 0.639625177 & 0.67100242  & 0.370748481          & 0.225368714 \\
     \end{tabular}
-    \caption[Statistics on all demarcators on $nu=100$.]{Statistics on all demarcators run with 5 reps on a dataset of $nu=100$. ($^\ast$) Represents AdaptML ran with a habitat specialization value of 20.}
+    \caption[Statistics on all demarcators on $nu=100$.]{Statistics on all demarcators run with 5 reps on a dataset of $nu=100$. ($^\ast$) Represents AdaptML ran with a habitat specialization value of 20. [FIX TABLE SO FITS IE TRANSPOSE IT VERTICALLY?]}
         \label{tab:100Allmean}
 \end{table}
 
@@ -299,7 +298,7 @@ AdaptML followed, and BAPS was the slowest of the three faster algorithms.
 \begin{figure}[h!]
   \centering
     \includegraphics[scale=0.7]{images/SpeedWindows-CH4}
-      \caption[Demarcation run time test on Windows.]{Comparison of demarcation runtimes on a Windows. The dotted line represents ES2's runtime. Most demarcators run completely within seconds.}
+      \caption[Demarcation run time test on Windows.]{Comparison of demarcation runtimes on a Windows. The dotted line represents ES2's runtime. Most demarcators run completely within seconds. [TURN INTO TABLE AND GRAPH WITH JUST ES AND ES2}
     \label{fig:WindowsSpeed}
 \end{figure}
 
