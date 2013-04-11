@@ -160,7 +160,7 @@ We believe this is part of the reason why if ES is run on a dataset with a low $
 As of yet, we are still unsure of ways to fix this problem.
 
 Another issue with demarcation is speed.
-We found that in many cases when we ran ES2 on large datasets the majority of time was spent demarcating.
+We found that in many cases when we ran ES2 on large datasets the majority of time (\textasciitilde90\%) was spent demarcating~\cite{lingThesis}.
 One potential solution would be to modify the demarcation confidence interval program so that instead of stepping down by $npop$ sequentially one at a time, determining likelihood, we could check the likelihood of $npop = 1$ from the start, thus more quickly deciding whether or not we are observing a single ecotype.
 This approach is still quite experimental and I have not had a chance to test it.
 

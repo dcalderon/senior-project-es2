@@ -1,0 +1,17 @@
+Run of 20 npop, 0.019 omega, 1.100 sigma
+Average of 100 loops:
+Random score is: 3.66202598305
+Ecosim score is: 0.510492207553
+Ecosim2 score is: 1.58337794239
+
+Run of 20 npop, 0.190 omega, 1.100 sigma
+Average of 100 loops:
+Random score is: 3.71578238929
+Ecosim score is: 0.998824285323
+Ecosim2 score is: 1.41574734082
+
+Run of 20 npop, 1.900 omega, 1.100 sigma
+Average of 100 loops:
+Random score is: 3.77112938346
+Ecosim score is: 2.67905983392
+Ecosim2 score is: 1.95951526565

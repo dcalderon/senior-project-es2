@@ -128,10 +128,7 @@ The important relationship to keep in mind is that the lower the VI score the mo
 
 \subsection*{ES2 on smaller datasets}
 I ran the new and improved ES2 algorithm on generated datasets for parameters clearly defined in previous studies~\cite{carlo}.
-All sample datasets included fifty sequences, and were repeated ten times to find the mean VI score (see Figure~\ref{fig:ESvES2} on page~\pageref{fig:ESvES2}).
-Notice how closely the two lines are on the horizontal axis.
-
-On a few specific values we ran ES1 and ES2 through one hundred repetitions to find more robust VI scores.
+All sample datasets included fifty sequences, and were repeated ten times to find the mean VI score (see Figure~\ref{fig:ESvES2} on page~\pageref{fig:ESvES2}). Also, on a few specific values we ran ES1 and ES2 through one hundred repetitions to find more robust VI scores.
 
 \subsubsection*{Bacillus sequences}
 \emph{Bacillus} strains were isolated from Radio Facility Wash, a west-running canyon in Death Valley, consisting of habitats with three levels of solar exposure, including the canyon's sunny south-facing slope, the shadier and cooler north-facing slope, and the arroyo at the bottom~\cite{connor2010ecology}.
@@ -192,6 +189,9 @@ In contrast to ES2 (dotted) which overall was quite accurate with few valleys an
 \end{table}
 This trend is represented in Table~\ref{tab:ESvES2mean} on page~\pageref{tab:ESvES2mean}, by ES2's lower standard deviation than ES1.
 However, ES still has a lower mean VI score, but not by much.
+We also chose 3 canonical parameters (\emph{Bacillus} values with varying omega) to run ES1 and ES2 on 100 repetitions.
+Results in raw form for this experiment can be found in Figure~\ref{fig:HundredResultsFile} in the Appendix.
+Surprisingly, ES2 outscored ES1 in the 10x omega value parameter run.
 
 From these tests, we feel fairly confident in ES2's accuracy.
 Across various parameters ES2 looks to be more consistent than even ES1, even though ES1 demarcation often matches the answer key more closely.
