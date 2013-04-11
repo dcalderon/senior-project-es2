@@ -26,19 +26,18 @@ ES1 set hard input size limits of two thousand sample sequences of at most three
 However, it was never run with even close to that many sequences.
 When run on input sizes of greater than only one hundred sequences time became a limiting factor.
 Previous work showed that while ES1 had superior \index{demarcation} accuracy to its contemporaries, ES1 could not compete in run-time comparisons~\cite{carlo}.
-And as we increase the sample size running time increases dramatically (see Table \ref{tab:ES1speed} on page~\pageref{tab:ES1speed}).
-This issue is clearly a priority for improvement.
+As we increase the sample size running time increases dramatically (see Table \ref{tab:ES1speed} on page~\pageref{tab:ES1speed}); clearly a priority for improvement
 
 To solve the problem we came up with two approaches.
 First, modify the main ES algorithm driving the program.
 Second, reorganize execution to take advantage of large computer clusters (parallelization).
-I will focus mainly on modifications to the ES algorithm, which are prominently featured in ES2, and briefly address my colleague, Lingyuan Ke's, approach to (parallelization) which will be featured in future Ecotype Simulation iterations.
+I will focus mainly on modifications to the ES algorithm, which are prominently featured in ES2, and briefly address my colleague, Lingyuan Ke's, approach to parallelization which will be featured in future Ecotype Simulation iterations.
 Finally, I will discuss future plans for improving the Ecotype Simulation software family.
 
 
 \subsection*{Ecotype Simulation 2.0}
-This is the version of ES I thoroughly test in chapter four in comparison to other demarcating programs.
-While the changes are few in number, we believe that they will increase the practicality of using ES approach to understanding microbial diversity.
+This is the version of ES thoroughly tested in comparison to other demarcating programs in chapter four.
+While the changes are few in number, we believe that they will increase the practicality of using ES analysis when exploring microbial speciation.
 
 \begin{table}
  %\begin{tabular}{| l | l | l | l |}
@@ -57,23 +56,23 @@ While the changes are few in number, we believe that they will increase the prac
 
 \subsubsection*{Key algorithmic changes}
 Backwards and forward simulation takes up most of ES1 run time.
-The simulation process is called many times throughout the entire typical program execution.
+The simulation process is called many times throughout typical program execution.
 If we can come up with a way to reduce the time complexity of simulations, great speed improvements are possible.
 
 For ES2 we run the backwards simulation of node coalescence exactly the same.
-However, once we have the evolutionary history scaffold we can use properties of ultra-metric phylogenetic trees.
-Ultra-metric trees have the same distance between root to tip for all organisms, and usually are made under the assumptions of a deterministic rather than a stochastic molecular clock~\cite{ho2008molecular}.
-By the length between two nodes we can determine time between organisms.
-Based on this fact performing binning is unnecessary.
+However, once we have the evolutionary history scaffold we can use properties of ultrametric phylogenetic trees to our advantage.
+Ultrametric trees have the same distance from root to tip for all organisms, and are made under the assumptions of a deterministic rather than a stochastic molecular clock~\cite{ho2008molecular}.
+From the length between two nodes we can determine evolutionary distance between organisms, which correlates to time under ultrametric assumptions.
+Based on this fact running the binning program on simulated output is unnecessary.
 ES2 can conduct a linear pass through the backwards scaffold directly comparing it to the observed sequence identity graph, checking for success and failure with all precision levels.
-This insight replaces an $O(n^3)$ factor with a linear comparison, immediately quickening the algorithm. [PERHAPS GO INTO MORE DETAIL? Should I make an image?]
+This insight replaces an $O(n^3)$ factor with a linear comparison, immediately quickening the algorithm. 
 
 \subsubsection*{Demarcation}
-In addition to core algorithm changes we made changes to the auto-demarcating program.
-Instead of demarcation confidence intervals, ES2 runs the downhill-simplex (Hillclimbing) method on each subtree as we recursively descend through the phylogeny.
-Normally our Bruteforce method must be run before Hillclimbing, in this case we use results from Hillclimbing as initial parameters (or seed) for the closest ancestor node.
+In addition to core algorithm changes we altered the automatic demarcation program.
+In addition to demarcation confidence intervals, ES2 runs the downhill-simplex (Hillclimbing) method on each subtree as we recursively descend through the phylogeny.
+Normally our Bruteforce method must be run before Hillclimbing, in this case we use results from Hillclimbing as initial parameters (or seed) for the closest ancestor node to start demarcating.
 Then at each child node we use Hillclimbing results from the parent node to re-run Hillclimbing, bypassing running Bruteforce for each subtree.
-At each level the re-run Hillclimbing results (instead of just using the overall Hillclimbing values as in ES1) are used to run a demarcation confidence interval program which checks parameter likelihoods in a loop that decreases $npop$ by a step value until it is either below 1, beneath a pre-determined likelihood or fails a likelihood ratio test.
+At each level the re-run Hillclimbing results (instead of just using the overall Hillclimbing values as in ES1) are used to run the same demarcation confidence interval program which checks parameter likelihoods in a loop that decreases $npop$ by a step value until it is either below 1, beneath a pre-determined likelihood or fails a likelihood ratio test.
 Again, the resulting $npop$ from demarcation confidence interval is the 95\% likely lower bound $npop$.
 If this $npop$ equals 1 then we demarcate the sequences of the subtree as a single ecotype.
 This maintains a high level of accuracy while decreasing runtime significantly.
@@ -255,18 +254,19 @@ This maintains a high level of accuracy while decreasing runtime significantly.
 \section{Chapter Summary}
 From demarcation program comparisons of the past~\cite{carlo}, we have demonstrated ES1's accuracy; however it lags behind its contemporaries in terms of run time.
 By altering the core algorithm behind ES we took advantage of ultra-metric tree characteristics allowing us to do a linear time and space comparison instead of a polynomial complexity technique, saving plenty of time.
-We also fidgeted with the auto-demarcator program, so it would re-run the Hillclimbing program at each subtree before confidence intervals, theoretically increasing accuracy as well.
+We also fidgeted with the automatic demarcation program, so it would re-run the Hillclimbing program at each subtree before confidence intervals, theoretically increasing accuracy as well.
+Next, we will test ES2's demarcation performance.
 
-Even ES2 has areas in which we would like to improve on in the future.
-Run time continues to be a concern, but space usage is increasingly an issue.
-I outlined some exploratory work we were doing on looking into various packages to replace our naive implementation of Binning.
-Also, I highlight ideas we have had to reduce space usage, first eliminating the distance matrix and second parallelizing the clustering algorithm (which would also speed up runtime on large datasets).
-There are some issues when our automatic demarcator attempts to deal with paraphyletic groups.
-Speed again is a priority for the future demarcator program.
-We discuss a few ideas for ways to work around this issue.
-
-Finally, I summarize work my colleague Lingyuan Ke is doing on parallelizing the overall ES algorithm.
-He used OpenMP for shared-memory parallelism, and found that we could cut the total run time in half by parallelizing over 8 threads (see Figure~\ref{fig:LingParallelized} on page~\pageref{fig:LingParallelized}).
-Next, he is planning on getting OpenMPI working with ES, allowing us to parallelize across clusters using message passing.
-OpenMPI parallelization would do the most to push ES forward and as such should be our primary priority for future versions.
-
+%Commented out since moved to chapter5
+%
+%ES2 has areas in which we would like to improve on in the future.
+%Run time continues to be a concern, but space usage is increasingly an issue.
+%I outlined some exploratory work we were doing on looking into various packages to replace our naive Binning implementation.
+%Also, I highlight ideas we have had to reduce space usage, first eliminating the distance matrix and second parallelizing the clustering algorithm (which would also speed up runtime on large datasets).
+%There are some issues when our automatic demarcator attempts to deal with paraphyletic groups.
+%Speed again is a priority for the future demarcator program; we discuss a few ideas for ways to work around these issues.
+%
+%Finally, I summarize work my colleague Lingyuan Ke is doing on parallelizing the overall ES algorithm.
+%He used OpenMP for shared-memory parallelism, and found that we could cut the total run time in half by parallelizing over 8 threads (see Figure~\ref{fig:LingParallelized} on page~\pageref{fig:LingParallelized}).
+%Next, he (or his successor) is planning on getting OpenMPI working with ES, allowing us to parallelize across clusters using message passing.
+%OpenMPI parallelization would do the most to push ES forward and as such should be our primary priority for future versions.

@@ -8,20 +8,19 @@ I wanna make sure you're ready, brother. Here it is: Show me the money. Oh-ho-ho
 
 
 \section{Methods}
-The methods chosen for testing were based on a previous study, with few modifications~\cite{carlo}.
-Our main goals were to test ES2's accuracy for small input sizes, large input sizes, and show ES2's speed improvements over ES1.
-This involves many \emph{in silico} or computer generated dataset tests and a test of ES2 on previous \emph{Bacillus} data samples from Death Valley.
+The methods chosen for testing were based on a previous study~\cite{carlo}, with few modifications.
+Our main goals were to test ES2's accuracy for small input sizes, large input sizes, and show ES2's speed improvements over ES1; involving many \emph{in silico} or computer generated dataset tests and a test of ES2 on previous \emph{Bacillus} data samples from Death Valley.
 
-To test the accuracy of different algorithms we utilized an established pipeline~\cite{carlo}, (see Figure~\ref{fig:ComparisonFlow}) which involves generating sequences, and a corresponding demarcation answer key in a standard format.
+To test the accuracy of different algorithms we utilized an established pipeline~\cite{carlo}, (see Figure~\ref{fig:ComparisonFlow} on page~\pageref{fig:ComparisonFlow}) which involves generating sequences, and a corresponding demarcation answer key in a standard format.
 The generated sequences are then passed through all the demarcators, including a random demarcator (used as a control), producing clustering output in the established standard format.
-We then use a metric to compare each resulting output to the corresponding answer key that gives a quantification for accuracy. Figure~\ref{fig:ComparisonFlow} on page \pageref{fig:ComparisonFlow} clearly shows the workflow for this pipeline.
+We then use a metric (Variation of Information) to compare each resulting output to the corresponding answer key that gives a quantification for accuracy. Figure~\ref{fig:ComparisonFlow} on page \pageref{fig:ComparisonFlow} clearly shows the workflow for this pipeline.
 
-Speed tests were done using the python time package to clock starting and finishing times of each algorithm several times, finding the mean running time on various datasets~\cite{carlo}.
+Speed tests were done using the python `time' package to clock starting and finishing times of each algorithm for several repetitions, finding the mean running time on various datasets~\cite{carlo}.
 
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.75]{images/DemarcationComparisonsFlow-CH4}
-\caption[Demarcation comparison flow diagram.]{A flow diagram for the running of demarcation accuracy comparisons. The produce sequences makes simulated datasets that are used as inputs for various demarcation algorithms, the random demarcator, and answer key generation. Answer keys are generated directly from the knowledge involved in producing the sequences i.e., we know \emph{a priori} which strains belong in an ecotype and how many total ecotypes there are. All the resulting output is compared against the answer key with the Variation of Information (VI) metric to determine accuracy. The dotted line is present because ES1 is not run on the larger datasets.}
+\caption[Demarcation comparison flow diagram.]{A flow diagram for the running of demarcation accuracy comparisons. The produce sequences program takes variable parameters and makes simulated datasets that are used as inputs for various demarcation algorithms, the random demarcator, and answer key generation. Answer keys are generated directly from the knowledge involved in producing the sequences i.e., we know \emph{a priori} which strains belong in an ecotype and how many total ecotypes there are. All the resulting output is compared against the answer key with the Variation of Information (VI) metric to determine accuracy. The dotted line is present because ES1 is not run on the larger datasets.}
 \label{fig:ComparisonFlow}
 \end{figure}
 
@@ -29,20 +28,21 @@ Speed tests were done using the python time package to clock starting and finish
 As a rite of passage, we compare ES against other available demarcation algorithms~\cite{carlo}.
 Previously, ES was demonstrated to be the most accurate, yet slowest demarcator.
 ES2 aims to be just as accurate as ES but a lot faster, enabling larger input size functionality.
-However, there are other demarcators currently available that utilize a variety of clustering models.
+The other currently available utilize a variety of clustering models.
 
 \subsubsection*{GMYC~\cite{barraclough2009inferring}}
 The GMYC algorithm assumes a Yule model of speciation followed by a neutral coalescent model within species, where drift is the only process yielding coalescence.
 It was originally designed to delineate species from sequences for sexually reproducing organisms such as insects, but later was shown to be applicable to asexually reproducing organisms.
 GMYC needs only an ultrametric phylogentic tree to demarcate strains.
 It is available as a part of the SPLITS package installed and imported onto any local R environment on Mac, Linux, and Windows.
+In some tests GMYC had difficulty with generated trees; in cases where it did not complete demarcation results for GMYC were left out.
 
 \subsubsection*{BAPS~\cite{corander2007bayesian}}
 The Bayesian Analysis of Population Structure (BAPS) application refines existing Bayesian approaches to determine the structure of populations from genetic data.
 It assumes a partition-based mixture model and performs classification using a variant of the Metropolis-Hasting algorithm to identify clusters of sequences, with no explicit model of purging diversity within clusters.
 Although, the algorithm can take into account recombination within and between populations.
 
-BAPS has Windows, Linux and Mac versions with GUIs and a command line interface designed for batch processing; however it does not function in the Mac platform.
+BAPS has Windows, Linux and Mac versions with GUIs and a command line interface designed for batch processing (this feature does not function in the Mac platform).
 
 \subsubsection*{AdaptML~\cite{hunt2008resource}}
 AdaptML places strains into ecotypes based on the assumption that the origin of each ecotype is driven by a change in habitat preferences.
@@ -53,8 +53,8 @@ AdaptML runs on any operating system with a  version of Python installed. There 
 
 \subsubsection*{Random demarcation}
 I developed a random demarcator to serve as a control.
-In it I pick a random number between one and the number of samples for $npop$ (we also experimented with variations of $npop$ choices, including using the correct $npop$). 
-Then I randomly distribute the generated sequences throughout $npop$ ecotypes using the broken-stick model, and finally write a demarcation output file (see Figure~\ref{code:RandomDemarcating} on page~\pageref{code:RandomDemarcating}).
+In it I pick a random number between one and the number of samples as the $npop$ value (we also experimented with variations of $npop$ choices, including using the correct $npop$). 
+Then I randomly distribute the generated sequences throughout $npop$ ecotypes using the broken-stick model~\cite{tokeshi1990niche}, and finally write a demarcation output file (see Figure~\ref{code:RandomDemarcating} on page~\pageref{code:RandomDemarcating}).
 
 %Previous figure of code
 %\begin{figure}[h!]
@@ -116,23 +116,25 @@ This ultrametric tree was used as input for GMYC.
 
 AdaptML requires the habitat from which each strain was isolated.
 In previous studies we designed a specialization metric for designating habitats, however we found a specific unit of this metric that worked best~\cite{carlo}.
-Thus, we will stick to using the best parameter of habitat specialization for AdaptML analysis.
+Thus, we will focus on using the best parameter of habitat specialization for AdaptML analysis, and include one other value of specialization (20).
 
 FASTA sequences were converted into XLS format for compatibility with the BAPS package.
 
 \subsection*{Variation of Information Metric}
 The Variation of Information (VI) metric~\cite{meilua2003comparing} was used as a criterion for comparing two partitions of the same data set, to determine the closeness of each algorithm's ecotype demarcations to the canonical demarcations generated \emph{in silico}.
 The Variation of Information between two clusterings C and C' is given by$$VI(C, C') = H(C) + H(C') - 2I(C, C')$$where H(C) is the entropy of a random variable associated with a sequence being in a cluster C and I(C,C') is the mutual information of the two associated variables.
+For example, if a student receives a corrected test back with a lot of red marks (deductions) it signifies that the student's answers were further from the test key than if there were fewer deductions.
+The important relationship to keep in mind is that the lower the VI score the more accurate the demarcation.
 
 \subsection*{ES2 on smaller datasets}
 I ran the new and improved ES2 algorithm on generated datasets for parameters clearly defined in previous studies~\cite{carlo}.
-All sample datasets included fifty sequences, and repeated ten times to find the mean Variation of Information score (see Figure~\ref{fig:ESvES2}).
+All sample datasets included fifty sequences, and were repeated ten times to find the mean VI score (see Figure~\ref{fig:ESvES2} on page~\pageref{fig:ESvES2}).
 Notice how closely the two lines are on the horizontal axis.
 
 On a few specific values we ran ES1 and ES2 through one hundred repetitions to find more robust VI scores.
 
 \subsubsection*{Bacillus sequences}
-\emph{Bacillus} strains were isolated from Radio Facility Wash, a west-running canyon in Death Valley, consisting of a habitats with three levels of solar exposure, including the canyon's sunny south-facing slope, the shadier and cooler north-facing slope, and the arroyo at the bottom~\cite{connor2010ecology}.
+\emph{Bacillus} strains were isolated from Radio Facility Wash, a west-running canyon in Death Valley, consisting of habitats with three levels of solar exposure, including the canyon's sunny south-facing slope, the shadier and cooler north-facing slope, and the arroyo at the bottom~\cite{connor2010ecology}.
 Solar exposure habitats served as the only ecological dimension used for environmental input into AdaptML.
 Sequences were processed as previously reported~\cite{carlo}.
 Again we used PhyML to produce a maximum likelihood tree.
@@ -140,7 +142,7 @@ Again we used PhyML to produce a maximum likelihood tree.
 \subsection*{All demarcation programs on large datasets}
 We ran all demarcation programs, and a random demarcator on generated datasets of 50 (see Figure~\ref{fig:All50} on page~\pageref{fig:All50}), 100 (see Figure~\ref{fig:All100} on page~\pageref{fig:All100}), and 200 (see Figure~\ref{fig:All200} on page~\pageref{fig:All200}) sequences.
 Parameters were once again adopted from previous studies.
-The exception being a choice of $npop$ which, was three of 10, 20, 30, 40, 50.
+The exception being a choice of $npop$ which, was three values of 10, 20, 30, 40, 50.
 We tried to pick $npop$ values that would hit the sweet spot of demarcation in addition to an upper and lower bound (i.e., regarding VI accuracy scores).
 
 \subsection*{Running Time Tests}
@@ -161,12 +163,12 @@ We present the mean run times that each algorithm required to analyze synthetic 
 The majority of my work was putting together a dataset of in silico generated sequences demarcation runs.
 A lot of the code I used to run tests was legacy code from past lab members.
 I had to update many dependency packages, and modify certain portions to work on various computer platforms.
-BAPS does not run on with batch mode on Macintosh.
+As mentioned, BAPS's batch mode does not run on Macintosh.
 GMYC worked half of the time, and other times there was an error based on tree generation.
 Some analysis does not include GMYC due to this unresolved issue.
 
 \subsubsection*{ES2 on smaller datasets}
-Our first experiment was to run Ecotype Simulation (ES) and Ecotype Simulation 2 (ES2) on smaller datasets (i.e., $nu = 50$) and checking accuracy (VI) scores (see Figure~\ref{fig:ESvES2}).
+Our first experiment was to run Ecotype Simulation (ES) and Ecotype Simulation 2 (ES2) on smaller (i.e., $nu = 50$) datasets (see Figure~\ref{fig:ESvES2}).
 
 %Nested npop, omega, sigma
 \begin{figure}[h!]
@@ -176,10 +178,9 @@ Our first experiment was to run Ecotype Simulation (ES) and Ecotype Simulation 2
     \label{fig:ESvES2}
 \end{figure}
 
-Notice how closely the two lines are.
+\noindent Notice how closely the two lines are.
 ES (solid line) is generally lower (i.e., more accurate), however there are dramatic peaks and valleys of performance.
-In contrast to ES2 (dotted) which overall quite accurate with few valleys and peaks.
-
+In contrast to ES2 (dotted) which overall was quite accurate with few valleys and peaks.
 \begin{table}
     \begin{tabular}{l|cc}
     ~                  & Ecotype Simulation & Ecotype Simulation 2 \\ \hline
@@ -189,13 +190,12 @@ In contrast to ES2 (dotted) which overall quite accurate with few valleys and pe
     \caption[ES versus ES2 statistics.]{Statistics on the ES vs ES2 run with 10 reps on a dataset of $nu=50$.}
     \label{tab:ESvES2mean}
 \end{table}
-
 This trend is represented in Table~\ref{tab:ESvES2mean} on page~\pageref{tab:ESvES2mean}, by ES2's lower standard deviation than ES1.
 However, ES still has a lower mean VI score, but not by much.
 
 From these tests, we feel fairly confident in ES2's accuracy.
-Across various parameters ES2 looks to be more consistent than even ES1, even though ES1 demarcation matches more closely the answer demarcation more often.
-On small datasets speed is not too much of an issue, but if you want to run a lot of small datasets, then we advise using ES2.
+Across various parameters ES2 looks to be more consistent than even ES1, even though ES1 demarcation often matches the answer key more closely.
+On small datasets speed is not such an issue, but if you want to run a lot of small datasets, then we advise using ES2.
 
 \subsubsection*{All demarcation programs on large datasets}
 Time becomes a significant issue when we run Ecotype Simulation on datasets of 50 sequences (runtime is \textasciitilde2390 seconds from Table~\ref{tab:ES1speed} on page~\pageref{tab:ES1speed}) or larger.
@@ -227,15 +227,13 @@ From past studies we have found ES to be the most accurate demarcation program~\
 \end{figure}
 
 Figure~\ref{fig:All100} on page~\pageref{fig:All100} shows accuracy scores for all demarcating programs on a variety of parameters (bacillus values with .1x and 10x and $npop$ values of 30, 40, 50) on sample size of 100 individuals.
-Notice that overall ES2 (dotted line) was the lowest (i.e., most accurate), that means ES2's demarcation output matched most closely to the answer key demarcations.
-
+Notice that overall ES2 (dotted line) was the lowest (i.e., most accurate); signifying ES2's demarcation output matched most closely to the answer key demarcations.
 This fact is highlighted by the lowest average VI score shown in Table~\ref{tab:100Allmean}, of 1.76.
 Also, notice that once again ES2 has the lowest standard deviation, meaning that it was the most consistent, except of course for the random demarcation, which was consistently terrible accuracy wise (as we would expect).
-ES2 was followed by AdaptML(3.14), BAPS (3.36), and Random (4.47).
-With less habitat specialization AdaptML lost accuracy.
+ES2 was followed by AdaptML (3.14), BAPS (3.36), and Random (4.47).
 
 ES2 appeared to be slightly more accurate with higher $npop$ values; the gap between it and other demarcators increased.
-Higher rates of $\Omega$ (rate of ecotype formation) resulted in slight increases in ES2 VI scores.
+Higher rates of $\Omega$ (rate of ecotype formation) resulted in slight increases in ES2's VI scores.
 It appears that changes in $\sigma$ (rate of periodic selection) did not affect the accuracy of each algorithm as much as modifying $\Omega$.
 $Npop$ appears to have had the greatest effect on the accuracy of all the demarcation programs, least of all ES2.
 Losing accuracy with greater values of $npop$ was a trend that continued with larger datasets (see supplementary figures in appendix).
@@ -288,7 +286,7 @@ ES2's demarcations followed ES's closely.
 There was an instance where ES2 found two distinct ecotypes where ES only found one; matching GMYC's cluster boundary.
 Yet, there was another instance where two discrete ES ecotypes were grouped together.
 Results on \emph{Bacillus} sequences are within the bounds of what we would expect to see from a demarcation algorithm.
-ES2 passes the \emph{Bacillus} sanity check.
+ES2 passed the \emph{Bacillus} sanity check.
 
 \begin{figure}[h!]
   \centering
@@ -298,8 +296,8 @@ ES2 passes the \emph{Bacillus} sanity check.
 \end{figure}
 
 \subsection*{Running time}
-We compared the running times of the demarcation algorithms on synthetic data sets of different sizes, and found that AdaptML, GMYC, and BAPS performed demarcations much more quickly then ES2 (see Figure~\ref{fig:WindowsSpeed}).
-AdaptML, GMYC, and BAPS all completed demarcations on the order of a few seconds, even for data sets in the hundreds whereas ES required on the order of tens of minutes for the same inputs.
+We compared the running times of the demarcation algorithms on synthetic data sets of different sizes, and found that AdaptML, GMYC, and BAPS performed demarcations much more quickly then ES2 (see Figure~\ref{fig:WindowsSpeed} on page~\pageref{fig:WindowsSpeed}).
+AdaptML, GMYC (if it worked), and BAPS all completed demarcations on the order of a few seconds, even for datasets in the hundreds whereas ES required on the order of tens of minutes for the same inputs.
 GMYC was the fastest algorithm, taking no more than one second on average.
 AdaptML followed, and BAPS was the slowest of the three faster algorithms.
 
@@ -325,24 +323,18 @@ AdaptML followed, and BAPS was the slowest of the three faster algorithms.
 Since the BAPS's batch processing feature was not available for Mac I ran it on Windows.
 However, I also ran ES2, GMYC, and AdaptML separately on my Mac and found that ES2 was significantly faster than when it was run on a Windows machine.
 
-\subsubsection*{Automatic demarcation}
-We found that automatic demarcation was taking approximately 90\% of the ES2 run time.
-
 \section{Chapter Summary}
 In this chapter I discussed the motivation and thought process behind our experiments.
 I gave a survey of other available demarcation programs (GMYC, BAPS, AdaptML) and our control random demarcator, how we generated sample datasets, and described the metric used to compare the various outputs (Variation of Information metric).
 
 First we wanted to show that ES1 and ES2 achieve similar levels of accuracy.
-Thus we ran ES1 and ES2 on data sets with 50 individuals for 10 repetitions.
+Therefore, we ran ES1 and ES2 on data sets with 50 individuals for 10 repetitions.
 ES2 achieved comparable accuracy, and had a lower standard deviation.
-
 Next, we ran all the demarcator programs on various sized data sets.
-ES2 maintained a high level of accuracy throughout a wide range of parameters (based on previous \emph{bacillus} values).
-
+ES2 maintained a high level of accuracy throughout a wide range of parameters (based on previous \emph{Bacillus} values).
 Traditionally we run all demarcators on \emph{Bacillus} sequences.
 We found ES2 performed well.
-ES's previous demarcations were similar, even though their were a few extra ecotypes discovered and in other instances separate ecotypes grouped together.s
-
+ES's previous demarcations were similar, even though their were a few extra ecotypes discovered and in other instances separate ecotypes grouped together.
 Once again ES2 was the slowest demarcation algorithm.
 However, it improved dramatically on ES1 running times.
 

@@ -247,11 +247,12 @@ Following is a short discussion of a few of these studies focused on further ins
 \subsection*{Pyrosequencing analyses of \emph{Synechococcus} ecological species inhabiting the microbial mat of Mushroom Spring, Yellowstone National Park}
 %\~cite{pyroEric}
 Becraft et. al, used Ti454-barcode high-throughput sequencing to sample more habitat types, obtain deeper sequence coverage per habitat, and sample greater variation within predicted ecological species populations.
-ES was then used to demarcate putative ecotypes (PEs) across all high-frequency sequences and microbial mat habitats~\cite{pyroEric}.
+ES was then used to demarcate putative ecotypes (PEs) across all high-frequency sequences and microbial mat habitats~\cite{pyroEric}. They sequenced and analyzed the \emph{psaA} locus because it offers more molecular resolution than 16S rRNA, it exists as a single copy in the genomes of mat \emph{Synechococcus} isolates, it encodes PsaA which is necessary for photosynthesis, and it shows no evidence of recombination~\cite{pyroEric}.
 
-They sequenced and analyzed the \emph{psaA} locus because it offers more molecular resolution than 16S rRNA, it exists as a single copy in the genomes of mat \emph{Synechococcus} isolates, it encodes PsaA which is necessary for photosynthesis, and it shows no evidence of recombination~\cite{pyroEric}.
-One approach to test for ecological homogenization is to compare temporal patterns of PE-specific gene expression to examine the possibility that PEs respond differently to variations in environmental parameters i.e., testing the response of \emph{Synechococcus} populations to environmental perturbations~\cite{pyroEric}.
+Putative ecotypes with different vertical distributions differed in patterns of expression of \emph{psaA}, consistent with patterns of light availability at each depth~\cite{pyroEric}.
+These observations were statistically analyzed and used as evidence of ecological distinctness; one of the requirements for ecotype identification.
 
+An approach to test for ecological homogenization is to compare temporal patterns of PE-specific gene expression to examine the possibility that PEs respond differently to variations in environmental parameters i.e., testing the response of \emph{Synechococcus} populations to environmental perturbations~\cite{pyroEric}.
 Perturbation studies allowed the temporal tracking of genetic diversity within putative ecotypes (PE), allowing us to decide if a PE functioned as a fundamental unit.
 They were able to predict and observe homogenous changes in ecotype abundance in response to light and temperature changes~\cite{pyroEric}.
 
@@ -287,12 +288,12 @@ In one such case they identified the ecological dimensions of divergence (one of
 \subsection*{Diversity of Bacteria and Archaea in hypersaline sediment from Death Valley National Park, California}
 %Death Valley salinity kim2012diversity
 The objective of this study was to analyze the evolutionary history of microorganisms from the domains Bacteria and Archaea in hypersaline sediment from Death Valley National Park~\cite{kim2012diversity}. 
-They looked at a region of the 16s rRNA gene.
-A set of 130 \emph{Bacillus} isolates formed a subclass of the \emph{B. subtilis-B. licheniformis} clade, forming four newly discovered clades (see Figure \ref{fig:DeathES}) that were each identified as an ecotype by ES. Evidence for ecological divergence among the putative ecotypes is provided by the significant tendencies of these groups to be isolated from different media~\cite{kim2012diversity}.
+Kim et. al, looked at a region of the 16s rRNA gene.
+A set of 130 \emph{Bacillus} isolates formed a subclass of the \emph{B. subtilis-B. licheniformis} clade, forming four newly discovered clades (see Figure \ref{fig:DeathES} on page~\pageref{fig:DeathES}) that were each identified as an ecotype by ES. Evidence for ecological divergence among the putative ecotypes is provided by the significant tendencies of these groups to be isolated from different media~\cite{kim2012diversity}.
 
-Here we see another example of exploring microbial diversity through molecular means.
-But the list of possible applications is endless.
-In fact we are at the point where increasing the input size is quite important so we can attempt to grasp a more complete picture of bacterial diversity (which as we have already established is probably in the millions~\cite{cohan2008origins}).
+Again we see an example of exploring microbial diversity through molecular means.
+But the list of interesting possible applications is endless.
+We are at the point where increasing the input size is quite important so we can attempt to grasp a more complete picture of bacterial diversity (which as we have already established is probably in the millions~\cite{cohan2008origins}), which will allow us to smoothly transition into improvements of ES.
 
 \begin{figure}[h!]
 \centering
@@ -303,12 +304,10 @@ In fact we are at the point where increasing the input size is quite important s
 
 \section{Chapter Summary}
 Here we introduced the ecotype model of bacterial species, which defines species as a bacterial cluster with genetic diversity limited by a cohesive force.
-Then we explored various possible factors affecting evolutionary history in the Stable Ecotype model of bacterial speciation, which provide the grounding in theory necessary to develop an algorithm for demarcation.
-Specifically through the use of periodic selection, drift purification, and ecotype formation events.
+Then we explored various possible factors affecting evolutionary history in the Stable Ecotype model of bacterial speciation, which provide the grounding in theory necessary to develop an algorithm for demarcation; specifically through the use of periodic selection, and ecotype formation events.
 
-After generally discussing the algorithm behind ES, we got our hands dirty and described each important step of ES in detail, including Binning, simulations, Bruteforce, and Hillclimbing (see Figure~\ref{fig:Flow}).
-Finally, I briefly surveyed a few studies where we attempted and succeeded in displaying the statistical significance of ES bacterial species demarcation.
-
+After generally discussing the algorithm behind ES, we got our hands dirty and described each important step of ES in detail, including Binning, simulations, Bruteforce, and Hillclimbing (see Figure~\ref{fig:Flow} on page~\pageref{fig:Flow}).
+Finally, I briefly surveyed several studies in which we attempted and succeeded in displaying the statistical significance of ES bacterial species demarcation.
 In the following section I will discuss the work we have done recently in improving ES.
 
 

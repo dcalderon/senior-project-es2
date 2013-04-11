@@ -15,18 +15,18 @@ The last ever dolphin message was misinterpreted as a surprisingly sophisticated
 %There is a theory which states that if ever anyone discovers exactly what the Universe is for and why it is here, it will instantly disappear and be replaced by something even more bizarre and inexplicable.There is another theory which states that this has already happened.
 
 %\section{Final remarks on ES}
-\section{Remarks on ES}
+\section{Remarks on ES2}
 %Re-iterate motivation and purpose of bacterial demarcations
 Demarcating bacterial species is difficult.
 However the path to understanding microbial speciation has many questions and benefits that attract the cleverest minds.
 Do we realize how much microscopic diversity there is out there?
 How can we use knowledge of microbial ecosystems to our benefit?
 So far people have found applications in a variety of fields: epidemiology, biotechnology, bioremediation, and much more.
-Ecotypes Simulation is a a step in the tradition of attempting to understand microbial ecosystem dynamics.
+Ecotypes Simulation is a a step in the tradition of attempting to understand microbial ecosystem dynamics, identifying ecotypes as the fundamental unit of micro environments that we want to identify so we can understand relationships between groups of atomic units.
 
 %Talk a little bit about the background and ES
-It's based on ecotypes defined as a phylogenetic group of close relatives that are ecologically interchangeable, in that the members of an ecotype share genetic adaptations to a particular set of habitats, resources, and conditions; also, ecotypes are ecologically distinct from one another.
-They are the fundamental unit of micro environments that we want to identify so we can understand relationships between groups of atomic units.
+%It is based on ecotypes defined as a phylogenetic group of close relatives that are ecologically interchangeable, in that the members of an ecotype share genetic adaptations to a particular set of habitats, resources, and conditions; also, ecotypes are ecologically distinct from one another.
+%They are the fundamental unit of micro environments that we want to identify so we can understand relationships between groups of atomic units.
 
 Ecotype Simulation uses the Stable Ecotype model that hypothesizes various ecotype dynamics such as periodic selection (diversity quashing events), ecotype formation (speciation events), and drift.
 This is translated directly into the ES algorithm with its use of $npop$ (number of ecotypes), $\Omega$ (rate of periodic selection), and $\sigma$ (rate of ecotype formation).
@@ -34,37 +34,35 @@ ES1 first characterizes the community's observed evolutionary history, the throu
 Finally, we demarcate the individual strains into ecotypes.
 
 %Talk a little bit about the improvements, resulting in ES2
-ES2 improves on ES1's core algorithm by using an ultra metric tree when comparing simulated evolutionary histories to the observed history replacing a $O(n^3)$ binning step with a linear one.
+ES2 improves on ES1's core algorithm by using an ultrametric tree when comparing simulated evolutionary histories to the observed history replacing an $O(n^3)$ binning step with a linear one.
 During demarcation we also conduct Hillclimbing at each subtree; maintaining high quality parameter estimations as we recursively descend the phylogeny.
 We are exploring including OpenMP parallelization; leading to a 50\% reduction in run time, when utilizing 8 threads.
 
 %Summarize ES2 vs ES and ES2 vs all results
-First I showed how close ES1 to ES2 accuracy (VI) scores were on a data set of 50 individuals.
+Testing ES2, first I showed how close its accuracy (VI) scores were to ES1 on a data set of 50 individuals.
 Then I compared all the demarcation programs on larger data sets and found that in most cases ES2 maintained a high level of accuracy.
-\emph{Bacillus} sequences analysis.
+On the \emph{Bacillus} sequences analysis, ES2 demarcated similarly putative ecotypes as ES1 with a few slight variations, which we are in the process of analyzing.
 ES2 still lags behind the competition in terms of running time.
 However, there was a dramatic improvement over ES1.
 
 %Concluding analaysis
-From these results, we can confidently say that ES2 continues to be the most accurate demarcation algorithm on larger generated datasets. However, we should use a combination of approaches, each lending strengths to the other's weaknesses, adding robustness to microbial ecosystem analysis~\cite{bohannan2003new}
-
-
-
+From these results, we can confidently say that ES2 continues to be the most accurate demarcation algorithm on larger generated datasets. However, we should continue to use a combination of approaches, each lending strengths to the other's weaknesses, adding robustness to microbial ecosystem analysis~\cite{bohannan2003new}
 
 
 
 \section{Future Improvements}
-Through the work involved with this project we realized that in addition to speed, space has become a limiting factor.
-To make a distance divergence matrix we need $O(n^2)$ space, and with number of sequences in the thousands we quickly run out of RAM. Also, the current implementation has similar time complexity to the naive $O(n^3)$ approach.
-We explored different clustering packages that had various space and time trade-off balances.
+Through my work involved with this project I have realized that in addition to speed, space has become a limiting factor.
+To make a distance divergence matrix we need $O(n^2)$ space, and with the number of sequences in the thousands we quickly run out of RAM.
+Also, the current implementation has similar time complexity to the naive $O(n^3)$ approach.
+Thus, I began the process of exploring different clustering packages that which have various space and time trade-off balances.
 
-Besides improving our clustering technique, parallelizing the ES algorithm is the highest priority.
+Besides improving our clustering technique, parallelizing the ES algorithm is of the highest priority.
 I will briefly overview our designs and results in parallelizing ES.
 However, the reader should refer to, my colleague, Lingyuan Ke's senior thesis for full details.
 %\subsection*{Ecotype Simulation 3.0}
 \subsection*{Binning}
-As mentioned in previous sections ES uses complete linkage clustering.
-The current implementation is in Fortran90, and we have yet to update it to reflect improvements in the state of the art.
+As mentioned in previous sections ES uses complete-linkage clustering.
+The current implementation is in Fortran 90, and we have yet to update it to reflect improvements in the state of the art.
 Big Data companies have developed an interest in clustering large datasets, resulting in various improvements in clustering algorithms.
 \subsubsection*{Current implementation}
 %First I'll go over our naive implementation here
@@ -77,15 +75,15 @@ Our naive approach is as follows:
 \item Update the proximity matrix, $D$, by deleting the rows and columns corresponding to clusters $(r)$ and $(s)$ and adding a row and column corresponding to the newly formed cluster. The proximity between the new cluster, denoted $(r,s)$ and old cluster $(k)$ is defined as $d[(k), (r,s)] = max$ $d[(k),(r)]$, $d[(k),(s)]$.
 \item If all objects are in one cluster, stop. Else, go to step II.
 \end{enumerate}
-with slight modification (i.e., we only cluster at specific identity levels), which ends up running at $O(n^3)$ time (written up using~\cite{FastClust} as a reference).
+with slight modification (i.e., we only cluster at specific identity levels), which ends up running at $O(n^3)$ time (algorithm written using~\cite{FastClust} as a reference).
 In our case we divide the processing by first calculating a pairwise distance matrix between all sequences.
-That way we maintain a look up table, $D$, to look up distance in constant time.
+That way we maintain a look up table, $D$, to retrieve distances in constant time.
 At each iteration two clusters are merged (specifically the closest by the specified distance function) and the divergence matrix is updated with a distance entry between each cluster and the new cluster (specifically the element of each cluster being compared that is the farthest apart).
 
 \subsubsection*{State of the art}
 From the literature we discovered that there are complete-linkage clustering implementations that achieve $O(n^2)$ time complexity.
 We found fastcluster, a well-documented and tested C++ library that efficiently implements several hierarchical clustering algorithms~\cite{mullner2011modern, FastClust}.
-The library includes complete-linkage clustering that runs in $O(n^2)$ (for a graphical comparison of various clustering package see Figure~\ref{fig:FastClustComparison}).
+The library includes complete-linkage clustering that runs in $O(n^2)$ (for a graphical comparison of various clustering package see Figure~\ref{fig:FastClustComparison} on page~\pageref{fig:FastClustComparison}).
 
 \begin{figure}[h!]
 \centering
@@ -96,39 +94,25 @@ The library includes complete-linkage clustering that runs in $O(n^2)$ (for a gr
 \label{fig:FastClustComparison}
 \end{figure}
 
-I quickly linked up fastcluster to ES2, replacing our naive binning implementation and achieved impressive speed results (see Figure~\ref{fig:FastVsNaive}).
-
+I quickly linked up fastcluster to ES2, replacing our naive binning implementation and achieved impressive speed results (see Figure~\ref{fig:FastVsNaive} on page~\pageref{fig:FastVsNaive}).
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=.8]{images/FastVsNaive-CH3}
 \caption[Time comparison of fastcluster versus our naive implementation of complete-linkage clustering.]{Time comparison of fastcluster (dotted) versus our naive (dashed) implementation of complete-linkage clustering.}
 \label{fig:FastVsNaive}
 \end{figure}
-
 Our current implementation was not capable of clustering datasets of greater than approximately three thousand sequences.
 On the other hand fastcluster handled files with more than fifteen thousand sequences, until memory on my machine became a factor.
 As far as accuracy goes, each bin level was within one or two of the current implementation (the slight error might be attributable to my quick hack job) in preliminary tests.
-
 However, many more tests are needed to insure the package will work correctly for our purposes and we are not enthusiastic about adding another dependency to ES.
-For now it is an envisioned improvement for the next version.
+For now it is an envisioned improvement in the next version.
 
 \subsubsection*{Minimizing space usage}
-%None of that matters if we can't decrease the space usage.
-%Approach one, don't save a divergence matrix
-%Here I could include some of my code.
 While increasing speed efficiency is important, the bottleneck has increasingly become space usage.
 Our goal is to run ES on up to one million sequences, which in our current approach would entail a million squared pairwise distance matrix ($n \times n$).
 
 In one exploratory approach we attempted to fix this problem by skipping the distance matrix generating step altogether.
-Instead, we could define a replacement function that will calculate the distance between clusters at runtime (see Figure~\ref{code:LazyClustering}).
-
-%\begin{figure}[h!]
-%\centering
-%\noindent\code{Lazy Clustering}{code/lazy_formatted.py}
-%\caption[Python code showing a distance function for two clusters.]{The two clusters are represented by $c1$ and $c2$, while $seqs$ is a list used to access strings of sequence. The function $seq$\_$distance$ takes two strings representing sequences and returns the manhattan or taxicab distance between them. This python function returns the distance between two clusters.}
-%\label{code:LazyClustering}
-%\end{figure}
-
+Instead, we could define a replacement function that will calculate the distance between clusters at runtime (see Figure~\ref{code:LazyClustering} on page~\pageref{code:LazyClustering}).
 
 \begin{figure}[h!]
 \begin{algorithm}[H]
@@ -150,7 +134,7 @@ Instead, we could define a replacement function that will calculate the distance
    }
  }
 \end{algorithm}
-\caption[Pseudocode showing a distance function for two clusters.]{The two clusters are represented by $c1$ and $c2$, while $s1$ and $s2$ represent sequences in the clusters. The function $seq$-$dist$ takes two sequences and returns the manhattan or taxicab distance between them. This pseudocode returns the distance between two clusters.}
+\caption[Pseudocode showing a distance function for two clusters.]{This pseudocode returns the distance between two clusters. The two clusters are represented by $c1$ and $c2$, while $s1$ and $s2$ represent sequences in the clusters. The function $seq$-$dist$ takes two sequences and returns the manhattan or taxicab distance between them.}
 \label{code:LazyClustering}
 \end{figure}
 
@@ -158,13 +142,13 @@ Clusters would start small, and then coalesce into larger clusters.
 Thus the number of comparisons would remain relatively constant and there would be no distance matrix to store.
 In this case, we would be choosing to minimize space usage, while greatly slowing down runtime.
 It might be worth implementing a similar cluster distance function to use within the fastcluster complete-linkage implementation.
-However, we would still hit a clustering time or space limit fairly quickly.
+However, we would still hit a clustering time limit quickly.
 
 %Approach two, bin in parallel.
 A second option for minimizing space usage and runtime would be to develop (or find in the literature) a complete-linkage clustering algorithm that could run in parallel.
 This strategy is still in early development.
 The difficulty would be in splitting up the sequences into discrete tasks that could then be combined after computation.
-Each of those discrete tasks could be spread out in a cluster, reducing run time, or even run at different times, freeing up memory.
+Each of those discrete tasks could be spread out on a cluster, reducing run time, or even run at different times, freeing up memory.
 
 Either way, there is much progress to be made in Binning.
 If ES is ever to work on one million sequences, Binning must be a major priority for future versions.
@@ -172,7 +156,7 @@ If ES is ever to work on one million sequences, Binning must be a major priority
 \subsection*{Demarcation}
 The current automatic demarcation program has a serious problem with paraphyletic groups.
 Instead of maintaining a species group when one of the organisms diverges, it forms many singleton groups, artificially inflating the number of ecotypes.
-We believe this is part of the reason why if ES is run on a dataset with a low $npop$ the output numbers become skewed.
+We believe this is part of the reason why if ES is run on a dataset with a low $npop$ value the output numbers become skewed.
 As of yet, we are still unsure of ways to fix this problem.
 
 Another issue with demarcation is speed.
@@ -185,9 +169,7 @@ These days computer chips are not improving as dramatically as in the past.
 Instead large computer clusters with thousands of nodes have emerged.
 In the future we would like to access the power of computer clusters.
 
-%Talk a little bit about the parallelization plans we have. Hybrid mp and mph
-%and how it'll be the next step in the ES evolution
-\subsubsection*{OpenMP approach} %WIKI EXACT OPERATION OF OPENMP!!!
+\subsubsection*{OpenMP approach}
 The OpenMP API is a commonly used shared-memory parallelism approach designed for C, C++, and Fortran programs.
 In Fortran the programmer adds comments (known as directives) to specify OpenMP behavior.
 These directives implicitly or explicitly define or guide the execution of multiple threads as parallel programs.
@@ -200,7 +182,6 @@ The program can specify any number of parallel constructs.
 All threads have access to the same memory so they can retrieve variables, this is called a shared-memory model.
 Also, each thread can specify private memory unreachable to other threads.
 We use shared and private clause keywords to identify the respective paradigm.
-%HERE LING REFERENCES AN ARTICLE
 
 \subsubsection*{Tests}
 %Outline best results from Ling's tests
@@ -211,11 +192,11 @@ We use shared and private clause keywords to identify the respective paradigm.
 \label{fig:LingParallelized}
 \end{figure}
 
-Ling ran the full ES2 program on Wesleyan computer cluster.
+Lingyuan Ke ran the full ES2 program on Wesleyan computer cluster~\cite{lingThesis}.
 It consists of 176 nodes, however we are limited to the shared-memory model parallelization so we can only use threads within a single node, thus up to 8 threads.
-Figure~\ref{fig:LingParallelized} shows run times for all the programs as we increase the thread number.
+Figure~\ref{fig:LingParallelized} on page~\pageref{fig:LingParallelized} shows run times for all the programs as we increase the thread number.
 Full program run time was decreased by half when we used 8 threads.
-For more results on OpenMP parallelization refer to Lingyuan Ke's senior thesis.
+For more results on OpenMP parallelization refer to Lingyuan Ke's senior thesis~\cite{lingThesis}.
 
 \subsubsection*{OpenMPI}
 OpenMPI is an open source and complete message passing interface implementation of MPI-2 used in many of the world's largest computing clusters.
@@ -223,7 +204,7 @@ While OpenMP uses the shared-memory model, a message passing interface is used t
 It provides course grain parallelization across nodes as opposed to fine grain OpenMP parallelization within a processor~\cite{gabriel04:_open_mpi}.
 
 We plan to capitalize on a hybrid OpenMPI-OpemMP paradigm to parallelize ES at the high level and low level.
-At the high level we could divide the parameter search space over multiple nodes of the cluster, while at the low level within each node simulation replicates would be divided between the cores in the processor.
+At the high level we could divide the parameter search space over multiple nodes of the cluster, while at the low level, within each node, simulation replicates would be divided between the cores in the processor.
 If correctly implemented ES could be run on clusters of almost any size, resulting in dramatic speed decreases.
 
 
@@ -237,8 +218,7 @@ However, an important emerging bottleneck is binning space usage.
 We are considering, various approaches to the problem that include parallelization and algorithm switches.
 Also we have identified several issues with the automatic demarcation program leading to inflated $npop$ prediction in the presence of paraphyletic groups.
 And as usual speed has become an issue for demarcation.
+Even with these ideas for improvement we aim to release a production ready version of ES2 soon (it is already used for analysis in the Cohan lab).
 
-Even with these ideas for improvement we aim to release a production ready version of ES2 soon.
 Demarcation not limited by input size is an attractive goal, but we are not quite there yet.
-We are continuing the development process in pursuit of bacterial species understanding that will eventually lead to practical applications.
-
+We are continuing the Ecotype Simulation development in pursuit of bacterial species understanding that will eventually lead to practical applications.
