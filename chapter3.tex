@@ -75,7 +75,7 @@ This insight replaces an $O(n^3)$ factor with a linear comparison, immediately q
 \end{figure}
 
 \subsubsection*{Demarcation}
-In addition to core algorithm changes we altered the automatic demarcation program.
+We also altered the automatic demarcation program.
 In addition to demarcation confidence intervals, ES2 runs the downhill-simplex (Hillclimbing) method on each subtree as we recursively descend through the phylogeny.
 Normally our Bruteforce method must be run before Hillclimbing, in this case we use results from Hillclimbing as initial parameters (or seed) for the closest ancestor node to start demarcating.
 Then at each child node we use Hillclimbing results from the parent node to re-run Hillclimbing, bypassing running Bruteforce for each subtree.
