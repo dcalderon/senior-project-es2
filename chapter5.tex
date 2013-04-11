@@ -36,11 +36,10 @@ Finally, we demarcate the individual strains into ecotypes.
 %Talk a little bit about the improvements, resulting in ES2
 ES2 improves on ES1's core algorithm by using an ultrametric tree when comparing simulated evolutionary histories to the observed history replacing an $O(n^3)$ binning step with a linear one.
 During demarcation we also conduct Hillclimbing at each subtree; maintaining high quality parameter estimations as we recursively descend the phylogeny.
-We are exploring including OpenMP parallelization; leading to a 50\% reduction in run time, when utilizing 8 threads.
 
 %Summarize ES2 vs ES and ES2 vs all results
-Testing ES2, first I showed how close its accuracy (VI) scores were to ES1 on a data set of 50 individuals.
-Then I compared all the demarcation programs on larger data sets and found that in most cases ES2 maintained a high level of accuracy.
+Testing ES2, first I showed how close its accuracy (VI) scores were to ES1 on a dataset of 50 individuals.
+Then I compared all the demarcation programs on larger datasets and found that in most cases ES2 maintained a high level of accuracy.
 On the \emph{Bacillus} sequences analysis, ES2 demarcated similarly putative ecotypes as ES1 with a few slight variations, which we are in the process of analyzing.
 ES2 still lags behind the competition in terms of running time.
 However, there was a dramatic speed improvement over ES1.
@@ -58,10 +57,10 @@ Thus, I began the process of exploring different clustering packages that which 
 
 Besides improving our clustering technique, parallelizing the ES algorithm is of the highest priority.
 I will briefly overview our designs and results in parallelizing ES.
-However, the reader should refer to, my colleague, Lingyuan Ke's senior thesis for full details.
+However, the reader should refer to, my colleague, Lingyuan Ke's senior thesis for full details~\cite{lingThesis}.
 %\subsection*{Ecotype Simulation 3.0}
 \subsection*{Binning}
-As mentioned in previous sections ES uses complete-linkage clustering.
+As mentioned in previous sections, ES uses complete-linkage clustering.
 The current implementation is in Fortran 90, and we have yet to update it to reflect improvements in the state of the art.
 Big Data companies have developed an interest in clustering large datasets, resulting in various improvements in clustering algorithms.
 \subsubsection*{Current implementation}
@@ -75,7 +74,7 @@ Our naive approach is as follows:
 \item Update the proximity matrix, $D$, by deleting the rows and columns corresponding to clusters $(r)$ and $(s)$ and adding a row and column corresponding to the newly formed cluster. The proximity between the new cluster, denoted $(r,s)$ and old cluster $(k)$ is defined as $d[(k), (r,s)] = max$ $d[(k),(r)]$, $d[(k),(s)]$.
 \item If all objects are in one cluster, stop. Else, go to step II.
 \end{enumerate}
-with slight modification (i.e., we only cluster at specific identity levels), which ends up running at $O(n^3)$ time (algorithm written using~\cite{FastClust} as a reference).
+with slight modification (i.e., we only cluster at specific sequence identity levels), which ends up running at $O(n^3)$ time (algorithm written using~\cite{FastClust} as a reference).
 In our case we divide the processing by first calculating a pairwise distance matrix between all sequences.
 That way we maintain a look up table, $D$, to retrieve distances in constant time.
 At each iteration two clusters are merged (specifically the closest by the specified distance function) and the divergence matrix is updated with a distance entry between each cluster and the new cluster (specifically the element of each cluster being compared that is the farthest apart).
@@ -83,16 +82,18 @@ At each iteration two clusters are merged (specifically the closest by the speci
 \subsubsection*{State of the art}
 From the literature we discovered that there are complete-linkage clustering implementations that achieve $O(n^2)$ time complexity.
 We found fastcluster, a well-documented and tested C++ library that efficiently implements several hierarchical clustering algorithms~\cite{mullner2011modern, FastClust}.
-The library includes complete-linkage clustering that runs in $O(n^2)$ (for a graphical comparison of various clustering package see Figure~\ref{fig:FastClustComparison} on page~\pageref{fig:FastClustComparison}).
+The library includes complete-linkage clustering that runs in $O(n^2)$.
+%Do we really need that graph? nahh commented out
+%The library includes complete-linkage clustering that runs in $O(n^2)$ (for a graphical comparison of various clustering package see Figure~\ref{fig:FastClustComparison} on page~\pageref{fig:FastClustComparison}).
 
-\begin{figure}[h!]
-\centering
-\includegraphics[scale=0.75]{images/FastComplete-CH3}
-\caption[Complete linkage clustering speed comparison between popular implementations.]{Different bands show maximum and minimum time over a variety of data sets. The average is plotted as a solid line. The synthetic data sets are samples drawn in an iid. manner from various mixtures of Gaussian distributions in Euclidean space of various dimensions.
-%The results were obtained on a PC with an Intel dual-core CPU T7500 with 2.2 GHz clock speed and 4GB of RAM. The operating system was Ubuntu 11.04 64-bit (Ubuntu 10.04 64-bit for Matlab R2010a). R version: 2.13.0, fastcluster version: 1.1.7, flashClust version: 1.01, Python version: 2.7.1, NumPy version 1.5.1, SciPy version: 0.8.0.
-(reprinted from \protect\cite{FastClust})}
-\label{fig:FastClustComparison}
-\end{figure}
+%\begin{figure}[h!]
+%\centering
+%\includegraphics[scale=0.75]{images/FastComplete-CH3}
+%\caption[Complete linkage clustering speed comparison between popular implementations.]{Different bands show maximum and minimum time over a variety of data sets. The average is plotted as a solid line. The synthetic data sets are samples drawn in an iid. manner from various mixtures of Gaussian distributions in Euclidean space of various dimensions.
+%%The results were obtained on a PC with an Intel dual-core CPU T7500 with 2.2 GHz clock speed and 4GB of RAM. The operating system was Ubuntu 11.04 64-bit (Ubuntu 10.04 64-bit for Matlab R2010a). R version: 2.13.0, fastcluster version: 1.1.7, flashClust version: 1.01, Python version: 2.7.1, NumPy version 1.5.1, SciPy version: 0.8.0.
+%(reprinted from \protect\cite{FastClust})}
+%\label{fig:FastClustComparison}
+%\end{figure}
 
 I quickly linked up fastcluster to ES2, replacing our naive binning implementation and achieved impressive speed results (see Figure~\ref{fig:FastVsNaive} on page~\pageref{fig:FastVsNaive}).
 \begin{figure}[h!]
@@ -113,7 +114,6 @@ Our goal is to run ES on up to one million sequences, which in our current appro
 
 In one exploratory approach we attempted to fix this problem by skipping the distance matrix generating step altogether.
 Instead, we could define a replacement function that will calculate the distance between clusters at runtime (see Figure~\ref{code:LazyClustering} on page~\pageref{code:LazyClustering}).
-
 \begin{figure}[h!]
 \begin{algorithm}[H]
  \SetAlgoLined
@@ -137,12 +137,11 @@ Instead, we could define a replacement function that will calculate the distance
 \caption[Pseudocode showing a distance function for two clusters.]{This pseudocode returns the distance between two clusters. The two clusters are represented by $c1$ and $c2$, while $s1$ and $s2$ represent sequences in the clusters. The function $seq$-$dist$ takes two sequences and returns the manhattan or taxicab distance between them.}
 \label{code:LazyClustering}
 \end{figure}
-
 Clusters would start small, and then coalesce into larger clusters.
 Thus the number of comparisons would remain relatively constant and there would be no distance matrix to store.
 In this case, we would be choosing to minimize space usage, while greatly slowing down runtime.
 It might be worth implementing a similar cluster distance function to use within the fastcluster complete-linkage implementation.
-However, we would still hit a clustering time limit quickly.
+However, we would continue to hit a time limit easily.
 
 %Approach two, bin in parallel.
 A second option for minimizing space usage and runtime would be to develop (or find in the literature) a complete-linkage clustering algorithm that could run in parallel.
@@ -150,8 +149,8 @@ This strategy is still in early development.
 The difficulty would be in splitting up the sequences into discrete tasks that could then be combined after computation.
 Each of those discrete tasks could be spread out on a cluster, reducing run time, or even run at different times, freeing up memory.
 
-Either way, there is much progress to be made in Binning.
-If ES is ever to work on one million sequences, Binning must be a major priority for future versions.
+Either way, there is much progress to be made at the binning step.
+If ES is ever to work on one million sequences, the process of binning must be a major priority.
 
 \subsection*{Demarcation}
 The current automatic demarcation program has a serious problem with paraphyletic groups.
@@ -195,7 +194,7 @@ We use shared and private clause keywords to identify the respective paradigm.
 Lingyuan Ke ran the full ES2 program on Wesleyan computer cluster~\cite{lingThesis}.
 It consists of 176 nodes, however we are limited to the shared-memory model parallelization so we can only use threads within a single node, thus up to 8 threads.
 Figure~\ref{fig:LingParallelized} on page~\pageref{fig:LingParallelized} shows run times for all the programs as we increase the thread number.
-Full program run time was decreased by half when we used 8 threads.
+The full program run time was decreased by half when we used 8 threads.
 For more results on OpenMP parallelization refer to Lingyuan Ke's senior thesis~\cite{lingThesis}.
 
 \subsubsection*{OpenMPI}
@@ -211,12 +210,12 @@ If correctly implemented ES could be run on clusters of almost any size, resulti
 
 \section{Finally}
 %Might not need this section, then again some repetition might be good?
-We have found that there are many areas we would like to improve on ES2.
-There is an ongoing development process.
+We have found that there are many areas to improve on in ES2.
+This is an ongoing development process.
 Parallelization using OpenMPI will lead to the greatest speed dividends in the near future.
 However, an important emerging bottleneck is binning space usage.
 We are considering, various approaches to the problem that include parallelization and algorithm switches.
-Also we have identified several issues with the automatic demarcation program leading to inflated $npop$ prediction in the presence of paraphyletic groups.
+Also, we have identified several issues with the automatic demarcation program leading to inflated $npop$ prediction in the presence of paraphyletic groups.
 And as usual speed has become an issue for demarcation.
 Even with these ideas for improvement we aim to release a production ready version of ES2 soon (it is already used for analysis in the Cohan lab).
 

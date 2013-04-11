@@ -27,8 +27,8 @@ Speed tests were done using the python `time' package to clock starting and fini
 \subsection*{Other demarcation algorithms}
 As a rite of passage, we compare ES against other available demarcation algorithms~\cite{carlo}.
 Previously, ES was demonstrated to be the most accurate, yet slowest demarcator.
-ES2 aims to be just as accurate as ES but a lot faster, enabling larger input size functionality.
-The other currently available utilize a variety of clustering models.
+ES2 aims to be just as accurate as ES1 but a lot faster, enabling larger input size functionality.
+The other demarcation programs currently available utilize a variety of clustering models.
 
 \subsubsection*{GMYC~\cite{barraclough2009inferring}}
 The GMYC algorithm assumes a Yule model of speciation followed by a neutral coalescent model within species, where drift is the only process yielding coalescence.
@@ -140,7 +140,7 @@ Again we used PhyML to produce a maximum likelihood tree.
 We ran all demarcation programs, and a random demarcator on generated datasets of 50 (see Figure~\ref{fig:All50} on page~\pageref{fig:All50}), 100 (see Figure~\ref{fig:All100} on page~\pageref{fig:All100}), and 200 (see Figure~\ref{fig:All200} on page~\pageref{fig:All200}) sequences.
 Parameters were once again adopted from previous studies.
 The exception being a choice of $npop$ which, was three values of 10, 20, 30, 40, 50.
-We tried to pick $npop$ values that would hit the sweet spot of demarcation in addition to an upper and lower bound (i.e., regarding VI accuracy scores).
+We tried to pick $npop$ values that would hit the sweet spot of demarcation performance in addition to an upper and lower bound (i.e., regarding VI accuracy scores).
 
 \subsection*{Running Time Tests}
 We tested the running time of each algorithm on a 2.66GHz Intel Core 2 Duo processor with 4GB of RAM running Windows 7.
@@ -236,7 +236,7 @@ ES2 appeared to be slightly more accurate with higher $npop$ values; the gap bet
 Higher rates of $\Omega$ (rate of ecotype formation) resulted in slight increases in ES2's VI scores.
 It appears that changes in $\sigma$ (rate of periodic selection) did not affect the accuracy of each algorithm as much as modifying $\Omega$.
 $Npop$ appears to have had the greatest effect on the accuracy of all the demarcation programs, least of all ES2.
-Losing accuracy with greater values of $npop$ was a trend that continued with larger datasets (see supplementary figures in appendix).
+Losing accuracy with greater values of $npop$ was a trend that continued with larger datasets (see supplementary figures in Appendix).
 
 \begin{table}[h!]
 %    \begin{tabular}{l|ccccc}
@@ -257,8 +257,8 @@ Losing accuracy with greater values of $npop$ was a trend that continued with la
 \end{table}
 
 Tests regarding large datasets are ongoing.
-In the appendix you can find additional graphs with all demarcators for nu of 50 and 200 along with corresponding tables showing mean and standard deviation values.
-As of yet these tests were done on only 5 repetitions.
+In the Appendix there are additional graphs with all demarcators run on nu of 50 and 200 along with corresponding tables showing mean and standard deviation values.
+These tests were done only 5 repetitions, so far.
 We would like repetitions in the hundreds.
 
 %
@@ -291,7 +291,7 @@ ES2 passed the \emph{Bacillus} sanity check.
 \begin{figure}[h!]
   \centering
     \includegraphics[scale=0.4]{images/Bacillus-CH4}
-      \caption[Demarcation programs run on previous \emph{Bacillus} sequences.]{Demarcation programs run on previous \emph{Bacillus} sequences. ES2 (orange) found 7 distinct ecotypes and multiple singletons (not included here). The other demarcation results are from previous runs. (adapted from~\protect\cite{carlo})}
+      \caption[Demarcation programs run on previous \emph{Bacillus} sequences.]{Demarcation programs run on previous \emph{Bacillus} sequences. ES2 (orange) found 7 distinct ecotypes and multiple singletons (not included here). The other demarcation results are from previous runs on the same input set. (adapted from~\protect\cite{carlo})}
     \label{fig:Bacillus}
 \end{figure}
 
@@ -334,10 +334,9 @@ Therefore, we ran ES1 and ES2 on data sets with 50 individuals for 10 repetition
 ES2 achieved comparable accuracy, and had a lower standard deviation.
 Next, we ran all the demarcator programs on various sized data sets.
 ES2 maintained a high level of accuracy throughout a wide range of parameters (based on previous \emph{Bacillus} values).
-Traditionally we run all demarcators on \emph{Bacillus} sequences.
-We found ES2 performed well.
+Traditionally we run all demarcators on \emph{Bacillus} sequences; ES2 performed well.
 ES's previous demarcations were similar, even though their were a few extra ecotypes discovered and in other instances separate ecotypes grouped together.
 Once again ES2 was the slowest demarcation algorithm.
-However, it improved dramatically on ES1 running times.
+However, it improved dramatically on ES1's running times.
 
 

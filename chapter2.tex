@@ -57,7 +57,7 @@ In the figure an individual of an ecotype developed an adaptation that went on t
 Now we have an event to account for anagenesis, or accumulation of changes over time along a single lineage, referred to as periodic selection, and cladogenesis, or irreversible splitting of lineages, referred to as ecotype formation.
 To complete the dynamics of the Stable Ecotype model, extinction events are also possible (see Figure~\ref{fig:StableEvents}C).
 Naturally, an ecotype can go extinct.
-Previous work done in the Cohan lab resulted in an algorithm based on the Stable Ecotype model, known as Ecotype Simulation (ES).
+Previous work done in the Cohan lab resulted in an algorithm based on the Stable Ecotype model, known as Ecotype Simulation (ES or ES1).
 
 
 \section{The Algorithm}
@@ -197,12 +197,12 @@ If the simulation and observed graphs are too far apart (see Figure~\ref{fig:Tre
 Based on many (i.e., in the hundreds or thousands) replicate runs, each one evaluated for success or failure, we gather information to form a maximum likelihood estimation of $npop$, $\Omega$, $\sigma$, and d (in the future I will not mention drift, since it happens to be so rare). However, how does one decide on different parameter choices to test?
 
 \subsection*{Bruteforce and Hillclimbing}
-Utilizing simulations explained in the previous section ES conducts a search for high likelihoods over a multi-dimensional plane (four parameters).
+Utilizing simulations explained in the previous section ES conducts a search for high likelihoods over a multi-dimensional plane (three key parameters: npop, omega, sigma).
 To search as much of that space as possible we lay a grid of points over the landscape of likelihoods where each point is a simulation of many hundreds of repetitions.
 By running those tests we begin to observe a rough sketch of hills and valleys of likelihoods corresponding to parameter sets.
-The even distribution of points with a lack of insight is referred to as Bruteforce (see Figure \ref{fig:Flow}A).
+The even distribution of points with a lack of insight is referred to as Bruteforce (see Figure \ref{fig:Flow}A on page~\pageref{fig:Flow}).
 The beauty of Bruteforce is that it outputs a range of parameters that usually contains the global maximum likelihood.
-The range of likely parameters is then passed through an optimization program known as Hillclimbing (see Figure \ref{fig:Flow}B), which finds local maximums (i.e., the global maximum within our Bruteforce parameter ranges).
+The range of likely parameters is then passed through an optimization program known as Hillclimbing (see Figure \ref{fig:Flow}B on page~\pageref{fig:Flow}), which finds local maximums (i.e., the global maximum within our Bruteforce parameter ranges).
 
 We use the Nelder-Mead downhill-simplex approach to hill climbing optimization.
 A chosen parameter solution is more thoroughly tested (i.e., with 10,000 replicates), and likelihoods are calculated for the six precision values (i.e., 5x, 2x, etc.).
@@ -220,8 +220,8 @@ The two programs run in tandem are necessary for maximum likelihood estimations.
 \end{figure}
 
 \subsection*{Demarcation}
-With the most likely estimations of $npop$, $\sigma$, and $\Omega$ (remember that we stop discussing drift since it occurs rarely), we proceed to the demarcation (see Figure \ref{fig:Flow}C) step of ES.
-Demarcation uses the user input phylogeny and the maximum likelihood parameters produced from Hillclimbing optimization (see Figure \ref{fig:Flow}B - C).
+With the most likely estimations of $npop$, $\sigma$, and $\Omega$ (remember that we stop discussing drift since it occurs rarely), we proceed to the demarcation (see Figure \ref{fig:Flow}C on page~\pageref{fig:Flow}) step of ES.
+Demarcation uses the user input phylogeny and the maximum likelihood parameters produced from Hillclimbing optimization (see Figure \ref{fig:Flow}B - C on page~\pageref{fig:Flow}).
 ES comes with a manual demarcator, however for my work we used an automatic demarcator that uses a demarcation confidence interval program.
 
 The automatic demarcator starts at the common ancestor and recursively runs confidence interval tests for $npop$ on subtrees.
@@ -235,7 +235,7 @@ Demarcation continues until each sequence belongs to an ecotype; resulting in a 
 Once any algorithm is developed, we must prove its correctness.
 In the case of ES, we want to evaluate whether or not predicted demarcations correlate to observed samples.
 The Cohan group recommends ecologically checking ES predicted ecotypes, because under various evolutionary models (other than the Stable Ecotype model), a single ecotype may contain multiple sequence clusters \cite{koeppel2008identifying, connor2010ecology}.
-Also, we want to demonstrate homogenous ecotypes~\cite{wiedenbeckHGT}, to fully identify fundamental interchangeable units.
+Ideally, we also want to demonstrate member homogenous ecotypes~\cite{wiedenbeckHGT}, to fully identify fundamental interchangeable units.
 Membership homogeneity, simply means that one bacterial species can not belong to multiple ecotypes, by utilizing various resources and functionally, separate ecotypes are not vulnerable to each other's periodic selection events.
 
 This is easier said than done.
@@ -259,7 +259,7 @@ Thus, through \emph{psaA} analysis they showed that the most abundant PEs predic
 %\subsection*{Radio Facility Wash Paper}
 \subsection*{Ecology of Speciation in the Genus \emph{Bacillus}}
 %The ecology of speciation in Bacillus connor2010ecology
-Connor, et. al., sampled bacteria from the \emph{Bacillus subtilis-Bacillus licheniformis} clade from sites differing in solar exposure and soil texture within a Death Valley canyon.
+Connor et. al., sampled bacteria from the \emph{Bacillus subtilis-Bacillus licheniformis} clade from sites differing in solar exposure and soil texture within a Death Valley canyon.
 Within the sample clade they hypothesized ecotype demarcations based on DNA sequence diversity through the clade's evolutionary history analysis with ES.
 Ecotypes demarcated were found to be significantly different in their associations with solar exposure and soil texture~\cite{connor2010ecology}.
 In the study they were attempting to provide a new protocol for describing and discovering the ecotypes of a microbial clade.

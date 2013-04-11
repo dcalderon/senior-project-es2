@@ -31,8 +31,8 @@ As we increase the sample size running time increases dramatically (see Table \r
 To solve the problem we came up with two approaches.
 First, modify the main ES algorithm driving the program.
 Second, reorganize execution to take advantage of large computer clusters (parallelization).
-I will focus mainly on modifications to the ES algorithm, which are prominently featured in ES2, and briefly address my colleague, Lingyuan Ke's, approach to parallelization which will be featured in future Ecotype Simulation iterations.
-Finally, I will discuss future plans for improving the Ecotype Simulation software family.
+I will focus mainly on modifications to the ES algorithm, which are prominently featured in ES2.
+In the conclusion I will briefly address my colleague, Lingyuan Ke's, approach to parallelization which will be featured in future Ecotype Simulation iterations.
 
 
 \subsection*{Ecotype Simulation 2.0}
@@ -50,14 +50,14 @@ While the changes are few in number, we believe that they will increase the prac
   BAPS & 4.80 & 5.15 & 6.12 \\
   \hline
  \end{tabular}
- \caption[ES1 run-time compared to other demarcation programs.]{The run speed is measured in seconds (reprinted from \protect\cite{carlo})}
+ \caption[ES1 run-time compared to other demarcation programs.]{ES1 speed comparison. The run speed is measured in seconds (reprinted from \protect\cite{carlo})}
  \label{tab:ES1speed}
 \end{table}
 
 \subsubsection*{Key algorithmic changes}
 Backwards and forward simulation takes up most of ES1 run time.
 The simulation process is called many times throughout typical program execution.
-If we can come up with a way to reduce the time complexity of simulations, great speed improvements are possible.
+If we can come up with a way to reduce the time complexity of simulations, significant speed improvements are possible.
 
 For ES2 we run the backwards simulation of node coalescence exactly the same.
 However, once we have the evolutionary history scaffold we can use properties of ultrametric phylogenetic trees to our advantage.
@@ -260,8 +260,8 @@ This maintains a high level of accuracy while decreasing runtime significantly.
 
 \section{Chapter Summary}
 From demarcation program comparisons of the past~\cite{carlo}, we have demonstrated ES1's accuracy; however it lags behind its contemporaries in terms of run time.
-By altering the core algorithm behind ES we took advantage of ultra-metric tree characteristics allowing us to do a linear time and space comparison instead of a polynomial complexity technique, saving plenty of time.
-We also fidgeted with the automatic demarcation program, so it would re-run the Hillclimbing program at each subtree before confidence intervals, theoretically increasing accuracy as well.
+By altering the core algorithm behind ES we took advantage of ultrametric tree characteristics; allowing us to do a linear time and space comparison instead of a polynomial complexity technique.
+We also fidgeted with the automatic demarcation program, so it would re-run the Hillclimbing program at each subtree before confidence intervals, theoretically increasing accuracy.
 Next, we will test ES2's demarcation performance.
 
 %Commented out since moved to chapter5
