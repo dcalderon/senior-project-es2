@@ -82,7 +82,7 @@ Then at each child node we use Hillclimbing results from the parent node to re-r
 At each level the re-run Hillclimbing results (instead of just using the overall Hillclimbing values as in ES1) are used to run the same demarcation confidence interval program which checks parameter likelihoods in a loop that decreases $npop$ by a step value until it is either below 1, beneath a pre-determined likelihood or fails a likelihood ratio test.
 Again, the resulting $npop$ from demarcation confidence interval is the 95\% likely lower bound $npop$.
 If this $npop$ equals 1 then we demarcate the sequences of the subtree as a single ecotype.
-This maintains a high level of accuracy while decreasing runtime significantly.
+This process maintains a high level of accuracy, however we will see that it has resulted in increased running times.
 
 %\section{Future Improvements} [CONSIDER MOVING TO CHAPTER 5, I THINK IT'S A GOOD IDEA]
 %Through the work involved with this project we realized that in addition to speed, space has become a limiting factor.
