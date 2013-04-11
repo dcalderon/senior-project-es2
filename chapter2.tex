@@ -17,9 +17,9 @@ While the previous chapter summed up the purpose and motivation of developing a 
 
 \subsection*{Ecotype model of bacterial species}
 %An ecotype is defined as a bacterial cluster with individuals that are ecologically similar to one another, so much so that genetic diversity within the ecotype is limited by a cohesive force: periodic selection, genetic drift, or both~\cite{cohan2007systematics}.
-We define ecotype here as a phylogenetic group of close relatives that are ecologically interchangeable, in that the members of an ecotype share genetic adaptations to a particular set of habitats, resources, and conditions while, simultaneously, remaining ecologically distinct from each other.%ecotypes are ecologically distinct from one another.
+We define ecotype here as a phylogenetic group of close relatives that are ecologically interchangeable, in that the members of an ecotype share genetic adaptations to a particular set of habitats, resources, and conditions while, simultaneously, remaining ecologically distinct from each other.
 This definition contrasts to with earlier ecotype concepts, in that the present definition of ecotype implies no other species-like characteristics beyond ecological distinctness~\cite{wiedenbeckHGT}.
-By linking species and ecological niche we take advantage of the natural clustering of organisms according to their environmental resources.
+By linking species and ecological niche we take advantage of the natural clustering of organisms according to their environmental resources~\cite{darwin1861origin}.
 Since these clusters are evolving together we do not need to utilize morphological differences and can instead use a molecular approach for demarcation.
 
 %Would I then take this portion out? YES! Check Fred's email!
@@ -43,16 +43,16 @@ In the Stable Ecotype model, ecotypes are created and extinguished at a very low
 Ecotypes are formed rarely enough so that each ecotype can accumulate its own set of unique mutations while diversity is purged recurrently, yielding a correspondence between ecotypes and sequence clusters for any gene shared among ecotypes~\cite{cohan2008origins}.
 This fact, hinted at earlier, is what allows ES to identify separate ecotypes based on environmental function without knowledge of particular phenotypic mutations.
 Diversity quashing events are referred to as periodic selection events (see Figure~\ref{fig:StableEvents}A).
-An individual within an ecotype acquires a mutation that improves its fitness within that ecological niche, which results in a diversity purge, due to low recombination rates in bacteria.% where other organisms in the ecotype without the adaption become extinct.
+An individual within an ecotype acquires a mutation that improves its fitness within that ecological niche, which results in a diversity purge, aided by low recombination rates in bacteria.
 These periodic selection events thus eliminate organisms within the ecotype that cannot adapt due to their expressed phenotype.
 Genetic drift is another event that results in diversity purges, however it normally occurs at low rates (except in small sample sizes), thus we will refrain from mentioning it in the future.
 
 %Describes relationship of periodic selection events and ecotype formation event
 %I don't think this is correct, double check!!
 Early during speciation, a new ecotype's niche may rely on the proportions of resources used and may be vulnerable to extinction by periodic selection caused by an adaptive mutation within the parental ecotype.
-However, a single HGT event may transfer the adaptive mutation across ecotypes, and could thereby prevent extinction of one ecotype by another~\cite{cohan2008origins}.
-In this case an ecotype formation event occurs (see Figure~\ref{fig:StableEvents}B).
-The ecotype-transcending adaptation allowed an ecotype speciation event to occur. In the figure an individual of an ecotype developed an adaptation that went on to colonize a new niche creating a new ecotype.
+At some point a change in phenotype may occur in an individual that gives it access to resources (and at the cost of previously utilized resources) resulting in an ecotype formation event~\cite{cohan2008origins} (see Figure~\ref{fig:StableEvents}B on page~\pageref{fig:StableEvents}).
+The ecotype-transcending adaptation allowed an ecotype speciation event to occur.
+In the figure an individual of an ecotype developed an adaptation that went on to colonize a new niche creating a new ecotype.
 
 Now we have an event to account for anagenesis, or accumulation of changes over time along a single lineage, referred to as periodic selection, and cladogenesis, or irreversible splitting of lineages, referred to as ecotype formation.
 To complete the dynamics of the Stable Ecotype model, extinction events are also possible (see Figure~\ref{fig:StableEvents}C).
@@ -71,7 +71,7 @@ Previous work done in the Cohan lab resulted in an algorithm based on the Stable
  %\includegraphics[scale=2.5]{images/StableTree-CH2}
 \end{SCfigure}
 
-Utilizing premises established in the Stable Ecotype model we hypothesize a phylogenetic tree similar to the one represented in Figure ~\ref{fig:StableTree}.
+Utilizing premises established in the Stable Ecotype model we hypothesize a phylogenetic tree similar to the one represented in Figure ~\ref{fig:StableTree} on page~\pageref{fig:StableTree}.
 Here we can see that ecotype formation is relatively rare, while periodic selection (asterisks) keeps the branches of the tree pruned.
 At the point of divergence (where the two solid lines separate into ecotype 1 and 2), organisms from the two separate ecotypes are closely related.
 However over time and through various purification events adaptive mutations accumulate.
@@ -79,10 +79,12 @@ Notice that the two clades are totally free from each other's periodic selection
 This is an important feature of separate ecotypes, because we can later observe the differences acquired from separate evolutionary histories.
 
 Theory and empirical evidence hints that these boundaries correlate to an ecological niche, based on empirical studies where environmental samples were collected and statistically correlated to their putative ecotypes~\cite{cohan2007systematics, cohan2006sequence, ward2006cyanobacterial, cohan2006toward}.
-To identify the system's fundamental elements takes three steps.
-First, observe and characterize the community's evolutionary history.
-Second, simulate evolutionary history as hypotheses of various descriptive parameters, resulting in a most likely parametric characterization of observed history.
-Finally, demarcate individuals into ecotypes.
+To identify the system's fundamental elements takes three steps:
+\begin{enumerate}[I]
+\item observe and characterize the community's evolutionary history,
+\item simulate evolutionary history as hypotheses of various descriptive parameters, resulting in a most likely parametric characterization of observed history, and
+\item demarcate individuals into ecotypes.
+\end{enumerate}
 
 \subsection*{Observing and characterizing evolutionary history}
 Since the clades are evolving independently we can use the molecular clock characteristic of specific ubiquitous genes.
@@ -90,8 +92,8 @@ The gene we choose to measure between organisms must be present throughout.
 For this reason ES typically takes in ribosomal gene 16s rRNA, chaperone dnaJ, or gyrase subunit gyrA sequences  as input. Most living organisms have closely related homologues, which is important because we can only demarcate when there exists a homolog.
 
 From the genes we can build a phylogeny that predicts a likely evolutionary history, simply based on sequences.
-Because ES only analyzes sequences from non-extinct organisms, the Stable Ecotype model predicts that lineage divergence will be low within the evolutionary history.
-And the bacterial diversity sampled is going through various stages of periodic selection purification, thus the end of the phylogeny (temporally closest to the present) will appear frayed (see Figure~\ref{fig:TreeFlare}).
+Because ES only analyzes sequences from non-extinct organisms, the Stable Ecotype model predicts that lineage divergence (i.e., ecotype formation events) will be low within the evolutionary history.
+Also, the bacterial diversity sampled is going through various stages of periodic selection purification, thus the end of the phylogeny (temporally closest to the present) will appear frayed (see Figure~\ref{fig:TreeFlare}).
 
 \begin{figure}[h!]
 \centering
@@ -103,7 +105,7 @@ And the bacterial diversity sampled is going through various stages of periodic 
 \subsection*{Simulating evolutionary history}
 Starting from observed sequences as separate clusters, ES simulates common divergence, and cohesion events backwards in time, which reduce the number of groups until there is only one cluster representing the common ancestor.
 From that ancestor representation with known gene mutation rates, we can simulate sequence diversity through time and generate a collection of gene sequences.
-Now this simulated output can be compared to the observed evolutionary history to check for similarity.
+Now this simulated output can be compared to the observed evolutionary history to check for similarity (see Figure~\ref{fig:TreeCompare} on page~\pageref{fig:TreeCompare}).
 By running many (approximately in the millions) simulations, ES develops a maximum likelihood parametric characterization of the observed phylogeny. 
 
 \subsection*{Demarcating ecotypes}
@@ -117,8 +119,11 @@ Once there is a certain likelihood that that subtree consists of only one ecotyp
 %   SHOULD WE INCLUDE SAMPLE INPUTS AND OUTPUTS FOR EACH PROGRAM?
 %
 The current iteration of ES is a GNU General Public Licensed free (as in free speech, not free beer) and open source software written mainly in Fortran 90 with a Java graphical user interface (GUI) that runs on most platforms.
-As input it takes a FASTA format file that consists of aligned DNA gene sequences (usually the genes mentioned earlier; concatenated if multiple genes) with an outgroup sequence first, and a corresponding phylogeny, either supplied by the user as a Newick format tree or generated by an optional dependency (Phylip ~\cite{felsenstein1989phylip}) on runtime.
+As input it takes a FASTA format file that consists of aligned DNA gene sequences (usually the genes mentioned earlier; concatenated if multiple genes) with an outgroup sequence first, and a corresponding phylogeny, either supplied by the user as a Newick format tree or generated by an optional dependency (Phylip ~\cite{felsenstein1989phylip}) at runtime.
+While in the previous section I described the algorithm more abstractly, here I will try to be more concrete.
 The implementation follows our approach discussed in the previous section, namely, observing evolutionary history, estimating parameter values, and demarcating ecotypes.
+Several programs are run at each step, but the over-arching process should remain clear.
+Examples of inputs for some programs are located in the Appendix.
 
 \subsection*{Binning}
 First the input sequences go through pre-processing to remove nucleotide gaps, and correct for polymerase chain reaction (PCR) error.
@@ -141,32 +146,20 @@ The $x$-axis refers to percent identity between sequences and the $y$-axis the n
 At low sequence identity criteria there are fewer bins with more sequences in each, and at $1.00$ sequence identity, the number of bins is equal to the number of unique sequences.
 A good way to visualize this sequence identity graph is as a linear representation of a phylogeny.
 The slope is shallow during lower sequence identities similar to how in a tree we typically see low levels of cladogenesis.
-But, as we approach the end of a tree there typically is a fraying of the tips, and in the identity graph there is a corresponding steepening of slope (see Figure \ref{fig:SpeciationGraph}).
+But, as we approach the end of a tree there typically is a fraying of the tips, and in the identity graph there is a corresponding steepening of slope (see Figure \ref{fig:SpeciationGraph} on page~\pageref{fig:SpeciationGraph}).
 Concave departures from an exponential relationship indicate an overabundance of highly divergent lineages (i.e., a very genetically diverse community); convex departures indicate an overabundance of closely related lineages (i.e., a less genetically diverse community~\cite{bohannan2003new}.
 
-We can describe the essence of this graph using four parameters: $npop$, sigma ($\sigma$), omega ($\Omega$), which represent the number of ecotypes, rate of periodic selection (PS), and rate of ecotype formation (EF) respectively.
+We can describe the essence of this graph using four parameters: $npop$, sigma ($\sigma$), omega ($\Omega$), and drift (d) which represent the number of ecotypes, rate of periodic selection (PS), rate of ecotype formation (EF), and drift (D) respectively.
 By finding close approximations of $npop$, $\sigma$, and $\Omega$, we can observe ecotype boundaries within the clade that hypothetically correspond to ecological niche (as stated earlier).
 
 \subsection*{Simulations and likelihood evaluation}
 The simulation aspect of ES begins with a process of backwards simulation that stochastically produces a phylogenetic representation of the history of the community.
 Think of a node that represents each input organism and sequence from the present time (i.e., number of nodes equals number of input sequences), and the ancestral lineage of these organisms coalesce (due to PS, EF, or D; indicated by gray circles in Figure \ref{fig:SpeciationGraph}) as ES steps backward in time.
 Backwards simulation serves as a topological scaffold of history.
-Then the forward simulation produces corresponding mutational nucleotide substitution throughout the history of the clade and resulting simulated contemporary organisms are binned, and binning is compared to binning of actual organisms sampled from nature (see Figure~\ref{fig:TreeCompare}).
+Then the forward simulation produces corresponding mutational nucleotide substitution throughout the history of the clade.
+The resulting simulated contemporary organisms are binned, which is compared to the binning of the actual organisms sampled from nature (see Figure~\ref{fig:TreeCompare} on page~\pageref{fig:TreeCompare}).
 
-\begin{figure}[h!]
-\centering
-\includegraphics[scale=1.5]{images/TreeCompare-CH2}
-\caption[Observed and simulated evolutionary histories.]{Clade sequence diversity, for the \emph{B. subtilis-B. licheniformis} clade, for gene rpoB. A set of 88 sequences from the clade was binned into clusters with different levels of minimum pairwise identity. The log-linear portion of the curve to the left of \textasciitilde0.99 identity indicates a constant net rate of ecotype formation; the flair of diversity to the right of \textasciitilde0.99 indicates the facile sequence diversity within ecotypes~\cite{acinas2004fine}. The ecotype simulation analysis yielded estimates of the parameters for periodic selection rate, net ecotype formation rate, rate of genetic drift, and the number of ecotypes, and the estimated quartet of parameter values generated the ``model'' values shown~\cite{koeppel2008identifying} (reprinted from \protect\cite{cohan2007systematics}).}
-\label{fig:TreeCompare}
-\end{figure}
-
-%FIND CITATION FOR BROKEN STICK!
-Initially a set of $v$ contemporary organisms (representing those sampled from the environment) are randomly distributed according to broken-stick distribution among $n$ ecotypes (in the case of Figure \ref{fig:SpeciationGraph}, $v = 14$ and $n = 3$).
-In broken-stick distribution (or random fraction) we start with a single giant ecotype then continue to randomly split it up (by randomly picking an ecotype and splitting that one up) until we have the designated $npop$ ecotypes~\cite{tokeshi1990niche}.
-Working backward from the $v$ organisms in the present, the processes of EF, PS, and D occur stochastically in time according to their respective predetermined rates ($\Omega$, $\sigma$, and d).
-Each event coalesces one or more lineages into  a single ancestral lineage.
-The backward phase of the simulation ends when all of the branches have coalesced into a single node, which represents the most recent common ancestor of the sampled organisms.
-
+%COMPARE GRAPH HERE
 \begin{figure}[h!]
 %INCLUDE?
 %Note that in the backward-looking view of the coalescence formulation, each PS appears as a coalescence event, in which all lineages after the PS coalesce into the survivor of the PS event. Likewise, each D event appears in this backward-looking view as the coalescence of a pair of lineages within an ecotype (e.g., two contemporary lineages coalesce into lineage D1 to reflect the increased representation of lineage D1 after the random loss by drift of lineage D2). 
@@ -178,11 +171,26 @@ The backward phase of the simulation ends when all of the branches have coalesce
    \label{fig:SpeciationGraph}
 \end{figure}
 
+
+Initially a set of $v$ contemporary organisms (representing those sampled from the environment) are randomly distributed according to broken-stick distribution among $n$ ecotypes (in the case of Figure \ref{fig:SpeciationGraph} on page~\pageref{fig:SpeciationGraph}, $v = 14$ and $n = 3$).
+In broken-stick distribution (or random fraction) we start with a single giant ecotype then continue to randomly split it up (by randomly picking an ecotype and splitting that one up) until we have the designated $npop$ ecotypes~\cite{tokeshi1990niche}.
+Working backward from the $v$ organisms in the present, the processes of EF, PS, and D occur stochastically in time according to their respective predetermined rates ($\Omega$, $\sigma$, and d).
+Each event coalesces one or more lineages into  a single ancestral lineage.
+The backward phase of the simulation ends when all of the branches have coalesced into a single node, which represents the most recent common ancestor of the sampled organisms.
+
+%SPECIATION GRAPH HERE
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=1.5]{images/TreeCompare-CH2}
+\caption[Observed and simulated evolutionary histories.]{Clade sequence diversity, for the \emph{B. subtilis-B. licheniformis} clade, for gene rpoB. A set of 88 sequences from the clade was binned into clusters with different levels of minimum pairwise identity. The log-linear portion of the curve to the left of \textasciitilde0.99 identity indicates a constant net rate of ecotype formation; the flair of diversity to the right of \textasciitilde0.99 indicates the facile sequence diversity within ecotypes~\cite{acinas2004fine}. The ecotype simulation analysis yielded estimates of the parameters for periodic selection rate, net ecotype formation rate, rate of genetic drift, and the number of ecotypes, and the estimated quartet of parameter values generated the ``model'' values shown~\cite{koeppel2008identifying} (reprinted from \protect\cite{cohan2007systematics}).}
+\label{fig:TreeCompare}
+\end{figure}
+
 Forward simulation begins when a sequence the same length as a sampled individual is assigned to the most recent common ancestor.
 As time progresses nucleotide substitutions occur stochastically between each pair of nodes (according to the time between the events determining the nodes) in the phylogeny derived from the backward simulation. 
 This continues until we reach the contemporary organism nodes, resulting in a matrix of pairwise sequence divergence between $v$ contemporary organisms.
 
-Now ES can conduct the same complete-linkage clustering analysis briefly described in the previous section to illustrate a sequence identity graph, which can be compared to the observed sequence identity graph.
+Now ES can conduct the same complete-linkage clustering analysis briefly described in the previous section to illustrate a sequence identity graph, which can be compared to the observed sequence identity graph (see Figure~\ref{fig:TreeCompare} on page~\pageref{fig:TreeCompare}).
 If we place our simulated sequence identity graph line on top of the observed sequence identity graph, at each bin level we can see whether the simulated line matches the observed line within a pre-determined factor (or precision factor).
 Success is determined by whether or not these two lines match within this factor of closeness, of which there are six: 5x, 2x, 1.5x, 1.25x, 1.10x, 1.05x.
 If the simulation and observed graphs are too far apart (see Figure~\ref{fig:TreeCompare} on page~\pageref{fig:TreeCompare}), ES records the repetition as a failure.
@@ -191,9 +199,9 @@ Based on many (i.e., in the hundreds or thousands) replicate runs, each one eval
 \subsection*{Bruteforce and Hillclimbing}
 Utilizing simulations explained in the previous section ES conducts a search for high likelihoods over a multi-dimensional plane (four parameters).
 To search as much of that space as possible we lay a grid of points over the landscape of likelihoods where each point is a simulation of many hundreds of repetitions.
-By running those tests we begin to observe a rough sketch of hills and valleys of the parameters.
+By running those tests we begin to observe a rough sketch of hills and valleys of likelihoods corresponding to parameter sets.
 The even distribution of points with a lack of insight is referred to as Bruteforce (see Figure \ref{fig:Flow}A).
-The beauty of Bruteforce is that it outputs a range of parameters that contains the global maximum likelihood.
+The beauty of Bruteforce is that it outputs a range of parameters that usually contains the global maximum likelihood.
 The range of likely parameters is then passed through an optimization program known as Hillclimbing (see Figure \ref{fig:Flow}B), which finds local maximums (i.e., the global maximum within our Bruteforce parameter ranges).
 
 We use the Nelder-Mead downhill-simplex approach to hill climbing optimization.
@@ -201,7 +209,7 @@ A chosen parameter solution is more thoroughly tested (i.e., with 10,000 replica
 The program then calculates how long it would have to run to generate 50 success-based runs on the duration of the previous step.
 If too much time is required then Hillclimbing runs with a more general precision value.
 Bruteforce finds the ranges of the global maximum, while Hillclimbing takes those ranges and attempts to find a local maximum.
-The two programs run in tandem are necessary for accurate parameter estimations.
+The two programs run in tandem are necessary for maximum likelihood estimations.
 %Describe exact detail of hill climbing optimization. Ask for background paper?
 %Look into code and add some...
 
@@ -209,26 +217,28 @@ The two programs run in tandem are necessary for accurate parameter estimations.
 \begin{figure}[h!]
  \centering
  \includegraphics[scale=0.75]{images/ESFlow-CH2.pdf}
- \caption[Ecotype Simulation program flow diagram.]{This is the program call flow of ES. Circles represent simulations, filled are high likelihood successes, while empty are failures. Bruteforce distributes test parameters along the grid, and Hillclimbing figuratively climbs the likelihood hill to find local a maximum (figure created with help from Lingyuan Ke). }
+ \caption[Ecotype Simulation program flow diagram.]{Program call flow of ES. Circles represent simulations, filled are high likelihood successes, while empty are failures. Bruteforce distributes test parameters along the grid, and Hillclimbing figuratively climbs the likelihood hill to find local a maximum (adapted in tandem~\protect\cite{lingThesis}).}
  \label{fig:Flow}
 \end{figure}
 
 \subsection*{Demarcation}
-With the most likely estimations of $npop$, $\sigma$, and $\Omega$ (remember that we dropped drift since it occurs rarely), we proceed to Demarcation (see Figure \ref{fig:Flow}C).
+With the most likely estimations of $npop$, $\sigma$, and $\Omega$ (remember that we stop discussing drift since it occurs rarely), we proceed to the demarcation (see Figure \ref{fig:Flow}C) step of ES.
 Demarcation uses the user input phylogeny and the maximum likelihood parameters produced from Hillclimbing optimization (see Figure \ref{fig:Flow}B - C).
 ES comes with a manual demarcator, however for my work we used an automatic demarcator that uses a demarcation confidence interval program.
 
 The automatic demarcator starts at the common ancestor and recursively runs confidence interval tests for $npop$ on subtrees.
-At each level the overall Hillclimbing results are used to run the demarcation confidence interval program which checks parameter likelihoods in a loop that decreases $npop$ by a step value until it is either below 1, beneath a pre-determined likelihood or fails a likelihood ratio test.
+At each level of the phylogeny overall Hillclimbing results are used to run the demarcation confidence interval program which checks parameter likelihoods in a loop that decreases $npop$ by a step value until it is either below 1, beneath a pre-determined likelihood, or fails a likelihood ratio test.
 The resulting $npop$ from demarcation confidence interval is the 95\% likely lower bound $npop$.
 If this $npop$ equals 1 then we demarcate the sequences of the subtree as a single ecotype.
-If so, we identify that group of samples as a single ecotype and stop that instance of recursive tree descent.
+Thus, we identify that group of samples as a single ecotype and stop that instance of recursive tree descent.
+Demarcation continues until each sequence belongs to an ecotype; resulting in a corresponding comma-separated file; concluding the ES run.
 
 \section{Ecological Correlation}
 Once any algorithm is developed, we must prove its correctness.
 In the case of ES, we want to evaluate whether or not predicted demarcations correlate to observed samples.
 The Cohan group recommends ecologically checking ES predicted ecotypes, because under various evolutionary models (other than the Stable Ecotype model), a single ecotype may contain multiple sequence clusters \cite{koeppel2008identifying, connor2010ecology}.
 Also, we want to demonstrate homogenous ecotypes~\cite{wiedenbeckHGT}, to fully identify fundamental interchangeable units.
+Membership homogeneity, simply means that one bacterial species can not belong to multiple ecotypes, by utilizing various resources and functionally, separate ecotypes are not vulnerable to each other's periodic selection events.
 
 This is easier said than done.
 Over the past four years the Cohan lab and collaborators have travelled to unique environments around the world gathering samples of bacterial ecosystems and analyzing them with ES, and other demarcation programs.
