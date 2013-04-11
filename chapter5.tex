@@ -65,15 +65,15 @@ The current implementation is in Fortran 90, and we have yet to update it to ref
 Big Data companies have developed an interest in clustering large datasets, resulting in various improvements in clustering algorithms.
 \subsubsection*{Current implementation}
 %First I'll go over our naive implementation here
-Our naive approach is as follows:
-%FROM WIKIPEDIA!  CITE!
-\begin{enumerate}[I]
-\item Begin with the disjoint clustering having level $L(0) = 0$ and sequence number $m = 0$.
-\item Find the most similar pair of clusters in the current clustering, say pair $(r)$, $(s)$, according to $d[(r),(s)] = max$ $d[(i),(j)]$ where the maximum is over all pairs of clusters in the current clustering.
-\item Increment the sequence number: $m = m + 1$. Merge clusters $(r)$ and $(s)$ into a single cluster to form the next clustering m. Set the level of this clustering to $L(m) = d[(r),(s)]$
-\item Update the proximity matrix, $D$, by deleting the rows and columns corresponding to clusters $(r)$ and $(s)$ and adding a row and column corresponding to the newly formed cluster. The proximity between the new cluster, denoted $(r,s)$ and old cluster $(k)$ is defined as $d[(k), (r,s)] = max$ $d[(k),(r)]$, $d[(k),(s)]$.
-\item If all objects are in one cluster, stop. Else, go to step II.
-\end{enumerate}
+We use a binning algorithm based on the naive one
+%%FROM WIKIPEDIA!  CITE!
+%\begin{enumerate}[I]
+%\item Begin with the disjoint clustering having level $L(0) = 0$ and sequence number $m = 0$.
+%\item Find the most similar pair of clusters in the current clustering, say pair $(r)$, $(s)$, according to $d[(r),(s)] = max$ $d[(i),(j)]$ where the maximum is over all pairs of clusters in the current clustering.
+%\item Increment the sequence number: $m = m + 1$. Merge clusters $(r)$ and $(s)$ into a single cluster to form the next clustering m. Set the level of this clustering to $L(m) = d[(r),(s)]$
+%\item Update the proximity matrix, $D$, by deleting the rows and columns corresponding to clusters $(r)$ and $(s)$ and adding a row and column corresponding to the newly formed cluster. The proximity between the new cluster, denoted $(r,s)$ and old cluster $(k)$ is defined as $d[(k), (r,s)] = max$ $d[(k),(r)]$, $d[(k),(s)]$.
+%\item If all objects are in one cluster, stop. Else, go to step II.
+%\end{enumerate}
 with slight modification (i.e., we only cluster at specific sequence identity levels), which ends up running at $O(n^3)$ time (algorithm written using~\cite{FastClust} as a reference).
 In our case we divide the processing by first calculating a pairwise distance matrix between all sequences.
 That way we maintain a look up table, $D$, to retrieve distances in constant time.

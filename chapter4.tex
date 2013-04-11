@@ -122,8 +122,7 @@ FASTA sequences were converted into XLS format for compatibility with the BAPS p
 
 \subsection*{Variation of Information Metric}
 The Variation of Information (VI) metric~\cite{meilua2003comparing} was used as a criterion for comparing two partitions of the same data set, to determine the closeness of each algorithm's ecotype demarcations to the canonical demarcations generated \emph{in silico}.
-The Variation of Information between two clusterings C and C' is given by$$VI(C, C') = H(C) + H(C') - 2I(C, C')$$where H(C) is the entropy of a random variable associated with a sequence being in a cluster C and I(C,C') is the mutual information of the two associated variables.
-For example, if a student receives a corrected test back with a lot of red marks (deductions) it signifies that the student's answers were further from the test key than if there were fewer deductions.
+The Variation of Information between two clusterings C and C' is given by$$VI(C, C') = H(C) + H(C') - 2I(C, C')$$where H(C) is the entropy of a random variable associated with a sequence being in a cluster C and I(C,C') is the mutual information of the two associated variables. 
 The important relationship to keep in mind is that the lower the VI score the more accurate the demarcation.
 
 \subsection*{ES2 on smaller datasets}
@@ -137,7 +136,7 @@ Sequences were processed as previously reported~\cite{carlo}.
 Again we used PhyML to produce a maximum likelihood tree.
 
 \subsection*{All demarcation programs on large datasets}
-We ran all demarcation programs, and a random demarcator on generated datasets of 50 (see Figure~\ref{fig:All50} on page~\pageref{fig:All50}), 100 (see Figure~\ref{fig:All100} on page~\pageref{fig:All100}), and 200 (see Figure~\ref{fig:All200} on page~\pageref{fig:All200}) sequences.
+We ran all working demarcation programs, and a random demarcator on generated datasets of 50 (see Figure~\ref{fig:All50} on page~\pageref{fig:All50}), 100 (see Figure~\ref{fig:All100} on page~\pageref{fig:All100}), and 200 (see Figure~\ref{fig:All200} on page~\pageref{fig:All200}) sequences.
 Parameters were once again adopted from previous studies.
 The exception being a choice of $npop$ which, was three values of 10, 20, 30, 40, 50.
 We tried to pick $npop$ values that would hit the sweet spot of demarcation performance in addition to an upper and lower bound (i.e., regarding VI accuracy scores).
@@ -176,7 +175,7 @@ Our first experiment was to run Ecotype Simulation (ES) and Ecotype Simulation 2
 \end{figure}
 
 \noindent Notice how closely the two lines are.
-ES (solid line) is generally lower (i.e., more accurate), however there are dramatic peaks and valleys of performance.
+ES1 (solid line) is generally lower (i.e., more accurate), however there are dramatic peaks and valleys of performance.
 In contrast to ES2 (dotted) which overall was quite accurate with few valleys and peaks.
 \begin{table}
     \begin{tabular}{l|cc}
@@ -188,7 +187,7 @@ In contrast to ES2 (dotted) which overall was quite accurate with few valleys an
     \label{tab:ESvES2mean}
 \end{table}
 This trend is represented in Table~\ref{tab:ESvES2mean} on page~\pageref{tab:ESvES2mean}, by ES2's lower standard deviation than ES1.
-However, ES still has a lower mean VI score, but not by much.
+However, ES1 still has a lower mean VI score, but not by much.
 We also chose 3 canonical parameters (\emph{Bacillus} values with varying omega) to run ES1 and ES2 on 100 repetitions.
 Results in raw form for this experiment can be found in Figure~\ref{fig:HundredResultsFile} in the Appendix.
 Surprisingly, ES2 outscored ES1 in the 10x omega value parameter run.
@@ -199,7 +198,7 @@ On small datasets speed is not such an issue, but if you want to run a lot of sm
 
 \subsubsection*{All demarcation programs on large datasets}
 Time becomes a significant issue when we run Ecotype Simulation on datasets of 50 sequences (runtime is \textasciitilde2390 seconds from Table~\ref{tab:ES1speed} on page~\pageref{tab:ES1speed}) or larger.
-For this reason we developed ES2 to run on datasets with more than 50 individuals.
+For this reason we developed ES2 to run on datasets with more than 50 sequences.
 From past studies we have found ES to be the most accurate demarcation program~\cite{carlo}, and we expect similar levels of accuracy from ES2 on larger datasets.
 
 %\begin{figure}[h!]
@@ -317,10 +316,11 @@ ES2 passed the \emph{Bacillus} sanity check.
 
 \subsection*{Running time}
 We compared the running times of the demarcation algorithms on synthetic data sets of different sizes, and found that AdaptML, GMYC, and BAPS performed demarcations much more quickly then ES2 (see Figure~\ref{fig:WindowsSpeed} on page~\pageref{fig:WindowsSpeed}).
-AdaptML, GMYC (if it worked), and BAPS all completed demarcations on the order of a few seconds, even for datasets in the hundreds whereas ES required on the order of tens of minutes for the same inputs.
-AdaptML was the fastest algorithm, taking no more than one second on average.
-BAPS followed and ES2 was only faster than ES1 (see Table~\ref{tab:WindowsSpeed} on page~\pageref{tab:WindowsSpeed}).
-
+AdaptML, GMYC (if it worked), and BAPS all completed demarcations on the order of a few seconds, even for datasets in the hundreds whereas ES2 required on the order of tens of minutes for the same inputs.
+AdaptML was the fastest algorithm, taking no more than one second on average; BAPS followed and ES2 was only faster than ES1 (see Table~\ref{tab:WindowsSpeed} on page~\pageref{tab:WindowsSpeed}).
+ES1 ran faster than ES2 on an input of size 30 because of the constant speed slow-down incurred by our modified automatic demarcation.
+Input sizes with only 20 sequences ran approximately twice as fast in ES2, because the algorithmic modifications began to outweigh demarcation slow down.
+We are still working on ways of best evaluating runtime, however it is quite clear that ES2 greatly outperforms ES1 speed wise.
 
 Since the BAPS's batch processing feature was not available for Mac I ran it on Windows.
 However, I also ran ES2, GMYC, and AdaptML separately on my Mac and found that ES2 was significantly faster than when it was run on a Windows machine.

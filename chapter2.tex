@@ -150,11 +150,12 @@ But, as we approach the end of a tree there typically is a fraying of the tips, 
 Concave departures from an exponential relationship indicate an overabundance of highly divergent lineages (i.e., a very genetically diverse community); convex departures indicate an overabundance of closely related lineages (i.e., a less genetically diverse community~\cite{bohannan2003new}.
 
 We can describe the essence of this graph using four parameters: $npop$, sigma ($\sigma$), omega ($\Omega$), and drift (d) which represent the number of ecotypes, rate of periodic selection (PS), rate of ecotype formation (EF), and drift (D) respectively.
+Rates of drift selection occurs so rarely in normal sized bacterial populations~\cite{koeppel2008identifying} that I will refrain from mentioning it.
 By finding close approximations of $npop$, $\sigma$, and $\Omega$, we can observe ecotype boundaries within the clade that hypothetically correspond to ecological niche (as stated earlier).
 
 \subsection*{Simulations and likelihood evaluation}
 The simulation aspect of ES begins with a process of backwards simulation that stochastically produces a phylogenetic representation of the history of the community.
-Think of a node that represents each input organism and sequence from the present time (i.e., number of nodes equals number of input sequences), and the ancestral lineage of these organisms coalesce (due to PS, EF, or D; indicated by gray circles in Figure \ref{fig:SpeciationGraph}) as ES steps backward in time.
+Think of a node that represents each input organism and sequence from the present time (i.e., number of nodes equals number of input sequences), and the ancestral lineage of these organisms coalesce (due to PS or EF; indicated by gray circles in Figure \ref{fig:SpeciationGraph}) as ES steps backward in time.
 Backwards simulation serves as a topological scaffold of history.
 Then the forward simulation produces corresponding mutational nucleotide substitution throughout the history of the clade.
 The resulting simulated contemporary organisms are binned, which is compared to the binning of the actual organisms sampled from nature (see Figure~\ref{fig:TreeCompare} on page~\pageref{fig:TreeCompare}).
@@ -174,7 +175,7 @@ The resulting simulated contemporary organisms are binned, which is compared to 
 
 Initially a set of $v$ contemporary organisms (representing those sampled from the environment) are randomly distributed according to broken-stick distribution among $n$ ecotypes (in the case of Figure \ref{fig:SpeciationGraph} on page~\pageref{fig:SpeciationGraph}, $v = 14$ and $n = 3$).
 In broken-stick distribution (or random fraction) we start with a single giant ecotype then continue to randomly split it up (by randomly picking an ecotype and splitting that one up) until we have the designated $npop$ ecotypes~\cite{tokeshi1990niche}.
-Working backward from the $v$ organisms in the present, the processes of EF, PS, and D occur stochastically in time according to their respective predetermined rates ($\Omega$, $\sigma$, and d).
+Working backward from the $v$ organisms in the present, the processes of EF and PS occur stochastically in time according to their respective predetermined rates ($\Omega$, $\sigma$).
 Each event coalesces one or more lineages into  a single ancestral lineage.
 The backward phase of the simulation ends when all of the branches have coalesced into a single node, which represents the most recent common ancestor of the sampled organisms.
 
@@ -194,7 +195,7 @@ Now ES can conduct the same complete-linkage clustering analysis briefly describ
 If we place our simulated sequence identity graph line on top of the observed sequence identity graph, at each bin level we can see whether the simulated line matches the observed line within a pre-determined factor (or precision factor).
 Success is determined by whether or not these two lines match within this factor of closeness, of which there are six: 5x, 2x, 1.5x, 1.25x, 1.10x, 1.05x.
 If the simulation and observed graphs are too far apart (see Figure~\ref{fig:TreeCompare} on page~\pageref{fig:TreeCompare}), ES records the repetition as a failure.
-Based on many (i.e., in the hundreds or thousands) replicate runs, each one evaluated for success or failure, we gather information to form a maximum likelihood estimation of $npop$, $\Omega$, $\sigma$, and d (in the future I will not mention drift, since it happens to be so rare). However, how does one decide on different parameter choices to test?
+Based on many (i.e., in the hundreds or thousands) replicate runs, each one evaluated for success or failure, we gather information to form a maximum likelihood estimation of $npop$, $\Omega$, and $\sigma$. However, how does one decide on different parameter choices to test?
 
 \subsection*{Bruteforce and Hillclimbing}
 Utilizing simulations explained in the previous section ES conducts a search for high likelihoods over a multi-dimensional plane (three key parameters: npop, omega, sigma).
@@ -204,7 +205,7 @@ The even distribution of points with a lack of insight is referred to as Brutefo
 The beauty of Bruteforce is that it outputs a range of parameters that usually contains the global maximum likelihood.
 The range of likely parameters is then passed through an optimization program known as Hillclimbing (see Figure \ref{fig:Flow}B on page~\pageref{fig:Flow}), which finds local maximums (i.e., the global maximum within our Bruteforce parameter ranges).
 
-We use the Nelder-Mead downhill-simplex approach to hill climbing optimization.
+We use the Nelder-Mead downhill-simplex approach~\cite{nelder1965simplex} to likelihood hill climbing optimization.
 A chosen parameter solution is more thoroughly tested (i.e., with 10,000 replicates), and likelihoods are calculated for the six precision values (i.e., 5x, 2x, etc.).
 The program then calculates how long it would have to run to generate 50 success-based runs on the duration of the previous step.
 If too much time is required then Hillclimbing runs with a more general precision value.
@@ -220,7 +221,7 @@ The two programs run in tandem are necessary for maximum likelihood estimations.
 \end{figure}
 
 \subsection*{Demarcation}
-With the most likely estimations of $npop$, $\sigma$, and $\Omega$ (remember that we stop discussing drift since it occurs rarely), we proceed to the demarcation (see Figure \ref{fig:Flow}C on page~\pageref{fig:Flow}) step of ES.
+With the most likely estimations of $npop$, $\sigma$, and $\Omega$, we proceed to the demarcation (see Figure \ref{fig:Flow}C on page~\pageref{fig:Flow}) step of ES.
 Demarcation uses the user input phylogeny and the maximum likelihood parameters produced from Hillclimbing optimization (see Figure \ref{fig:Flow}B - C on page~\pageref{fig:Flow}).
 ES comes with a manual demarcator, however for my work we used an automatic demarcator that uses a demarcation confidence interval program.
 
@@ -232,7 +233,7 @@ Thus, we identify that group of samples as a single ecotype and stop that instan
 Demarcation continues until each sequence belongs to an ecotype; resulting in a corresponding comma-separated file; concluding the ES run.
 
 \section{Ecological Correlation}
-Once any algorithm is developed, we must prove its correctness.
+Once any algorithm is developed, we must evaluate its accuracy.
 In the case of ES, we want to evaluate whether or not predicted demarcations correlate to observed samples.
 The Cohan group recommends ecologically checking ES predicted ecotypes, because under various evolutionary models (other than the Stable Ecotype model), a single ecotype may contain multiple sequence clusters \cite{koeppel2008identifying, connor2010ecology}.
 Ideally, we also want to demonstrate member homogenous ecotypes~\cite{wiedenbeckHGT}, to fully identify fundamental interchangeable units.
