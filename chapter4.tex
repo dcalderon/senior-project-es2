@@ -295,12 +295,6 @@ ES2 passed the \emph{Bacillus} sanity check.
     \label{fig:Bacillus}
 \end{figure}
 
-\subsection*{Running time}
-We compared the running times of the demarcation algorithms on synthetic data sets of different sizes, and found that AdaptML, GMYC, and BAPS performed demarcations much more quickly then ES2 (see Figure~\ref{fig:WindowsSpeed} on page~\pageref{fig:WindowsSpeed}).
-AdaptML, GMYC (if it worked), and BAPS all completed demarcations on the order of a few seconds, even for datasets in the hundreds whereas ES required on the order of tens of minutes for the same inputs.
-GMYC was the fastest algorithm, taking no more than one second on average.
-AdaptML followed, and BAPS was the slowest of the three faster algorithms.
-
 \begin{figure}[h!]
   \centering
     \includegraphics[scale=0.7]{images/SpeedWindows-CH4}
@@ -308,8 +302,8 @@ AdaptML followed, and BAPS was the slowest of the three faster algorithms.
     \label{fig:WindowsSpeed}
 \end{figure}
 
-
 \begin{table}
+\centering
     \begin{tabular}{l|cccccc}
     Algorithm & 20   & 30    & 50     & 110    & 140    & 170    \\ \hline
     AdaptML   & na   & 2.0   & 3.0    & 5.0    & 5.4    & 5.8    \\
@@ -317,7 +311,15 @@ AdaptML followed, and BAPS was the slowest of the three faster algorithms.
     ES1       & 69.8 & 384   & 2390   & na     & na     & na     \\
     ES2       & na   & 558.7 & 1127.4 & 2511.5 & 3208.0 & 5237.2 \\
     \end{tabular}
+    \caption[Speed testing information on all demarcation algorithms.]{Speed testing information on all demarcation algorithms for various numbers of nu or numbers of sequences. ES2 is faster than ES1 but not faster than the other demarcation algorithms.}
+    \label{tab:WindowsSpeed}
 \end{table}
+
+\subsection*{Running time}
+We compared the running times of the demarcation algorithms on synthetic data sets of different sizes, and found that AdaptML, GMYC, and BAPS performed demarcations much more quickly then ES2 (see Figure~\ref{fig:WindowsSpeed} on page~\pageref{fig:WindowsSpeed}).
+AdaptML, GMYC (if it worked), and BAPS all completed demarcations on the order of a few seconds, even for datasets in the hundreds whereas ES required on the order of tens of minutes for the same inputs.
+AdaptML was the fastest algorithm, taking no more than one second on average.
+BAPS followed and ES2 was only faster than ES1 (see Table~\ref{tab:WindowsSpeed} on page~\pageref{tab:WindowsSpeed}).
 
 
 Since the BAPS's batch processing feature was not available for Mac I ran it on Windows.

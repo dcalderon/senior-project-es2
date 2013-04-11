@@ -65,7 +65,14 @@ Ultrametric trees have the same distance from root to tip for all organisms, and
 From the length between two nodes we can determine evolutionary distance between organisms, which correlates to time under ultrametric assumptions.
 Based on this fact running the binning program on simulated output is unnecessary.
 ES2 can conduct a linear pass through the backwards scaffold directly comparing it to the observed sequence identity graph, checking for success and failure with all precision levels.
-This insight replaces an $O(n^3)$ factor with a linear comparison, immediately quickening the algorithm. 
+This insight replaces an $O(n^3)$ factor with a linear comparison, immediately quickening the algorithm (see Figure~\ref{fig:ES2Explain} on page~\pageref{fig:ES2Explain}).
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.6]{images/ES2-Illustration}
+\caption[Illustration of the new ES2 algorithm.]{Above we have an ultrametric simulated evolutionary history, and below an observed sequence identity curve. The thick vertical line represents ES2's new ultrametric comparison that runs in linear time. It starts on the left and compares the number of individuals in the simulated history (dotted circles) to the number of bins in the observed sequence identity curve line. At the moment ES2 observes 4 organisms in the simulated history at the criterion level. Depending on whether or not this correlates to the observed sequence identity graph number (and whether it is within the precision factor established) the simulation will be counted as a success or failure (based on comparisons at all criterion levels). ES2 moves from left to right (represented by series of arrows) stopping at each criterion comparison level (generally there are 10) to check the number of observed evolutionary history bins. Although this is simply a visual representation, ES2 is capable of a similar process since the simulated tree is ultrametric. We do not need to run an $O(n^3)$ binning program on the completed simulated evolutionary history (as in ES1), instead ES2 conducts a linear-time pass as described (and represented by the thick vertical line).}
+\label{fig:ES2Explain}
+\end{figure}
 
 \subsubsection*{Demarcation}
 In addition to core algorithm changes we altered the automatic demarcation program.
