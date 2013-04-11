@@ -210,14 +210,12 @@ The program then calculates how long it would have to run to generate 50 success
 If too much time is required then Hillclimbing runs with a more general precision value.
 Bruteforce finds the ranges of the global maximum, while Hillclimbing takes those ranges and attempts to find a local maximum.
 The two programs run in tandem are necessary for maximum likelihood estimations.
-%Describe exact detail of hill climbing optimization. Ask for background paper?
-%Look into code and add some...
 
 
 \begin{figure}[h!]
  \centering
  \includegraphics[scale=0.75]{images/ESFlow-CH2.pdf}
- \caption[Ecotype Simulation program flow diagram.]{Program call flow of ES. Circles represent simulations, filled are high likelihood successes, while empty are failures. Bruteforce distributes test parameters along the grid, and Hillclimbing figuratively climbs the likelihood hill to find local a maximum (adapted in tandem~\protect\cite{lingThesis}).}
+ \caption[Ecotype Simulation program flow diagram.]{Program call flow of ES. Circles represent simulations, filled had a high ratio of successes, while empty had more failures, when compared to the observed history. Bruteforce distributes test parameters along a grid (not quite pictured), and Hillclimbing figuratively climbs the likelihood hill to find local a maximum (adapted in tandem~\protect\cite{lingThesis}).}
  \label{fig:Flow}
 \end{figure}
 

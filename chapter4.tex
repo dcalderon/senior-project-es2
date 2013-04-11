@@ -171,7 +171,7 @@ Our first experiment was to run Ecotype Simulation (ES) and Ecotype Simulation 2
 \begin{figure}[h!]
   \centering
     \includegraphics[scale=0.75]{images/ResultGraphs/ResultGraphs-4}
-      \caption[ES vs ES2 accuracy visualization on $nu = 50$.]{Across 27 parameter set combinations I exhaustively test ES (solid line) and ES2 (dotted line) on $npop$ values of 10, 20, and 30, $\Omega$ values of 0.019, 0.19, and 1.9, $\sigma$ values of 0.11, 1.1, and 11, for nu of 50 sequences. On the $y$-axis we have VI scores, where values closer to 0 represent more accurate demarcation runs.}
+      \caption[ES vs ES2 accuracy visualization on $nu = 50$.]{Across 27 parameter set combinations I exhaustively test ES (solid line) and ES2 (dotted line) on $npop$ values of 10, 20, and 30, $\Omega$ values of 0.019, 0.19, and 1.9, $\sigma$ values of 0.11, 1.1, and 11, for nu of 50 sequences. The nested parameter loop is represented for one triple of values below the $x$-axis. The subsequent parameter test points cycle logically through medium and high omega values and then medium and high $npop$ values. All following graphs similar to this one use the same parameter scheme. On the $y$-axis we have VI scores, where values closer to 0 represent more accurate demarcation runs.}
     \label{fig:ESvES2}
 \end{figure}
 
@@ -222,7 +222,7 @@ From past studies we have found ES to be the most accurate demarcation program~\
 \begin{figure}[h!]
   \centering
     \includegraphics[scale=0.75]{images/ResultGraphs/ResultGraphs-2}
-      \caption[All demarcation graphical accuracy visualization on $nu = 100$.]{Across 27 parameter set combinations I exhaustively test all demarcation programs on $npop$ values of 30, 40, and 50, $\Omega$ values of 0.019, 0.19, and 1.9, $\sigma$ values of 0.11, 1.1, and 11, for nu of 100 sequences. Random demarcation is represented by the solid line. On the $y$-axis we have VI scores, where values closer to 0 represent more accurate demarcation runs.}
+      \caption[All demarcation graphical accuracy visualization on $nu = 100$.]{Across 27 parameter set combinations I exhaustively test all demarcation programs on $npop$ values of 30, 40, and 50, $\Omega$ values of 0.019, 0.19, and 1.9, $\sigma$ values of 0.11, 1.1, and 11, for nu of 100 sequences. The same parameter scheme was used as with the last similar graph; in this case it was represented implicitly. Random demarcation is represented by the solid line. On the $y$-axis we have VI scores, where values closer to 0 represent more accurate demarcation runs.  ($^\ast$) Represents AdaptML ran with a habitat specialization value of 20.}
     \label{fig:All100}
 \end{figure}
 
