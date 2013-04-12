@@ -22,7 +22,7 @@ However the path to understanding microbial speciation has many questions and be
 Do we realize how much microscopic diversity there is out there?
 How can we use knowledge of microbial ecosystems to our benefit?
 So far applications have been introduced in a variety of fields: epidemiology, biotechnology, bioremediation, and much more.
-Ecotypes Simulation is a a step in the tradition of attempting to understand microbial ecosystem dynamics, identifying ecotypes as the fundamental unit of micro environments.
+Ecotypes Simulation is a step in the tradition of attempting to understand microbial ecosystem dynamics, identifying ecotypes as the fundamental unit of micro environments.
 
 %Talk a little bit about the background and ES
 %It is based on ecotypes defined as a phylogenetic group of close relatives that are ecologically interchangeable, in that the members of an ecotype share genetic adaptations to a particular set of habitats, resources, and conditions; also, ecotypes are ecologically distinct from one another.
@@ -30,30 +30,30 @@ Ecotypes Simulation is a a step in the tradition of attempting to understand mic
 
 Ecotype Simulation uses the Stable Ecotype model that hypothesizes various ecotype dynamics such as periodic selection (diversity quashing events), ecotype formation (speciation events), and drift.
 This is translated directly into the ES algorithm with its use of $npop$ (number of ecotypes), $\Omega$ (rate of periodic selection), and $\sigma$ (rate of ecotype formation).
-ES1 first characterizes the community's observed evolutionary history, the through simulations estimates parameters, resulting in a maximum likelihood parametric characterization of the observed history.
-Finally, we demarcate the individual strains into ecotypes.
+ES1 first characterizes the community's observed evolutionary history, then through simulations estimates parameters, resulting in a maximum likelihood parametric characterization of the observed history.
+Finally, ES1 demarcates the individual strains into ecotypes.
 
 %Talk a little bit about the improvements, resulting in ES2
 ES2 improves on ES1's core algorithm by using an ultrametric tree when comparing simulated evolutionary histories to the observed history replacing an $O(n^3)$ binning step with a linear one.
 During demarcation we also conduct Hillclimbing at each subtree, maintaining high quality parameter estimations as we recursively descend the phylogeny.
 
 %Summarize ES2 vs ES and ES2 vs all results
-Testing ES2, first I showed how close its accuracy (VI) scores were to ES1 on a dataset of 50 individuals.
+Testing ES2, first I showed how close its accuracy (VI) scores were to ES1 on a dataset of 50 sequences.
 Then I compared all the demarcation programs on larger datasets and found that in most cases ES2 maintained high levels of accuracy.
 On the \emph{Bacillus} sequences analysis, ES2 demarcated similarly putative ecotypes as ES1 with a few slight variations, which we are in the process of analyzing.
 ES2 still lags behind the competition in terms of running time.
 However, there was a dramatic speed improvement over ES1.
 
 %Concluding analaysis
-From these results, we can confidently say that ES2 continues to be the most accurate demarcation algorithm on larger generated datasets. However, we should continue to use a combination of approaches, each lending strengths to the other's weaknesses, adding robustness to microbial ecosystem analysis~\cite{bohannan2003new}
+From these results, we can confidently say that ES2 continues to be the most accurate demarcation algorithm on larger generated datasets. However, we should continue to use a combination of approaches, each lending strengths to the other's weaknesses, adding robustness to microbial ecosystem analysis~\cite{bohannan2003new}.
 
 
 
 \section{Future Improvements}
 Through my work involved with this project I have realized that in addition to speed, space has become a limiting factor.
 To make a distance divergence matrix we need $O(n^2)$ space, and with the number of sequences in the thousands we quickly run out of RAM.
-Also, the current implementation has similar time complexity to the naive $O(n^3)$ approach.
-Thus, I began the process of exploring different clustering packages that have various space and time trade-off balances.
+Also, the current implementation has a similar time complexity to the naive $O(n^3)$ approach.
+Thus, I began the process of exploring different clustering packages with various space and time trade-off balances.
 
 Besides improving our clustering technique, parallelizing the ES algorithm is of the highest priority.
 I will briefly overview our designs and results in parallelizing ES.
@@ -62,7 +62,10 @@ However, the reader should refer to my colleague, Lingyuan Ke's senior thesis fo
 \subsection*{Binning}
 As mentioned in previous sections, ES uses complete-linkage clustering.
 The current implementation is in Fortran 90, and we have yet to update it to reflect improvements in the state of the art.
-Big Data companies have developed an interest in clustering large datasets, resulting in various improvements in clustering algorithms.
+%Big Data companies have developed an interest in clustering large datasets, resulting in various improvements in clustering algorithms.
+Companies that work with large amounts of data have developed an interest in clustering large datasets, resulting in various improvements in clustering algorithms.
+Therefore, there should exist accessible resources of knowledge, which we can use to base our studies.
+
 \subsubsection*{Current implementation}
 %First I'll go over our naive implementation here
 We use a binning algorithm based on the naive one
@@ -74,10 +77,10 @@ We use a binning algorithm based on the naive one
 %\item Update the proximity matrix, $D$, by deleting the rows and columns corresponding to clusters $(r)$ and $(s)$ and adding a row and column corresponding to the newly formed cluster. The proximity between the new cluster, denoted $(r,s)$ and old cluster $(k)$ is defined as $d[(k), (r,s)] = max$ $d[(k),(r)]$, $d[(k),(s)]$.
 %\item If all objects are in one cluster, stop. Else, go to step II.
 %\end{enumerate}
-with slight modification (i.e., we only cluster at specific sequence identity levels), which ends up running at $O(n^3)$ time (algorithm written using~\cite{FastClust} as a reference).
+with slight modification (i.e., we only cluster at specific sequence identity levels), which ends up running at $O(n^3)$ time. % (algorithm written using~\cite{FastClust} as a reference).
 In our case we divide the processing by first calculating a pairwise distance matrix between all sequences.
 That way we maintain a look up table, $D$, to retrieve distances in constant time.
-At each iteration two clusters are merged (specifically the closest by the specified distance function) and the divergence matrix is updated with a distance entry between each cluster and the new cluster (specifically the element of each cluster being compared that is the farthest apart).
+At each iteration two clusters are merged (the closest by the specified distance function) and the divergence matrix is updated with a distance entry between each cluster and the new cluster (specifically the element of each cluster being compared that is the farthest apart).
 
 \subsubsection*{State of the art}
 From the literature we learned that there are complete-linkage clustering implementations that achieve $O(n^2)$ time complexity.
@@ -161,7 +164,7 @@ As of yet, we are still unsure of ways to fix this problem.
 Another issue with demarcation is speed.
 We found that in many cases when we ran ES2 on large datasets the majority of time (\textasciitilde90\%) was spent demarcating~\cite{lingThesis}.
 One potential solution would be to modify the demarcation confidence interval program so that instead of stepping down by $npop$ sequentially one at a time, determining likelihood, we could check the likelihood of $npop = 1$ from the start, thus more quickly deciding whether or not we are observing a single ecotype.
-This approach is still quite experimental and I have not had a chance to test it.
+This approach is still quite experimental and I have not had a chance to fully test it.
 
 \subsection*{Parallelization}
 These days computer chips are not improving as dramatically as in the past.
@@ -220,4 +223,5 @@ And as usual speed has become an issue for demarcation.
 Even with these ideas for improvement we aim to release a production ready version of ES2 soon (it is already used for analysis in the Cohan lab).
 
 Demarcation not limited by input size is an attractive goal, but we are not quite there yet.
+ES2 marks an increase in efficiency without the loss of accuracy, yet is unable to demarcate our goal of one million strains.
 We are continuing the Ecotype Simulation development in pursuit of bacterial species understanding that will eventually lead to practical applications.
