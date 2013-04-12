@@ -131,7 +131,7 @@ Next an $O(n^2)$ space divergence matrix is created using a modified Manhattan (
 Distances are estimated according to the Jukes-Cantor model of nucleotide of substitution$$d=-{3\over4} \ln({1-{4\over3}p})$$where $d$ equals distance between two sequences with $p$ substitutions ~\cite{jukes1969evolution}.
 
 The divergence matrix is used to facilitate complete linkage clustering of the sequences, described by the equation $$D(X,Y)= \max_{x\in X, y\in Y} d(x,y)$$ where $d(x,y)$ is the distance between the two elements $x \in X$, and $y \in Y$, and $X$ and $Y$ are two clusters of elements.
-The implementation is naive (i.e., $O(n^3)$) and uses a lot of space because of the divergence matrix; there is room for improvement here (I will go into clustering in detail the following chapter). 
+The implementation is naive (i.e., $O(n^3)$) and uses a lot of space because of the divergence matrix; there is room for improvement (more details about clustering are in the final chapter). 
 
 \begin{figure}[h!]
  \centering
@@ -146,7 +146,7 @@ The $x$-axis refers to percent identity between sequences and the $y$-axis the n
 At low sequence identity criteria there are fewer bins with more sequences in each, and at $1.00$ sequence identity, the number of bins is equal to the number of unique sequences.
 A good way to visualize this sequence identity graph is as a linear representation of a phylogeny.
 The slope is shallow during lower sequence identities similar to how in a tree we typically see low levels of cladogenesis.
-But, as we approach the end of a tree there usually is a fraying of the tips, and in the identity graph there is a corresponding steepening of slope (see Figure \ref{fig:SpeciationGraph} on page~\pageref{fig:SpeciationGraph}).
+But, usually as we approach the end of a tree there is a fraying of the tips, and in the identity graph there is a corresponding steepening of slope (see Figure \ref{fig:SpeciationGraph} on page~\pageref{fig:SpeciationGraph}).
 Concave departures from an exponential relationship indicate an overabundance of highly divergent lineages (i.e., a very genetically diverse community); convex departures indicate an overabundance of closely related lineages (i.e., a less genetically diverse community)~\cite{bohannan2003new}.
 
 We can describe the essence of this graph using three parameters: $npop$, sigma ($\sigma$), and omega ($\Omega$), which represent the number of ecotypes, rate of periodic selection (PS), and rate of ecotype formation (EF) respectively.
@@ -182,7 +182,7 @@ The backward phase of the simulation ends when all of the branches have coalesce
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=1.5]{images/TreeCompare-CH2}
-\caption[Observed and simulated evolutionary histories.]{Clade sequence diversity, for the \emph{B. subtilis-B. licheniformis} clade, for gene rpoB. A set of 88 sequences from the clade was binned into clusters with different levels of minimum pairwise identity. The log-linear portion of the curve to the left of \textasciitilde0.99 identity indicates a constant net rate of ecotype formation; the flair of diversity to the right of \textasciitilde0.99 indicates the facile sequence diversity within ecotypes~\cite{acinas2004fine}. The ecotype simulation analysis yielded estimates of the parameters for periodic selection rate, net ecotype formation rate, rate of genetic drift, and the number of ecotypes, and the estimated quartet of parameter values generated the ``model'' values shown~\cite{koeppel2008identifying} (reprinted from \protect\cite{cohan2007systematics}).}
+\caption[Observed and simulated evolutionary histories.]{Clade sequence diversity, for the \emph{B. subtilis-B. licheniformis} clade, for gene rpoB. A set of 88 sequences from the clade was binned into clusters with different levels of minimum pairwise identity. The log-linear portion of the curve to the left of \textasciitilde0.99 identity indicates a constant net rate of ecotype formation; the flair of diversity to the right of \textasciitilde0.99 indicates the facile sequence diversity within ecotypes~\cite{acinas2004fine}. The ecotype simulation analysis yielded estimates of the parameters for periodic selection rate, net ecotype formation rate, and the number of ecotypes, and the estimated triplet of parameter values generated the ``model'' values shown~\cite{koeppel2008identifying} (reprinted from \protect\cite{cohan2007systematics}).}
 \label{fig:TreeCompare}
 \end{figure}
 
@@ -191,7 +191,7 @@ As time progresses nucleotide substitutions occur stochastically between each pa
 This continues until we reach the contemporary organism nodes, resulting in a matrix of pairwise sequence divergence between $v$ contemporary organisms.
 
 Now ES can conduct the same complete-linkage clustering analysis briefly described in the previous section to illustrate a sequence identity graph, which can be compared to the observed sequence identity graph (see Figure~\ref{fig:TreeCompare} on page~\pageref{fig:TreeCompare}).
-If we superimpose our simulated sequence identity graph line on the observed sequence identity graph, at each bin level we can see whether the simulated line matches the observed line within a pre-determined factor (or precision factor).
+If we superimpose our simulated sequence identity graph line on the observed sequence identity graph, at each criterion level we can see whether the simulated line matches the observed line within a pre-determined factor (or precision factor).
 Success is determined by whether or not these two lines match within this factor of closeness, of which there are six: 5x, 2x, 1.5x, 1.25x, 1.10x, 1.05x.
 If the simulation and observed graphs are too far apart (see Figure~\ref{fig:TreeCompare} on page~\pageref{fig:TreeCompare}), ES records the repetition as a failure.
 Based on many (i.e., in the hundreds or thousands) replicate runs, each one evaluated for success or failure, we gather information to form a maximum likelihood estimation of $npop$, $\Omega$, and $\sigma$. However, how does one decide on different parameter choices to test?
@@ -236,10 +236,10 @@ Once any algorithm is developed, we must evaluate its accuracy.
 In the case of ES, we want to evaluate whether or not predicted demarcations correlate to observed samples.
 The Cohan group recommends ecologically checking ES predicted ecotypes, because under various evolutionary models (other than the Stable Ecotype model), a single ecotype may contain multiple sequence clusters \cite{koeppel2008identifying, connor2010ecology}.
 Ideally, we also want to demonstrate member homogenous ecotypes~\cite{wiedenbeckHGT} to fully identify fundamental interchangeable units.
-Membership homogeneity, ecologically means that one bacterial species can not belong to multiple ecotypes by utilizing various resources, and functionally means separate ecotypes are not vulnerable to each other's periodic selection events.
+Membership homogeneity, ecologically means that one bacterial species can not belong to multiple ecotypes by utilizing various resources, and functionally means separate ecotypes are not vulnerable to each other's periodic selection events~\cite{wiedenbeckHGT}.
 
 This is easier said than done.
-Over the past four years the Cohan lab and collaborators have travelled to unique environments around the world gathering samples of bacterial ecosystems and analyzing them with ES, and other demarcation programs.
+Over the past four years the Cohan lab and collaborators have travelled to unique environments around the world gathering samples of bacterial ecosystems, and analyzed them with ES and other demarcation programs.
 Following is a short discussion of a few of these studies focused on further insights achieved with ES.
 
 \subsection*{Pyrosequencing analyses of \emph{Synechococcus} ecological species inhabiting the microbial mat of Mushroom Spring, Yellowstone National Park}
@@ -291,7 +291,7 @@ A set of 130 \emph{Bacillus} isolates formed a subclass of the \emph{B. subtilis
 
 Again we see an example of exploring microbial diversity through molecular means.
 But the list of interesting possible applications is endless.
-We are at the point where increasing the input size is quite important so we can attempt to grasp a more complete picture of bacterial diversity (which as we have already established is probably in the millions~\cite{cohan2008origins}), which will allow us to smoothly transition into improvements of ES.
+We are at the point where increasing the input size is quite important so we can attempt to grasp a more complete picture of bacterial diversity (a given environment can contain millions of species~\cite{cohan2008origins}), which will allow us to smoothly transition into improvements of ES.
 
 \begin{figure}[h!]
 \centering
@@ -304,7 +304,7 @@ We are at the point where increasing the input size is quite important so we can
 Here we introduced the ecotype model of bacterial species, which defines species as a bacterial cluster with genetic diversity limited by a cohesive force.
 Then we explored various possible factors affecting evolutionary history in the Stable Ecotype model of bacterial speciation, which provide the grounding in theory necessary to develop an algorithm for demarcation (PS and EF events).
 
-After generally discussing the algorithm behind ES, we got our hands dirty and described each important step of ES in detail, including Binning, simulations, Bruteforce, and Hillclimbing (see Figure~\ref{fig:Flow} on page~\pageref{fig:Flow}).
+After generally discussing the algorithm behind ES, we got our hands dirty and described each important step of ES in detail, including Binning, simulations, Bruteforce, Hillclimbing, and Demarcation (see Figure~\ref{fig:Flow} on page~\pageref{fig:Flow}).
 Finally, I briefly surveyed several studies in which we attempted and succeeded in displaying the statistical significance of ES bacterial species demarcation~\cite{pyroEric, connor2010ecology, kim2012diversity}.
 In the following section I will discuss the work we have done recently in improving ES.
 

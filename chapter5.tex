@@ -64,7 +64,7 @@ As mentioned in previous sections, ES uses complete-linkage clustering.
 The current implementation is in Fortran 90, and we have yet to update it to reflect improvements in the state of the art.
 %Big Data companies have developed an interest in clustering large datasets, resulting in various improvements in clustering algorithms.
 Companies that work with large amounts of data have developed an interest in clustering large datasets, resulting in various improvements in clustering algorithms.
-Therefore, there should exist accessible resources of knowledge, which we can use to base our studies.
+Therefore, there should exist accessible resources of knowledge, which we can use as a start for our studies.
 
 \subsubsection*{Current implementation}
 %First I'll go over our naive implementation here
@@ -180,7 +180,6 @@ An OpenMP enriched program begins as a single thread of execution.
 Whenever a thread encounters a parallel construct the thread creates a team of sub-threads, generates a set of tasks, and then declares itself master of the team.
 Only the master thread resumes execution beyond the end of the parallel construct.
 The program can specify any number of parallel constructs.
-
 All threads have access to the same memory so they can retrieve variables; this is called a shared-memory model.
 Also, each thread can specify private memory unreachable to other threads.
 We use shared and private clause keywords to identify the respective paradigm.
@@ -223,5 +222,5 @@ And as usual speed has become an issue for demarcation.
 Even with these ideas for improvement we aim to release a production ready version of ES2 soon (it is already used for analysis in the Cohan lab).
 
 Demarcation not limited by input size is an attractive goal, but we are not quite there yet.
-ES2 marks an increase in efficiency without the loss of accuracy, yet is unable to demarcate our goal of one million strains.
+ES2 marks an increase in efficiency without loss of accuracy, yet is unable to demarcate our goal of one million strains.
 We are continuing the Ecotype Simulation development in pursuit of bacterial species understanding that will eventually lead to practical applications.

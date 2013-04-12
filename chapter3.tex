@@ -77,7 +77,7 @@ This insight replaces an $O(n^3)$ factor with a linear comparison, immediately q
 \subsubsection*{Demarcation}
 We also altered the automatic demarcation program.
 In addition to demarcation confidence intervals, ES2 runs the downhill-simplex (Hillclimbing) method on each subtree as we recursively descend through the phylogeny.
-Normally our Bruteforce method must be run before Hillclimbing, in this case we use results from Hillclimbing as initial parameters (or seed) for the closest ancestor node to start demarcating.
+Normally our Bruteforce method must be run before Hillclimbing, in this case we use results from Hillclimbing as initial parameters (or seed) for the common ancestor node to start demarcating.
 Then at each child node we use Hillclimbing results from the parent node to re-run Hillclimbing, bypassing running Bruteforce for each subtree.
 At each level the re-run Hillclimbing results (instead of just using the overall Hillclimbing values as in ES1) are used to run the same demarcation confidence interval program which checks parameter likelihoods in a loop that decreases $npop$ by a step value until it is either below 1, beneath a pre-determined likelihood or fails a likelihood ratio test.
 Again, the resulting $npop$ from demarcation confidence interval is the 95\% likely lower bound $npop$.
