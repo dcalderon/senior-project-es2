@@ -72,13 +72,13 @@ Previous work done in the Cohan lab resulted in an algorithm based on the Stable
 \end{SCfigure}
 
 Utilizing premises established in the Stable Ecotype model we hypothesize a phylogenetic tree similar to the one represented in Figure ~\ref{fig:StableTree} on page~\pageref{fig:StableTree}.
-Here we can see that ecotype formation is relatively rare, while periodic selection (asterisks) keeps the branches of the tree pruned.
+The figure shows that that ecotype formation is relatively rare, while periodic selection (asterisks) keeps the branches of the tree pruned.
 At the point of divergence (where the two solid lines separate into ecotype 1 and 2), organisms from the two separate ecotypes are closely related.
 However over time and through various purification events adaptive mutations accumulate.
 Notice that the two clades are totally free from each other's periodic selection diversity quashing~\cite{cohan2007systematics}.
 This is an important feature of separate ecotypes, because we can later observe the differences acquired from separate evolutionary histories.
 
-Theory and empirical evidence hints that these boundaries correlate to an ecological niche, based on empirical studies where environmental samples were collected and statistically correlated to their putative ecotypes~\cite{cohan2007systematics, cohan2006sequence, ward2006cyanobacterial, cohan2006toward}.
+Theory and empirical evidence hints that these boundaries correlate to an ecological niche, based on studies where environmental samples were collected and statistically correlated to their putative ecotypes~\cite{cohan2007systematics, cohan2006sequence, ward2006cyanobacterial, cohan2006toward}.
 To identify the system's fundamental elements takes three steps:
 \begin{enumerate}[I]
 \item observe and characterize the community's evolutionary history,
@@ -88,7 +88,7 @@ To identify the system's fundamental elements takes three steps:
 
 \subsection*{Observing and characterizing evolutionary history}
 Since the clades are evolving independently we can use the molecular clock characteristic of specific ubiquitous genes.
-The gene we choose to measure between organisms must be present throughout.
+%The gene we choose to measure between organisms must be present throughout.
 For this reason ES typically takes in ribosomal gene 16s rRNA, chaperone dnaJ, or gyrase subunit gyrA sequences  as input. Most living organisms have closely related homologues, which is important because we can only demarcate when there exists a homolog.
 
 From the genes we can build a phylogeny that predicts a likely evolutionary history, simply based on sequences.
@@ -98,7 +98,7 @@ Also, the bacterial diversity sampled is going through various stages of periodi
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.45]{images/TreeFlare-CH2}
-\caption[Illustrating the flare at the end of tree due to ecotype diversity.]{Illustrating the flare at the end of tree due to ecotype diversity. Steady accumulation of diversity leads to shallow sequence identity slope, and burst of diversity towards the end of the tree steepen the slope (reprinted from~\protect\cite{fredImage}).}
+\caption[Illustrating the flare at the end of tree due to ecotype diversity.]{Illustrating the flare at the end of tree due to ecotype diversity. Bins hold similar sequences corresponding to sequence identity percentage. Steady accumulation of diversity leads to shallow sequence identity slope, and burst of diversity towards the end of the tree steepen the slope (reprinted from~\protect\cite{fredImage}).}
 \label{fig:TreeFlare}
 \end{figure}
 
@@ -147,7 +147,7 @@ At low sequence identity criteria there are fewer bins with more sequences in ea
 A good way to visualize this sequence identity graph is as a linear representation of a phylogeny.
 The slope is shallow during lower sequence identities similar to how in a tree we typically see low levels of cladogenesis.
 But, as we approach the end of a tree there typically is a fraying of the tips, and in the identity graph there is a corresponding steepening of slope (see Figure \ref{fig:SpeciationGraph} on page~\pageref{fig:SpeciationGraph}).
-Concave departures from an exponential relationship indicate an overabundance of highly divergent lineages (i.e., a very genetically diverse community); convex departures indicate an overabundance of closely related lineages (i.e., a less genetically diverse community~\cite{bohannan2003new}.
+Concave departures from an exponential relationship indicate an overabundance of highly divergent lineages (i.e., a very genetically diverse community); convex departures indicate an overabundance of closely related lineages (i.e., a less genetically diverse community)~\cite{bohannan2003new}.
 
 We can describe the essence of this graph using four parameters: $npop$, sigma ($\sigma$), omega ($\Omega$), and drift (d) which represent the number of ecotypes, rate of periodic selection (PS), rate of ecotype formation (EF), and drift (D) respectively.
 Rates of drift selection occurs so rarely in normal sized bacterial populations~\cite{koeppel2008identifying} that I will refrain from mentioning it.
@@ -192,7 +192,7 @@ As time progresses nucleotide substitutions occur stochastically between each pa
 This continues until we reach the contemporary organism nodes, resulting in a matrix of pairwise sequence divergence between $v$ contemporary organisms.
 
 Now ES can conduct the same complete-linkage clustering analysis briefly described in the previous section to illustrate a sequence identity graph, which can be compared to the observed sequence identity graph (see Figure~\ref{fig:TreeCompare} on page~\pageref{fig:TreeCompare}).
-If we place our simulated sequence identity graph line on top of the observed sequence identity graph, at each bin level we can see whether the simulated line matches the observed line within a pre-determined factor (or precision factor).
+If we superimpose our simulated sequence identity graph line on the observed sequence identity graph, at each bin level we can see whether the simulated line matches the observed line within a pre-determined factor (or precision factor).
 Success is determined by whether or not these two lines match within this factor of closeness, of which there are six: 5x, 2x, 1.5x, 1.25x, 1.10x, 1.05x.
 If the simulation and observed graphs are too far apart (see Figure~\ref{fig:TreeCompare} on page~\pageref{fig:TreeCompare}), ES records the repetition as a failure.
 Based on many (i.e., in the hundreds or thousands) replicate runs, each one evaluated for success or failure, we gather information to form a maximum likelihood estimation of $npop$, $\Omega$, and $\sigma$. However, how does one decide on different parameter choices to test?
@@ -230,14 +230,14 @@ At each level of the phylogeny overall Hillclimbing results are used to run the 
 The resulting $npop$ from demarcation confidence interval is the 95\% likely lower bound $npop$.
 If this $npop$ equals 1 then we demarcate the sequences of the subtree as a single ecotype.
 Thus, we identify that group of samples as a single ecotype and stop that instance of recursive tree descent.
-Demarcation continues until each sequence belongs to an ecotype; resulting in a corresponding comma-separated file; concluding the ES run.
+Demarcation continues until each sequence belongs to an ecotype resulting in a corresponding comma-separated file, concluding the ES run.
 
 \section{Ecological Correlation}
 Once any algorithm is developed, we must evaluate its accuracy.
 In the case of ES, we want to evaluate whether or not predicted demarcations correlate to observed samples.
 The Cohan group recommends ecologically checking ES predicted ecotypes, because under various evolutionary models (other than the Stable Ecotype model), a single ecotype may contain multiple sequence clusters \cite{koeppel2008identifying, connor2010ecology}.
-Ideally, we also want to demonstrate member homogenous ecotypes~\cite{wiedenbeckHGT}, to fully identify fundamental interchangeable units.
-Membership homogeneity, simply means that one bacterial species can not belong to multiple ecotypes, by utilizing various resources and functionally, separate ecotypes are not vulnerable to each other's periodic selection events.
+Ideally, we also want to demonstrate member homogenous ecotypes~\cite{wiedenbeckHGT} to fully identify fundamental interchangeable units.
+Membership homogeneity, ecologically means that one bacterial species can not belong to multiple ecotypes by utilizing various resources, and functionally means separate ecotypes are not vulnerable to each other's periodic selection events.
 
 This is easier said than done.
 Over the past four years the Cohan lab and collaborators have travelled to unique environments around the world gathering samples of bacterial ecosystems and analyzing them with ES, and other demarcation programs.
@@ -248,14 +248,14 @@ Following is a short discussion of a few of these studies focused on further ins
 Becraft et. al, used Ti454-barcode high-throughput sequencing to sample more habitat types, obtain deeper sequence coverage per habitat, and sample greater variation within predicted ecological species populations.
 ES was then used to demarcate putative ecotypes (PEs) across all high-frequency sequences and microbial mat habitats~\cite{pyroEric}. They sequenced and analyzed the \emph{psaA} locus because it offers more molecular resolution than 16S rRNA, it exists as a single copy in the genomes of mat \emph{Synechococcus} isolates, it encodes PsaA which is necessary for photosynthesis, and it shows no evidence of recombination~\cite{pyroEric}.
 
-Putative ecotypes with different vertical distributions differed in patterns of expression of \emph{psaA}, consistent with patterns of light availability at each depth~\cite{pyroEric}.
-These observations were statistically analyzed and used as evidence of ecological distinctness; one of the requirements for ecotype identification.
+PEs with different vertical distributions differed in patterns of expression of \emph{psaA}, consistent with patterns of light availability at each depth~\cite{pyroEric}.
+These observations were statistically analyzed and used as evidence of ecological distinctness, one of the requirements for ecotype identification.
 
 An approach to test for ecological homogenization is to compare temporal patterns of PE-specific gene expression to examine the possibility that PEs respond differently to variations in environmental parameters i.e., testing the response of \emph{Synechococcus} populations to environmental perturbations~\cite{pyroEric}.
-Perturbation studies allowed the temporal tracking of genetic diversity within putative ecotypes (PE), allowing us to decide if a PE functioned as a fundamental unit.
+Perturbation studies allowed the temporal tracking of genetic diversity within PEs, allowing us to decide if a PE functioned as a fundamental unit.
 They were able to predict and observe homogenous changes in ecotype abundance in response to light and temperature changes~\cite{pyroEric}.
 
-Thus, through \emph{psaA} analysis they showed that the most abundant PEs predicted by ES are ecologically distinct, and by studying environmental perturbations they provided evidence hinting at ecological homogeneity; the two requirements for identifying an ecotype.
+Thus, through \emph{psaA} analysis they showed that the most abundant PEs predicted by ES are ecologically distinct, and by studying environmental perturbations Becraft et. al, provided evidence hinting at ecological homogeneity, the two requirements for identifying an ecotype.
 
 %\subsection*{Radio Facility Wash Paper}
 \subsection*{Ecology of Speciation in the Genus \emph{Bacillus}}
@@ -296,17 +296,17 @@ We are at the point where increasing the input size is quite important so we can
 
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=0.45]{images/DeathValleyES-CH2}
+\includegraphics[scale=0.5]{images/DeathValleyES-CH2}
 \caption[Example ES analysis of 16s rRNA sequences of isolates.]{Maximum likelihood phylogeny and Ecotype Simulation analysis of 16S rRNA sequences of isolates from the \emph{B. subtilis-B. licheniformis} clade. All isolates of this study from this clade were members of a previously unknown subclade that Ecotype Simulation demarcated into Putative Ecotypes A-D (in bold); previously studied organisms from other environments were members of Putative Ecotypes E-J. The tree is rooted by \emph{B. halodurans} strain C-125 (reprinted from\protect\cite{kim2012diversity}).}
 \label{fig:DeathES}
 \end{figure}
 
 \section{Chapter Summary}
 Here we introduced the ecotype model of bacterial species, which defines species as a bacterial cluster with genetic diversity limited by a cohesive force.
-Then we explored various possible factors affecting evolutionary history in the Stable Ecotype model of bacterial speciation, which provide the grounding in theory necessary to develop an algorithm for demarcation; specifically through the use of periodic selection, and ecotype formation events.
+Then we explored various possible factors affecting evolutionary history in the Stable Ecotype model of bacterial speciation, which provide the grounding in theory necessary to develop an algorithm for demarcation (PS and EF events).
 
 After generally discussing the algorithm behind ES, we got our hands dirty and described each important step of ES in detail, including Binning, simulations, Bruteforce, and Hillclimbing (see Figure~\ref{fig:Flow} on page~\pageref{fig:Flow}).
-Finally, I briefly surveyed several studies in which we attempted and succeeded in displaying the statistical significance of ES bacterial species demarcation.
+Finally, I briefly surveyed several studies in which we attempted and succeeded in displaying the statistical significance of ES bacterial species demarcation~\cite{pyroEric, connor2010ecology, kim2012diversity}.
 In the following section I will discuss the work we have done recently in improving ES.
 
 
