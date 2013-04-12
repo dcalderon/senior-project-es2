@@ -17,12 +17,12 @@ The last ever dolphin message was misinterpreted as a surprisingly sophisticated
 %\section{Final remarks on ES}
 \section{Remarks on ES2}
 %Re-iterate motivation and purpose of bacterial demarcations
-Demarcating bacterial species is difficult.
+Demarcating bacterial species is challenging.
 However the path to understanding microbial speciation has many questions and benefits that attract the cleverest minds.
 Do we realize how much microscopic diversity there is out there?
 How can we use knowledge of microbial ecosystems to our benefit?
-So far people have found applications in a variety of fields: epidemiology, biotechnology, bioremediation, and much more.
-Ecotypes Simulation is a a step in the tradition of attempting to understand microbial ecosystem dynamics, identifying ecotypes as the fundamental unit of micro environments that we want to identify so we can understand relationships between groups of atomic units.
+So far applications have been introduced in a variety of fields: epidemiology, biotechnology, bioremediation, and much more.
+Ecotypes Simulation is a a step in the tradition of attempting to understand microbial ecosystem dynamics, identifying ecotypes as the fundamental unit of micro environments.
 
 %Talk a little bit about the background and ES
 %It is based on ecotypes defined as a phylogenetic group of close relatives that are ecologically interchangeable, in that the members of an ecotype share genetic adaptations to a particular set of habitats, resources, and conditions; also, ecotypes are ecologically distinct from one another.
@@ -35,11 +35,11 @@ Finally, we demarcate the individual strains into ecotypes.
 
 %Talk a little bit about the improvements, resulting in ES2
 ES2 improves on ES1's core algorithm by using an ultrametric tree when comparing simulated evolutionary histories to the observed history replacing an $O(n^3)$ binning step with a linear one.
-During demarcation we also conduct Hillclimbing at each subtree; maintaining high quality parameter estimations as we recursively descend the phylogeny.
+During demarcation we also conduct Hillclimbing at each subtree, maintaining high quality parameter estimations as we recursively descend the phylogeny.
 
 %Summarize ES2 vs ES and ES2 vs all results
 Testing ES2, first I showed how close its accuracy (VI) scores were to ES1 on a dataset of 50 individuals.
-Then I compared all the demarcation programs on larger datasets and found that in most cases ES2 maintained a high level of accuracy.
+Then I compared all the demarcation programs on larger datasets and found that in most cases ES2 maintained high levels of accuracy.
 On the \emph{Bacillus} sequences analysis, ES2 demarcated similarly putative ecotypes as ES1 with a few slight variations, which we are in the process of analyzing.
 ES2 still lags behind the competition in terms of running time.
 However, there was a dramatic speed improvement over ES1.
@@ -53,11 +53,11 @@ From these results, we can confidently say that ES2 continues to be the most acc
 Through my work involved with this project I have realized that in addition to speed, space has become a limiting factor.
 To make a distance divergence matrix we need $O(n^2)$ space, and with the number of sequences in the thousands we quickly run out of RAM.
 Also, the current implementation has similar time complexity to the naive $O(n^3)$ approach.
-Thus, I began the process of exploring different clustering packages that which have various space and time trade-off balances.
+Thus, I began the process of exploring different clustering packages that have various space and time trade-off balances.
 
 Besides improving our clustering technique, parallelizing the ES algorithm is of the highest priority.
 I will briefly overview our designs and results in parallelizing ES.
-However, the reader should refer to, my colleague, Lingyuan Ke's senior thesis for full details~\cite{lingThesis}.
+However, the reader should refer to my colleague, Lingyuan Ke's senior thesis for full details~\cite{lingThesis}.
 %\subsection*{Ecotype Simulation 3.0}
 \subsection*{Binning}
 As mentioned in previous sections, ES uses complete-linkage clustering.
@@ -80,7 +80,7 @@ That way we maintain a look up table, $D$, to retrieve distances in constant tim
 At each iteration two clusters are merged (specifically the closest by the specified distance function) and the divergence matrix is updated with a distance entry between each cluster and the new cluster (specifically the element of each cluster being compared that is the farthest apart).
 
 \subsubsection*{State of the art}
-From the literature we discovered that there are complete-linkage clustering implementations that achieve $O(n^2)$ time complexity.
+From the literature we learned that there are complete-linkage clustering implementations that achieve $O(n^2)$ time complexity.
 We found fastcluster, a well-documented and tested C++ library that efficiently implements several hierarchical clustering algorithms~\cite{mullner2011modern, FastClust}.
 The library includes complete-linkage clustering that runs in $O(n^2)$.
 %Do we really need that graph? nahh commented out
@@ -102,8 +102,8 @@ I quickly linked up fastcluster to ES2, replacing our naive binning implementati
 \caption[Time comparison of fastcluster versus our naive implementation of complete-linkage clustering.]{Time comparison of fastcluster (dotted) versus our naive (dashed) implementation of complete-linkage clustering.}
 \label{fig:FastVsNaive}
 \end{figure}
-Our current implementation was not capable of clustering datasets of greater than approximately three thousand sequences.
-On the other hand fastcluster handled files with more than fifteen thousand sequences, until memory on my machine became a factor.
+Our current implementation was not capable of clustering datasets greater than approximately three thousand sequences.
+On the other hand fastcluster handled files with more than fifteen thousand sequences, until memory on my computer became a factor.
 As far as accuracy goes, each bin level was within one or two of the current implementation (the slight error might be attributable to my quick hack job) in preliminary tests.
 However, many more tests are needed to insure the package will work correctly for our purposes and we are not enthusiastic about adding another dependency to ES.
 For now it is an envisioned improvement in the next version.
@@ -112,7 +112,7 @@ For now it is an envisioned improvement in the next version.
 While increasing speed efficiency is important, the bottleneck has increasingly become space usage.
 Our goal is to run ES on up to one million sequences, which in our current approach would entail a million squared pairwise distance matrix ($n \times n$).
 
-In one exploratory approach we attempted to fix this problem by skipping the distance matrix generating step altogether.
+In one exploratory approach we attempted to fix this problem by skipping the distance matrix-generating step altogether.
 Instead, we could define a replacement function that will calculate the distance between clusters at runtime (see Figure~\ref{code:LazyClustering} on page~\pageref{code:LazyClustering}).
 \begin{figure}[h!]
 \begin{algorithm}[H]
@@ -178,7 +178,7 @@ Whenever a thread encounters a parallel construct the thread creates a team of s
 Only the master thread resumes execution beyond the end of the parallel construct.
 The program can specify any number of parallel constructs.
 
-All threads have access to the same memory so they can retrieve variables, this is called a shared-memory model.
+All threads have access to the same memory so they can retrieve variables; this is called a shared-memory model.
 Also, each thread can specify private memory unreachable to other threads.
 We use shared and private clause keywords to identify the respective paradigm.
 
@@ -200,7 +200,7 @@ For more results on OpenMP parallelization refer to Lingyuan Ke's senior thesis~
 \subsubsection*{OpenMPI}
 OpenMPI is an open source and complete message passing interface implementation of MPI-2 used in many of the world's largest computing clusters.
 While OpenMP uses the shared-memory model, a message passing interface is used to run programs on mostly distributed memory systems.
-It provides course grain parallelization across nodes as opposed to fine grain OpenMP parallelization within a processor~\cite{gabriel04:_open_mpi}.
+It provides coarse grain parallelization across nodes as opposed to fine grain OpenMP parallelization within a processor~\cite{gabriel04:_open_mpi}.
 
 We plan to capitalize on a hybrid OpenMPI-OpemMP paradigm to parallelize ES at the high level and low level.
 At the high level we could divide the parameter search space over multiple nodes of the cluster, while at the low level, within each node, simulation replicates would be divided between the cores in the processor.
@@ -214,7 +214,7 @@ We have found that there are many areas to improve on in ES2.
 This is an ongoing development process.
 Parallelization using OpenMPI will lead to the greatest speed dividends in the near future.
 However, an important emerging bottleneck is binning space usage.
-We are considering, various approaches to the problem that include parallelization and algorithm switches.
+We are considering various approaches to the problem that include parallelization and algorithm switches.
 Also, we have identified several issues with the automatic demarcation program leading to inflated $npop$ prediction in the presence of paraphyletic groups.
 And as usual speed has become an issue for demarcation.
 Even with these ideas for improvement we aim to release a production ready version of ES2 soon (it is already used for analysis in the Cohan lab).

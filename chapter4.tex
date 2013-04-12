@@ -224,16 +224,16 @@ From past studies we have found ES to be the most accurate demarcation program~\
     \label{fig:All100}
 \end{figure}
 
-Figure~\ref{fig:All100} on page~\pageref{fig:All100} shows accuracy scores for all demarcating programs on a variety of parameters (\emph{Bacillus} values with .1x and 10x and $npop$ values of 30, 40, 50) on sample size of 100 individuals.
+Figure~\ref{fig:All100} on page~\pageref{fig:All100} shows accuracy scores for all demarcating programs on a variety of parameters (\emph{Bacillus} values with $\frac{1}{10x}$ and 10x and $npop$ values of 30, 40, 50) on sample size of 100 individuals.
 Notice that overall ES2 (dotted line) was the lowest (i.e., most accurate), signifying ES2's demarcation output matched most closely to the answer key demarcations.
 This fact is highlighted by the lowest average VI score shown in Table~\ref{tab:100Allmean}, of 1.76.
 Also, notice that once again ES2 has the lowest standard deviation, meaning that it was the most consistent, except for the random demarcation, which performed poorly (as we would expect).
 ES2 (accuracy) was followed by AdaptML (3.14), BAPS (3.36), and Random (4.47).
 
-ES2 appeared to be slightly more accurate with higher $npop$ values; the gap between it and other demarcators increased.
+ES2 is slightly more accurate with higher $npop$ values; the gap between it and other demarcators increased.
 Higher rates of $\Omega$ (rate of ecotype formation) resulted in slight increases in ES2's VI scores.
-It appears that changes in $\sigma$ (rate of periodic selection) did not affect the accuracy of each algorithm as much as modifying $\Omega$.
-$Npop$ appears to have had the greatest effect on the accuracy of all the demarcation programs, least of all ES2.
+Changes in $\sigma$ (rate of periodic selection) did not affect the accuracy of each algorithm as much as modifying $\Omega$.
+$Npop$ had the greatest effect on the accuracy of all the demarcation programs, least of all on ES2.
 Losing accuracy with greater values of $npop$ was a trend that continued with larger datasets (see supplementary figures in Appendix).
 
 \begin{table}[h!]
@@ -255,7 +255,7 @@ Losing accuracy with greater values of $npop$ was a trend that continued with la
 \end{table}
 
 Tests regarding large datasets are ongoing.
-In the Appendix there are additional graphs with all demarcators run on nu of 50 and 200 along with corresponding tables showing mean and standard deviation values.
+In the Appendix there are additional graphs with all demarcators run on \emph{nu} of 50 and 200 along with corresponding tables showing mean and standard deviation values.
 These tests were done only 5 repetitions, so far.
 We would like repetitions in the hundreds.
 
@@ -281,7 +281,7 @@ We would like repetitions in the hundreds.
 I ran ES2 on \emph{Bacillus} sequences from previous studies.
 The results were consistent with previous demarcation runs (see Figure~\ref{fig:Bacillus} on page~\pageref{fig:Bacillus}).
 ES2's demarcations followed ES's closely.
-There was an instance where ES2 found two distinct ecotypes where ES only found one; matching GMYC's cluster boundary.
+There was an instance where ES2 found two distinct ecotypes where ES only found one, matching GMYC's cluster boundary.
 Yet, there was another instance where two discrete ES ecotypes were grouped together.
 Results on \emph{Bacillus} sequences are within the bounds of what we would expect to see from a demarcation algorithm.
 ES2 passed the \emph{Bacillus} sanity check.
@@ -296,7 +296,7 @@ ES2 passed the \emph{Bacillus} sanity check.
 \begin{figure}[h!]
   \centering
     \includegraphics[scale=0.7]{images/SpeedWindows-CH4}
-      \caption[Demarcation run time test on Windows.]{Comparison of demarcation runtimes on a Windows. The dotted line represents ES2's runtime. Most demarcators run completely within seconds.}
+      \caption[Demarcation run time test on a Windows platform.]{Comparison of demarcation runtimes on a Windows platform. The dotted line represents ES2's runtime. Most demarcators run completely within seconds.}
     \label{fig:WindowsSpeed}
 \end{figure}
 
@@ -309,20 +309,20 @@ ES2 passed the \emph{Bacillus} sanity check.
     ES1       & 69.8 & 384   & 2390   & na     & na     & na     \\
     ES2       & na   & 558.7 & 1127.4 & 2511.5 & 3208.0 & 5237.2 \\
     \end{tabular}
-    \caption[Speed testing information on all demarcation algorithms.]{Speed testing information on all demarcation algorithms for various numbers of nu or numbers of sequences. ES2 is faster than ES1 but not faster than the other demarcation algorithms.}
+    \caption[Speed testing information on all demarcation algorithms.]{Speed testing information on all demarcation algorithms for various numbers of \emph{nu} or numbers of sequences. ES2 is faster than ES1 but not faster than the other demarcation algorithms.}
     \label{tab:WindowsSpeed}
 \end{table}
 
 \subsection*{Running time}
-We compared the running times of the demarcation algorithms on synthetic data sets of different sizes, and found that AdaptML, GMYC, and BAPS performed demarcations much more quickly then ES2 (see Figure~\ref{fig:WindowsSpeed} on page~\pageref{fig:WindowsSpeed}).
+We compared the running times of the demarcation algorithms on synthetic data sets of different sizes, and found that AdaptML, GMYC, and BAPS performed demarcations much quicker then ES2 (see Figure~\ref{fig:WindowsSpeed} on page~\pageref{fig:WindowsSpeed}).
 AdaptML, GMYC (if it worked), and BAPS all completed demarcations on the order of a few seconds, even for datasets in the hundreds whereas ES2 required on the order of tens of minutes for the same inputs.
 AdaptML was the fastest algorithm, taking no more than one second on average; BAPS followed and ES2 was only faster than ES1 (see Table~\ref{tab:WindowsSpeed} on page~\pageref{tab:WindowsSpeed}).
 ES1 ran faster than ES2 on an input of size 30 because of the constant speed slow-down incurred by our modified automatic demarcation.
 Input sizes with only 20 sequences ran approximately twice as fast in ES2, because the algorithmic modifications began to outweigh demarcation slow down.
-We are still working on ways of best evaluating runtime, however it is quite clear that ES2 greatly outperforms ES1 speed wise.
+We are still working on ways of best evaluating runtime, however in runtime efficiency it is quite clear that ES2 greatly outperforms ES1.
 
 Since the BAPS's batch processing feature was not available for Mac, I ran it on Windows.
-However, I also ran ES2, GMYC, and AdaptML separately on my Mac and found that ES2 was significantly faster than when it was run on a Windows machine.
+However, I also ran ES2, GMYC, and AdaptML separately on a Mac and found that ES2 was significantly faster than when it was run on a Windows computer.
 
 \section{Chapter Summary}
 In this chapter I discussed the motivation and thought process behind our experiments.
@@ -334,8 +334,8 @@ ES2 achieved comparable accuracy, and had a lower standard deviation.
 Next, we ran all the demarcator programs on various sized data sets.
 ES2 maintained a high level of accuracy throughout a wide range of parameters (based on previous \emph{Bacillus} values).
 Traditionally we run all demarcators on \emph{Bacillus} sequences; ES2 performed well.
-ES's previous demarcations were similar, even though their were a few extra ecotypes discovered and in other instances separate ecotypes grouped together.
+ES's previous demarcations were similar, even though there were a few extra ecotypes discovered and in other instances separate ecotypes grouped together.
 Once again ES2 was the slowest demarcation algorithm.
-However, it improved dramatically on ES1's running times.
+However, it improved dramatically over ES1's running times.
 
 
