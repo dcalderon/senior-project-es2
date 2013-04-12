@@ -18,7 +18,7 @@ While the previous chapter summed up the purpose and motivation of developing a 
 \subsection*{Ecotype model of bacterial species}
 %An ecotype is defined as a bacterial cluster with individuals that are ecologically similar to one another, so much so that genetic diversity within the ecotype is limited by a cohesive force: periodic selection, genetic drift, or both~\cite{cohan2007systematics}.
 We define ecotype here as a phylogenetic group of close relatives that are ecologically interchangeable, in that the members of an ecotype share genetic adaptations to a particular set of habitats, resources, and conditions while, simultaneously, remaining ecologically distinct from each other.
-This definition contrasts to with earlier ecotype concepts, in that the present definition of ecotype implies no other species-like characteristics beyond ecological distinctness~\cite{wiedenbeckHGT}.
+This definition contrasts with earlier ecotype concepts, in that the present definition of ecotype implies no other species-like characteristics beyond ecological distinctness~\cite{wiedenbeckHGT}.
 By linking species and ecological niche we take advantage of the natural clustering of organisms according to their environmental resources~\cite{darwin1861origin}.
 Since these clusters are evolving together we do not need to utilize morphological differences and can instead use a molecular approach for demarcation.
 
@@ -43,9 +43,9 @@ In the Stable Ecotype model, ecotypes are created and extinguished at a very low
 Ecotypes are formed rarely enough so that each ecotype can accumulate its own set of unique mutations while diversity is purged recurrently, yielding a correspondence between ecotypes and sequence clusters for any gene shared among ecotypes~\cite{cohan2008origins}.
 This fact, hinted at earlier, is what allows ES to identify separate ecotypes based on environmental function without knowledge of particular phenotypic mutations.
 Diversity quashing events are referred to as periodic selection events (see Figure~\ref{fig:StableEvents}A).
-An individual within an ecotype acquires a mutation that improves its fitness within that ecological niche, which results in a diversity purge, aided by low recombination rates in bacteria.
+An individual within an ecotype acquires a mutation that improves its fitness within that ecological niche, which results in a diversity purge, aided by low recombination rates in bacteria~\cite{koeppel2008identifying}.
 These periodic selection events thus eliminate organisms within the ecotype that cannot adapt due to their expressed phenotype.
-Genetic drift is another event that results in diversity purges, however it normally occurs at low rates (except in small sample sizes), therefore we will refrain from mentioning it in the future.
+Genetic drift is another event that results in diversity purges, however it normally occurs at low rates (except in small sample sizes), therefore we will refrain from mentioning it in the future~\cite{koeppel2008identifying}.
 
 %Describes relationship of periodic selection events and ecotype formation event
 %I don't think this is correct, double check!!
@@ -57,7 +57,7 @@ In the figure an individual of an ecotype developed an adaptation that went on t
 Now we have an event to account for anagenesis, or accumulation of changes over time along a single lineage, referred to as periodic selection, and cladogenesis, or irreversible splitting of lineages, referred to as ecotype formation.
 To complete the dynamics of the Stable Ecotype model, extinction events are also possible (see Figure~\ref{fig:StableEvents}C).
 Naturally, an ecotype can go extinct.
-Previous work done in the Cohan lab resulted in an algorithm based on the Stable Ecotype model, known as Ecotype Simulation (ES or ES1).
+Previous work done in the Cohan lab resulted in an algorithm based on the Stable Ecotype model~\cite{koeppel2008identifying}, known as Ecotype Simulation (ES or ES1).
 
 
 \section{The Algorithm}
@@ -123,7 +123,7 @@ As input it takes a FASTA format file that consists of aligned DNA gene sequence
 While in the previous section I described the algorithm more abstractly, here I will try to be more concrete.
 The implementation follows our approach discussed in the previous section, namely, observing evolutionary history, estimating parameter values, and demarcating ecotypes.
 Several programs are run at each step, but the over-arching process should remain clear.
-Examples of inputs for some programs are located in the Appendix.
+For reference, example input files for certain programs are located in the Appendix.
 
 \subsection*{Binning}
 First the input sequences go through pre-processing to remove nucleotide gaps, and correct for polymerase chain reaction (PCR) error.
@@ -146,11 +146,10 @@ The $x$-axis refers to percent identity between sequences and the $y$-axis the n
 At low sequence identity criteria there are fewer bins with more sequences in each, and at $1.00$ sequence identity, the number of bins is equal to the number of unique sequences.
 A good way to visualize this sequence identity graph is as a linear representation of a phylogeny.
 The slope is shallow during lower sequence identities similar to how in a tree we typically see low levels of cladogenesis.
-But, as we approach the end of a tree there typically is a fraying of the tips, and in the identity graph there is a corresponding steepening of slope (see Figure \ref{fig:SpeciationGraph} on page~\pageref{fig:SpeciationGraph}).
+But, as we approach the end of a tree there usually is a fraying of the tips, and in the identity graph there is a corresponding steepening of slope (see Figure \ref{fig:SpeciationGraph} on page~\pageref{fig:SpeciationGraph}).
 Concave departures from an exponential relationship indicate an overabundance of highly divergent lineages (i.e., a very genetically diverse community); convex departures indicate an overabundance of closely related lineages (i.e., a less genetically diverse community)~\cite{bohannan2003new}.
 
-We can describe the essence of this graph using four parameters: $npop$, sigma ($\sigma$), omega ($\Omega$), and drift (d) which represent the number of ecotypes, rate of periodic selection (PS), rate of ecotype formation (EF), and drift (D) respectively.
-Rates of drift selection occurs so rarely in normal sized bacterial populations~\cite{koeppel2008identifying} that I will refrain from mentioning it.
+We can describe the essence of this graph using three parameters: $npop$, sigma ($\sigma$), and omega ($\Omega$), which represent the number of ecotypes, rate of periodic selection (PS), and rate of ecotype formation (EF) respectively.
 By finding close approximations of $npop$, $\sigma$, and $\Omega$, we can observe ecotype boundaries within the clade that hypothetically correspond to ecological niche (as stated earlier).
 
 \subsection*{Simulations and likelihood evaluation}
