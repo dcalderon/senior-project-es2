@@ -150,7 +150,7 @@ However, we would continue to hit a time limit easily.
 A second option for minimizing space usage and runtime would be to develop (or find in the literature) a complete-linkage clustering algorithm that could run in parallel.
 This strategy is still in early development.
 The difficulty would be in splitting up the sequences into discrete tasks that could then be combined after computation.
-Each of those discrete tasks could be spread out on a cluster, reducing run time, or even run at different times, freeing up memory.
+Each of those discrete tasks could be spread out on a cluster, reducing runtime, or even run at different times, freeing up memory.
 
 Either way, there is much progress to be made at the binning step.
 If ES is ever to work on one million sequences, the process of binning must be a major priority.
@@ -195,8 +195,8 @@ We use shared and private clause keywords to identify the respective paradigm.
 
 Lingyuan Ke ran the full ES2 program on Wesleyan computer cluster~\cite{lingThesis}.
 It consists of 176 nodes, however we are limited to the shared-memory model parallelization so we can only use threads within a single node, thus up to 8 threads.
-Figure~\ref{fig:LingParallelized} on page~\pageref{fig:LingParallelized} shows run times for all the programs as we increase the thread number.
-The full program run time was decreased by half when we used 8 threads.
+Figure~\ref{fig:LingParallelized} on page~\pageref{fig:LingParallelized} shows runtimes for all the programs as we increase the thread number.
+The full program runtime was decreased by half when we used 8 threads.
 For more results on OpenMP parallelization refer to Lingyuan Ke's senior thesis~\cite{lingThesis}.
 
 \subsubsection*{OpenMPI}

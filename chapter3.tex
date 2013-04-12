@@ -25,7 +25,7 @@
 ES1 set hard input size limits of two thousand sample sequences of at most three thousand nucleotides~\cite{koeppel2008identifying}.
 However, it was never run with even close to that many sequences.
 When run on input sizes of greater than only one hundred sequences, time became a limiting factor.
-Previous work showed that while ES1 had superior \index{demarcation} accuracy to its contemporaries, ES1 could not compete in run-time comparisons~\cite{carlo}.
+Previous work showed that while ES1 had superior \index{demarcation} accuracy to its contemporaries, ES1 could not compete in runtime comparisons~\cite{carlo}.
 As we increase the sample size running time increases dramatically (see Table \ref{tab:ES1speed} on page~\pageref{tab:ES1speed}); clearly a priority for improvement.
 
 In order to solve this problem, two approaches were used.
@@ -50,12 +50,12 @@ While the changes are few in number, we believe that they will increase the prac
   BAPS & 4.80 & 5.15 & 6.12 \\
   \hline
  \end{tabular}
- \caption[ES1 run-time compared to other demarcation programs.]{ES1 speed comparison. The run speed is measured in seconds (reprinted from \protect\cite{carlo})}
+ \caption[ES1 runtime compared to other demarcation programs.]{ES1 speed comparison. The run's speed is measured in seconds (reprinted from \protect\cite{carlo})}
  \label{tab:ES1speed}
 \end{table}
 
 \subsubsection*{Key algorithmic changes}
-Backwards and forward simulation takes up most of ES1 run time.
+Backwards and forward simulation takes up most of ES1 runtime.
 The simulation process is called many times throughout typical program execution.
 If we devise ways to reduce the time complexity of simulations, significant speed improvements are possible.
 
@@ -259,7 +259,7 @@ This process maintains a high level of accuracy, however we will see that it has
 
 
 \section{Chapter Summary}
-From demarcation program comparisons of the past~\cite{carlo}, we have demonstrated ES1's accuracy; however it lags behind its contemporaries in terms of run time.
+From demarcation program comparisons of the past~\cite{carlo}, we have demonstrated ES1's accuracy; however it lags behind its contemporaries in terms of runtime.
 By altering the core algorithm behind ES we took advantage of ultrametric tree characteristics; allowing us to do a linear time and space comparison instead of a polynomial complexity technique.
 We also fidgeted with the automatic demarcation program, so it would re-run the Hillclimbing program at each subtree before confidence intervals, theoretically increasing accuracy.
 Next, we will test ES2's demarcation performance.

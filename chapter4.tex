@@ -143,7 +143,7 @@ We tried to pick $npop$ values that would hit the sweet spot of demarcation perf
 
 \subsection*{Running Time Tests}
 We tested the running time of each algorithm on a 2.66GHz Intel Core 2 Duo processor with 4GB of RAM running Windows 7.
-We present the mean run times that each algorithm required to analyze synthetic data sets constructed using the parameter values estimated previously for \emph{Bacillus}, with various input sizes, and at least 5 repetitions.
+We present the mean runtimes that each algorithm required to analyze synthetic data sets constructed using the parameter values estimated previously for \emph{Bacillus}, with various input sizes, and at least 5 repetitions.
 
 \section{Results and Discussion}
 
@@ -185,7 +185,7 @@ In contrast to ES2 (dotted) which overall was quite accurate with few valleys an
     \caption[ES versus ES2 statistics.]{Statistics on the ES vs ES2 run with 10 reps on a dataset of $nu=50$.}
     \label{tab:ESvES2mean}
 \end{table}
-This trend is represented in Table~\ref{tab:ESvES2mean} on page~\pageref{tab:ESvES2mean}, by ES2's lower standard deviation than ES1.
+This trend is represented in Table~\ref{tab:ESvES2mean}, by ES2's lower standard deviation than ES1.
 However, ES1 still has a lower mean VI score, but not by much.
 We also chose 3 canonical parameters (\emph{Bacillus} values with varying omega) to run ES1 and ES2 on 100 repetitions.
 Results in raw form for this experiment can be found in Figure~\ref{fig:HundredResultsFile} in the Appendix.
@@ -234,7 +234,7 @@ ES2 is slightly more accurate with higher $npop$ values; the gap between it and 
 Higher rates of $\Omega$ (rate of ecotype formation) resulted in slight increases in ES2's VI scores.
 Changes in $\sigma$ (rate of periodic selection) did not affect the accuracy of each algorithm as much as modifying $\Omega$.
 $Npop$ had the greatest effect on the accuracy of all the demarcation programs, least of all on ES2.
-Losing accuracy with greater values of $npop$ was a trend that continued with larger datasets (see supplementary figures in Appendix).
+Losing accuracy with greater values of $npop$ was a trend that continued with larger datasets (see supplementary Figures in Appendix).
 
 \begin{table}[h!]
 %    \begin{tabular}{l|ccccc}
@@ -296,7 +296,7 @@ ES2 passed the \emph{Bacillus} sanity check.
 \begin{figure}[h!]
   \centering
     \includegraphics[scale=0.7]{images/SpeedWindows-CH4}
-      \caption[Demarcation run time test on a Windows platform.]{Comparison of demarcation runtimes on a Windows platform. The dotted line represents ES2's runtime. Most demarcators run completely within seconds.}
+      \caption[Demarcation runtime test on a Windows platform.]{Comparison of demarcation runtimes on a Windows platform. The dotted line represents ES2's runtime. Most demarcators run completely within seconds.}
     \label{fig:WindowsSpeed}
 \end{figure}
 
