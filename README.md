@@ -1,7 +1,7 @@
 # Diego Calderon's Senior Thesis #
 ## at Wesleyan University ##
 ### Compiling Instructions ###
-This was all made using LaTeX in TexShop. I recommend it.
+This was all made using LaTeX in TexShop.
 
 To compile:
 
@@ -24,16 +24,7 @@ I am not sure if I need a license for this. For now if you want to use anything 
 FINISH EVERYTHING!
 Also check bug reporter on version control website.
 
-Specific things that should happen in the next few days:
-
-1. Email Danner to get the official LaTeX template used. 
-Waiting on a reply.
-
-2. Finish up the first Introduction chapter.
-
-3. Tinker with the outline by adding a section on comparing ES to ES2.
-
-4. Start more chapters!
+DONE AND TURNED IN!
 
 ### Version Control ###
 I'm distributing this everywhere. Currently copies are hosted at:
